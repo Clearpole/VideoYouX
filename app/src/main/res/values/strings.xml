@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">VideoYouX</string>
+    <string name="home">主页</string>
+    <string name="folders">文件夹</string>
+    <string name="play">播放</string>
+    <string name="settings">设置</string>
+    <string name="mainWindow">主窗体</string>
+</resources>
