@@ -16,6 +16,7 @@
         app:menu="@menu/menu_screen_home" />
 
     <LinearLayout
+        android:id="@+id/screen_home_rail_group"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -30,19 +31,20 @@
             android:id="@+id/screen_home_rail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            app:backgroundTint="#00000000"
             app:itemMinHeight="80dp"
             app:labelVisibilityMode="unlabeled"
-            app:backgroundTint="#00000000"
             app:menu="@menu/menu_screen_home"
             app:menuGravity="center" />
     </LinearLayout>
 
     <com.clearpole.videoyoux.screen_home.NoSwipeViewPager
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/mainWindow"
-        app:layout_constraintBottom_toTopOf="@+id/screen_home_bottomView"
+        app:layout_constraintBottom_toTopOf="@id/screen_home_bottomView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/screen_home_rail_group"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

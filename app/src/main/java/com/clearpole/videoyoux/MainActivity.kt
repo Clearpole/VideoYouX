@@ -11,33 +11,39 @@ import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigationrail.NavigationRailView
 import com.gyf.immersionbar.ImmersionBar
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        landscapeOrOrientation(resources.configuration.orientation)
+        landscapeOrPortrait(resources.configuration.orientation)
         bottomNavigationView(binding.screenHomeBottomView)
-        binding.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
-            ImmersionBar.getStatusBarHeight(this).toFloat()
-        )
-        binding.screenHomeRail.itemMinimumHeight = ScreenUtils.getScreenHeight()/5
-        println(ImmersionBar.getStatusBarHeight(this))
+        startRailView(binding.screenHomeRail)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        landscapeOrOrientation(newConfig.orientation)
+        landscapeOrPortrait(newConfig.orientation)
     }
 
-    private fun landscapeOrOrientation(orientation: Int) {
+    private fun landscapeOrPortrait(orientation: Int) {
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.screenHomeBottomView.visibility = View.GONE
-            binding.screenHomeRail.visibility = View.VISIBLE
+            binding.screenHomeRailGroup.visibility = View.VISIBLE
         } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             binding.screenHomeBottomView.visibility = View.VISIBLE
-            binding.screenHomeRail.visibility = View.GONE
+            binding.screenHomeRailGroup.visibility = View.GONE
+        }
+    }
+
+    private fun startRailView(view: NavigationRailView) {
+        view.apply {
+            binding.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
+                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()
+            )
+            itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
         }
     }
 
