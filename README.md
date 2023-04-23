@@ -1,6 +1,6 @@
 # VideoYouX
 
-# ![app icon](https://img-blog.csdnimg.cn/608f3cdd9577455bbe079ec006b79df2.png)
+# ![app icon](https://img-blog.csdnimg.cn/48b78a0c24c14e0781d641e1b4d398d4.png)
 Vyx是一款基于最新 Material Desgin 3 设计的视频播放器。
 
 ## 展望未来
