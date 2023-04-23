@@ -17,6 +17,5 @@ Vyx是一款基于最新 Material Desgin 3 设计的视频播放器。
 * [QQ-群聊](https://jq.qq.com/?_wv=1027&k=CQNXdhzt)
 * [QQ-频道](https://pd.qq.com/s/h08xr8p7o)
 
-##Disclaimer
-
+## Disclaimer
 The developer of this application has no association with the content played by the user.
