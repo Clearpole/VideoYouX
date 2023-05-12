@@ -85,7 +85,7 @@ class GuideActivity : ComponentActivity() {
                                 Typewriter(
                                     fixedText = "",
                                     animatedText = guideTextMore.value,
-                                    Orientation.Horizontal,25,1
+                                    Orientation.Horizontal,10,1
                                 )
                             }
 
@@ -145,7 +145,7 @@ class GuideActivity : ComponentActivity() {
         fixedText: String,
         animatedText: String,
         orientation: Orientation = Orientation.Horizontal,
-        delay: Long = 50,
+        delay: Long = 25,
         type: Int = 0
     ) {
         var mAnimatedText by remember { mutableStateOf("") }
@@ -161,7 +161,7 @@ class GuideActivity : ComponentActivity() {
                         Orientation.Horizontal -> "_"
                         else -> {}
                     }
-                    delay(30)
+                    delay(20)
                 }
 
             }
