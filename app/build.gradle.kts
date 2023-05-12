@@ -129,4 +129,5 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.navigation.animation)
+    implementation(libs.xx.permissions)
 }

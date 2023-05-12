@@ -44,7 +44,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.blankj.utilcode.util.TimeUtils
+import com.clearpole.videoyoux.Permissions
 import com.clearpole.videoyoux.compose.ui.theme.VideoYouXTheme
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.XXPermissions
 import kotlinx.coroutines.delay
 
 class GuideActivity : ComponentActivity() {
@@ -114,6 +117,42 @@ class GuideActivity : ComponentActivity() {
                                                     guideText.value = "首先，\n我需要一些权限..."
                                                     message.value = "我自愿授予你这些权限"
                                                     guideTextMore.value = "1. 存储权限：用于存储数据\n2. 访问权限：用于访问媒体库"
+                                                    step.value = 3
+                                                }
+                                                3-> {
+                                                    guideText.value = "请允许"
+                                                    XXPermissions.with(this@GuideActivity).permission(Permissions.PERMISSIONS)
+                                                        .request(object : OnPermissionCallback {
+                                                            override fun onGranted(
+                                                                permissions: MutableList<String>, allGranted: Boolean
+                                                            ) {
+                                                                if (!allGranted) {
+                                                                    guideText.value = "好吧...\n恭喜您获得了部分权限"
+                                                                    guideTextMore.value = "是这样的，您没能获得全部权限\n不过应该不会影响使用（\n 现在您可以进入下一步操作了！"
+                                                                    message.value = "好的，下一步是什么呢？"
+                                                                    step.value = 4
+                                                                    return
+                                                                }
+                                                                guideText.value = "好耶！\n恭喜您获得了全部权限"
+                                                                guideTextMore.value = "谢谢，现在您可以进入下一步操作了！"
+                                                                message.value = "好的，下一步是什么呢？"
+                                                                step.value = 4
+                                                            }
+
+                                                            override fun onDenied(
+                                                                permissions: MutableList<String>, doNotAskAgain: Boolean
+                                                            ) {
+                                                                if (doNotAskAgain) {
+                                                                    guideText.value = "悲伤的...\n您拒绝了权限的申请"
+                                                                    guideTextMore.value = "是这样的，现在您只有两个选择\n1. 退出Vyx且不再使用\n2. 自行进入设置开启权限"
+                                                                    message.value = "我确实已经授予了全部权限"
+                                                                } else {
+                                                                    guideText.value = "悲伤的...\n获取失败了"
+                                                                    guideTextMore.value = "是这样的，现在您只有两个选择\n1. 退出Vyx且不再使用\n2. 自行进入设置开启权限"
+                                                                    message.value = "我确实已经授予了全部权限"
+                                                                }
+                                                            }
+                                                        })
                                                 }
                                             }
                                         },
