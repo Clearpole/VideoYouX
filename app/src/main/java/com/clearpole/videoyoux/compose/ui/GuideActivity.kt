@@ -121,19 +121,20 @@ class GuideActivity : ComponentActivity() {
                                                 }
                                                 3-> {
                                                     guideText.value = "请允许"
+                                                    guideTextMore.value = "1. 存储权限：用于存储数据\n2. 访问权限：用于访问媒体库"
                                                     XXPermissions.with(this@GuideActivity).permission(Permissions.PERMISSIONS)
                                                         .request(object : OnPermissionCallback {
                                                             override fun onGranted(
                                                                 permissions: MutableList<String>, allGranted: Boolean
                                                             ) {
                                                                 if (!allGranted) {
-                                                                    guideText.value = "好吧...\n恭喜您获得了部分权限"
+                                                                    guideText.value = "好吧...\n您获得了部分权限"
                                                                     guideTextMore.value = "是这样的，您没能获得全部权限\n不过应该不会影响使用（\n 现在您可以进入下一步操作了！"
                                                                     message.value = "好的，下一步是什么呢？"
                                                                     step.value = 4
                                                                     return
                                                                 }
-                                                                guideText.value = "好耶！\n恭喜您获得了全部权限"
+                                                                guideText.value = "好耶！\n您获得了全部权限"
                                                                 guideTextMore.value = "谢谢，现在您可以进入下一步操作了！"
                                                                 message.value = "好的，下一步是什么呢？"
                                                                 step.value = 4
@@ -143,13 +144,13 @@ class GuideActivity : ComponentActivity() {
                                                                 permissions: MutableList<String>, doNotAskAgain: Boolean
                                                             ) {
                                                                 if (doNotAskAgain) {
-                                                                    guideText.value = "悲伤的...\n您拒绝了权限的申请"
-                                                                    guideTextMore.value = "是这样的，现在您只有两个选择\n1. 退出Vyx且不再使用\n2. 自行进入设置开启权限"
-                                                                    message.value = "我确实已经授予了全部权限"
+                                                                    guideText.value = "悲伤的...\n您拒绝了申请"
+                                                                    guideTextMore.value = "是这样的，现在您有三个选择\n1. 尝试再次获取权限\n2. 退出Vyx且不再使用\n3. 自行进入设置开启权限"
+                                                                    message.value = "尝试再次获取权限"
                                                                 } else {
                                                                     guideText.value = "悲伤的...\n获取失败了"
                                                                     guideTextMore.value = "是这样的，现在您只有两个选择\n1. 退出Vyx且不再使用\n2. 自行进入设置开启权限"
-                                                                    message.value = "我确实已经授予了全部权限"
+                                                                    message.value = "尝试再次获取权限"
                                                                 }
                                                             }
                                                         })
