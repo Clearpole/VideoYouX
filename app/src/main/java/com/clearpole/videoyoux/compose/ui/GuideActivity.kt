@@ -128,13 +128,13 @@ class GuideActivity : ComponentActivity() {
                                                                 permissions: MutableList<String>, allGranted: Boolean
                                                             ) {
                                                                 if (!allGranted) {
-                                                                    guideText.value = "好吧...\n您获得了部分权限"
+                                                                    guideText.value = "好吧...\n您有了部分权限"
                                                                     guideTextMore.value = "是这样的，您没能获得全部权限\n不过应该不会影响使用（\n 现在您可以进入下一步操作了！"
                                                                     message.value = "好的，下一步是什么呢？"
                                                                     step.value = 4
                                                                     return
                                                                 }
-                                                                guideText.value = "好耶！\n您获得了全部权限"
+                                                                guideText.value = "好耶！\n您有了全部权限"
                                                                 guideTextMore.value = "谢谢，现在您可以进入下一步操作了！"
                                                                 message.value = "好的，下一步是什么呢？"
                                                                 step.value = 4
