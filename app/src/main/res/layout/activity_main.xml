@@ -15,36 +15,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_screen_home" />
 
-    <LinearLayout
-        android:id="@+id/screen_home_rail_group"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Space
-            android:id="@+id/screen_home_rail_space"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-        <com.google.android.material.navigationrail.NavigationRailView
-            android:id="@+id/screen_home_rail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:backgroundTint="#00000000"
-            app:itemMinHeight="80dp"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/menu_screen_home"
-            app:menuGravity="center" />
-    </LinearLayout>
-
     <com.clearpole.videoyoux.screen_home.NoSwipeViewPager
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/mainWindow"
         app:layout_constraintBottom_toTopOf="@id/screen_home_bottomView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/screen_home_rail_group"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

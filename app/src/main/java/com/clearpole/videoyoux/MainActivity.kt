@@ -1,49 +1,25 @@
 package com.clearpole.videoyoux
 
-import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.View
 import androidx.core.content.res.ResourcesCompat
-import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
 import com.clearpole.videoyoux.screen_home.Greetings
+import com.drake.serialize.intent.openActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigationrail.NavigationRailView
-import com.gyf.immersionbar.ImmersionBar
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        landscapeOrPortrait(resources.configuration.orientation)
-        bottomNavigationView(binding.screenHomeBottomView)
-        startRailView(binding.screenHomeRail)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        landscapeOrPortrait(newConfig.orientation)
-    }
-
-    private fun landscapeOrPortrait(orientation: Int) {
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.screenHomeBottomView.visibility = View.GONE
-            binding.screenHomeRailGroup.visibility = View.VISIBLE
-        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            binding.screenHomeBottomView.visibility = View.VISIBLE
-            binding.screenHomeRailGroup.visibility = View.GONE
-        }
-    }
-
-    private fun startRailView(view: NavigationRailView) {
-        view.apply {
-            binding.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
-                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()
-            )
-            itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
+        val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
+        val isFirstEnter = sharedPreferences.getBoolean("first-enter", true)
+        if (isFirstEnter) {
+            openActivity<GuideActivity>()
+        } else {
+            bottomNavigationView(binding.screenHomeBottomView)
         }
     }
 
