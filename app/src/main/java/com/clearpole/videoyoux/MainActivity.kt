@@ -18,6 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
         val isFirstEnter = sharedPreferences.getBoolean("first-enter", true)
         if (isFirstEnter) {
             openActivity<GuideActivity>()
+            finish()
         } else {
             bottomNavigationView(binding.screenHomeBottomView)
         }
