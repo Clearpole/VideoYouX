@@ -2,13 +2,19 @@ package com.clearpole.videoyoux
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
 import com.clearpole.videoyoux.screen_home.Greetings
+import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.drake.serialize.intent.openActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.search.SearchView
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
@@ -21,6 +27,49 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
             finish()
         } else {
             bottomNavigationView(binding.screenHomeBottomView)
+            viewPager(binding)
+        }
+    }
+
+    private fun viewPager(binding: ActivityMainBinding) {
+        val view = binding.screenHomePagerView
+        val pagesList = ArrayList<View>()
+        pagesList.apply {
+            add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
+            add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))
+            add(View.inflate(this@MainActivity, R.layout.main_page_play, null))
+            add(View.inflate(this@MainActivity, R.layout.main_page_settings, null))
+            view.adapter = ViewPagerAdapter(this)
+            view.setCanSwipe(false)
+        }
+
+        pagesList[0].apply {
+            val animUpDown = AnimationUtils.loadAnimation(
+                this@MainActivity,
+                R.anim.main_up_down
+            )
+            animUpDown.interpolator = AccelerateDecelerateInterpolator()
+            val animDownUp = AnimationUtils.loadAnimation(this@MainActivity, R.anim.main_down_up)
+            animDownUp.interpolator = AccelerateDecelerateInterpolator()
+            findViewById<SearchView>(R.id.cat_search_view).addTransitionListener { _, _, newState ->
+                when (newState) {
+                    SearchView.TransitionState.SHOWING -> {
+                        binding.screenHomeBottomView.visibility = View.GONE
+                        binding.screenHomeBottomView.startAnimation(
+                            animUpDown
+                        )
+                    }
+
+                    SearchView.TransitionState.HIDDEN -> {
+                        binding.screenHomeBottomView.startAnimation(
+                            animDownUp
+                        )
+                        binding.screenHomeBottomView.visibility = View.VISIBLE
+                    }
+
+                    else -> {}
+                }
+            }
         }
     }
 

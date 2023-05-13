@@ -12,6 +12,7 @@ appcompat = "1.6.1"
 material = "1.10.0-alpha01"
 constraintlayout = "2.1.4"
 serialize = "3.0.1"
+tooltip = "1.2.2"
 utilcodex = "1.31.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.0"
@@ -30,6 +31,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 serialize = { module = "com.github.liangjingkanji:Serialize", version.ref = "serialize" }
+tooltip = { module = "com.github.liangjingkanji:Tooltip", version.ref = "tooltip" }
 utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }

@@ -131,4 +131,5 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.navigation.animation)
     implementation(libs.xx.permissions)
+    implementation(libs.tooltip)
 }
