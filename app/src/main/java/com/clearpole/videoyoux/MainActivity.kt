@@ -7,6 +7,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
@@ -60,16 +61,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
             val greetings = greetings()
             searchView.hint = greetings
             findViewById<SearchBar>(R.id.page_home_search_bar).hint = greetings
+            searchView.isAutoShowKeyboard = false
             searchView.addTransitionListener { _, _, newState ->
                 when (newState) {
-                    SearchView.TransitionState.SHOWING -> {
+                   TransitionState.SHOWING -> {
                         binding.screenHomeBottomView.visibility = View.GONE
                         binding.screenHomeBottomView.startAnimation(
                             animUpDown
                         )
                     }
-
-                    SearchView.TransitionState.HIDDEN -> {
+                    TransitionState.HIDDEN -> {
                         binding.screenHomeBottomView.startAnimation(
                             animDownUp
                         )
