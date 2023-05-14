@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
@@ -14,6 +14,7 @@ import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.drake.serialize.intent.openActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 
 
@@ -51,7 +52,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
             animUpDown.interpolator = AccelerateDecelerateInterpolator()
             val animDownUp = AnimationUtils.loadAnimation(this@MainActivity, R.anim.main_down_up)
             animDownUp.interpolator = AccelerateDecelerateInterpolator()
-            findViewById<SearchView>(R.id.cat_search_view).addTransitionListener { _, _, newState ->
+            val searchView = findViewById<SearchView>(R.id.cat_search_view)
+            val greetings = greetings()
+            searchView.hint = greetings
+            findViewById<SearchBar>(R.id.page_home_search_bar).hint = greetings
+            searchView.addTransitionListener { _, _, newState ->
                 when (newState) {
                     SearchView.TransitionState.SHOWING -> {
                         binding.screenHomeBottomView.visibility = View.GONE
@@ -70,6 +75,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
                     else -> {}
                 }
             }
+            val onBackPressedCallback: OnBackPressedCallback =
+                object : OnBackPressedCallback(false) {
+                    override fun handleOnBackPressed() {
+                        searchView.hide()
+                    }
+                }
+            this@MainActivity.onBackPressedDispatcher.addCallback(
+                this@MainActivity,
+                onBackPressedCallback
+            )
         }
     }
 

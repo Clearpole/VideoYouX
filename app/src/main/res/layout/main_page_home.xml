@@ -26,15 +26,16 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:background="@color/transparent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.search.SearchBar
-            android:id="@+id/cat_search_bar"
+            android:id="@+id/page_home_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="在您的手机上搜索视频"
+            android:hint="@string/app_name"
+            app:menu="@menu/menu_screen_home"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -42,20 +43,43 @@
         android:id="@+id/cat_search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:queryBackground="@color/transparent"
-        android:hint="在您的手机上搜索视频"
-        app:layout_anchor="@id/cat_search_bar">
+        android:hint="@string/app_name"
+        app:commitIcon="@drawable/baseline_search_24"
+        app:layout_anchor="@id/page_home_search_bar">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/cat_search_view_suggestion_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="40dp"
+                        android:src="@drawable/outline_info_24"
+                        app:tint="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/main_searchView_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_marginBottom="60dp"
+                        android:text="可输入视频直链，本地视频绝对路径，或视频名称" />
+                </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
     </com.google.android.material.search.SearchView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
