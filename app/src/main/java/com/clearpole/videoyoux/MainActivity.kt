@@ -16,6 +16,10 @@ import com.drake.serialize.intent.openActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
+import com.google.android.material.search.SearchView.TransitionState
+
+
+
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
@@ -85,6 +89,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
                 this@MainActivity,
                 onBackPressedCallback
             )
+            searchView.addTransitionListener { _: SearchView?, _: TransitionState?, newState: TransitionState ->
+                onBackPressedCallback.isEnabled =
+                    newState == TransitionState.SHOWN
+            }
         }
     }
 
