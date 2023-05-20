@@ -1,6 +1,6 @@
 [versions]
 accompanist-navigation-animation = "0.29.2-rc"
-com-android-application = "8.2.0-alpha03"
+com-android-application = "8.1.0-beta03"
 immersionbar = "3.2.2"
 navigation-compose = "2.6.0-alpha08"
 org-jetbrains-kotlin-android = "1.8.0"
@@ -44,6 +44,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.0.1" }
 
 
 [plugins]

@@ -19,7 +19,7 @@ fun buildInfo(type: String): Any? {
         }
 
         "subVersion" -> {
-            return "Canary06"
+            return "Canary01"
         }
 
         else -> {
@@ -46,7 +46,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
-             abiFilters += listOf("arm64-v8a")
+            abiFilters += listOf("arm64-v8a")
         }
         vectorDrawables {
             useSupportLibrary = true
@@ -61,7 +61,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
@@ -90,9 +91,9 @@ android {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 this.outputFileName = if (buildInfo("isCanary") == "false") {
-                    buildInfo("name").toString() + "-release.apk"
+                    buildInfo("name").toString() + buildInfo("version") + "-release.apk"
                 } else {
-                    buildInfo("name").toString() + "-" + buildInfo("subVersion").toString() + ".apk"
+                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + ".apk"
                 }
             }
         }
@@ -113,6 +114,7 @@ dependencies {
     implementation(libs.material3)
     implementation(platform(libs.compose.bom))
     implementation(files("libs\\json.jar"))
+    implementation(libs.androidx.viewbinding)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

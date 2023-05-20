@@ -7,7 +7,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
-import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
@@ -23,7 +22,7 @@ import com.google.android.material.search.SearchView.TransitionState
 
 
 
-class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false) {
+class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,ActivityMainBinding::inflate) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
