@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.clearpole.videoyoux.utils.System.Companion.isNightMode
-import com.dylanc.viewbinding.base.ViewBindingUtil
 import com.google.android.material.color.DynamicColors
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar

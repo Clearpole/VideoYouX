@@ -118,8 +118,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(libs.viewBing.ktx)
-    implementation(libs.viewBing.base)
     implementation(libs.androidx.palette)
     implementation(libs.monet.compat)
     implementation(libs.immersionbar)
