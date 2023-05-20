@@ -109,7 +109,6 @@ class MainActivity :
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideos("Video")
                 val model = carouselModel(data)
-                Log.e("tag",carouselModel(data).toString())
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
