@@ -203,9 +203,7 @@ class GuideActivity : ComponentActivity() {
                                                                 "正在校验资源完整性..."
                                                             while (true) {
                                                                 delay(500)
-                                                                if (ReadMediaStore.readVideosData()
-                                                                        .count() != 0L
-                                                                ) {
+                                                                if (ReadMediaStore.readVideosData().count() != 0L) {
                                                                     guideText.value = "一切准备就绪"
                                                                     guideTextMore.value =
                                                                         "现在，开启你的Vyx之旅吧！\n祝您有个美好的使用体验。"
