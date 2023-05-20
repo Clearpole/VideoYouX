@@ -2,27 +2,38 @@ package com.clearpole.videoyoux
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
+import com.clearpole.videoyoux.models.CarouselModel
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
+import com.clearpole.videoyoux.utils.ReadMediaStore
+import com.drake.brv.utils.linear
+import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.drake.tooltip.toast
+import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.google.android.material.search.SearchView.TransitionState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
 
 
-
-
-
-class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,ActivityMainBinding::inflate) {
+class MainActivity :
+    BaseActivity<ActivityMainBinding>(isHideStatus = false, ActivityMainBinding::inflate) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -31,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
             openActivity<GuideActivity>()
             finish()
         } else {
-            bottomNavigationView(binding.screenHomeBottomView)
+            bottomNavigationView(binding)
             viewPager(binding)
         }
     }
@@ -63,12 +74,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
             searchView.isAutoShowKeyboard = false
             searchView.addTransitionListener { _, _, newState ->
                 when (newState) {
-                   TransitionState.SHOWING -> {
+                    TransitionState.SHOWING -> {
                         binding.screenHomeBottomView.visibility = View.GONE
                         binding.screenHomeBottomView.startAnimation(
                             animUpDown
                         )
                     }
+
                     TransitionState.HIDDEN -> {
                         binding.screenHomeBottomView.startAnimation(
                             animDownUp
@@ -93,14 +105,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
                 onBackPressedCallback.isEnabled =
                     newState == TransitionState.SHOWN
             }
+            val rv = findViewById<RecyclerView>(R.id.home_rv)
+            CoroutineScope(Dispatchers.IO).launch {
+                val data = ReadMediaStore.readVideos("Video")
+                val model = carouselModel(data)
+                Log.e("tag",carouselModel(data).toString())
+                withContext(Dispatchers.Main) {
+                    rv.linear().setup {
+                        it.layoutManager = CarouselLayoutManager()
+                        addType<CarouselModel> { R.layout.main_page_carousel_item }
+                    }.models = model
+                }
+            }
         }
     }
 
-    private fun bottomNavigationView(view: BottomNavigationView) {
-        view.apply {
+    private fun carouselModel(data: JSONArray): MutableList<Any> {
+        return mutableListOf<Any>().apply {
+            for (index in 0 until data.length()) {
+                val item = JSONObject(data[index].toString())
+                add(CarouselModel(item.getString("uri")))
+            }
+        }
+    }
+
+    private fun bottomNavigationView(binding: ActivityMainBinding) {
+        binding.screenHomeBottomView.apply {
             this.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.menu_screen_page1 -> {
+                        binding.screenHomePagerView.setCurrentItem(0, true)
                         it.icon = getDrawableRes(R.drawable.baseline_home_24)
                         this.menu.getItem(1).icon =
                             getDrawableRes(R.drawable.outline_folder_24)
@@ -112,6 +146,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
                     }
 
                     R.id.menu_screen_page2 -> {
+                        binding.screenHomePagerView.setCurrentItem(1, true)
                         it.icon = getDrawableRes(R.drawable.baseline_folder_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
@@ -123,6 +158,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
                     }
 
                     R.id.menu_screen_page3 -> {
+                        binding.screenHomePagerView.setCurrentItem(2, true)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
                         this.menu.getItem(1).icon =
@@ -133,6 +169,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(isHideStatus = false,Acti
                     }
 
                     R.id.menu_screen_page4 -> {
+                        binding.screenHomePagerView.setCurrentItem(3, true)
                         it.icon = getDrawableRes(R.drawable.baseline_settings_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)

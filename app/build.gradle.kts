@@ -132,4 +132,6 @@ dependencies {
     implementation(libs.accompanist.navigation.animation)
     implementation(libs.xx.permissions)
     implementation(libs.tooltip)
+    implementation(libs.brv)
+    implementation(libs.glide)
 }
