@@ -134,5 +134,4 @@ dependencies {
     implementation(libs.tooltip)
     implementation(libs.brv)
     implementation(libs.glide)
-    implementation(libs.fastkv)
 }

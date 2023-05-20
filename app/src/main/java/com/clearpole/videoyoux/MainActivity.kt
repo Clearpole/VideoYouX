@@ -24,6 +24,7 @@ import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.google.android.material.search.SearchView.TransitionState
+import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -107,7 +108,7 @@ class MainActivity :
             }
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             CoroutineScope(Dispatchers.IO).launch {
-                val data = ReadMediaStore.readVideos("Video")
+                val data = ReadMediaStore.readVideosData()
                 val model = carouselModel(data)
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
@@ -119,11 +120,12 @@ class MainActivity :
         }
     }
 
-    private fun carouselModel(data: JSONArray): MutableList<Any> {
+    private fun carouselModel(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            for (index in 0 until data.length()) {
-                val item = JSONObject(data[index].toString())
-                add(CarouselModel(item.getString("uri")))
+            val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }
+            for (element in data) {
+                val item = dataList.decodeString(element)!!.split("\u001A")[1]
+                add(CarouselModel(item))
             }
         }
     }

@@ -190,26 +190,29 @@ class GuideActivity : ComponentActivity() {
                                                 }
 
                                                 5 -> {
-                                                    guideText.value = "初始化中"
-                                                    guideTextMore.value = "请耐心等待初始化完毕。"
-                                                    message.value = ""
-                                                    CoroutineScope(Dispatchers.IO).launch {
-                                                        ReadMediaStore.writeData(contentResolver)
-                                                        delay(1500)
-                                                        guideText.value = "检查资源"
+                                                    if (guideTextMore.value != "请耐心等待初始化完毕。" && guideTextMore.value != "正在校验资源完整性...") {
+                                                        guideText.value = "初始化中"
                                                         guideTextMore.value =
-                                                            "正在校验资源完整性..."
-                                                        while (true) {
-                                                            delay(500)
-                                                            if (ReadMediaStore.readFolder()
-                                                                    .isNotEmpty()
-                                                            ) {
-                                                                guideText.value = "一切准备就绪"
-                                                                guideTextMore.value =
-                                                                    "现在，开启你的Vyx之旅吧！\n祝您有个美好的使用体验。"
-                                                                message.value = "让我进去！"
-                                                                step.value = 6
-                                                                break
+                                                            "请耐心等待初始化完毕。"
+                                                        message.value = ""
+                                                        CoroutineScope(Dispatchers.IO).launch {
+                                                            ReadMediaStore.writeData(contentResolver)
+                                                            delay(1500)
+                                                            guideText.value = "检查资源"
+                                                            guideTextMore.value =
+                                                                "正在校验资源完整性..."
+                                                            while (true) {
+                                                                delay(500)
+                                                                if (ReadMediaStore.readVideosData()
+                                                                        .count() != 0L
+                                                                ) {
+                                                                    guideText.value = "一切准备就绪"
+                                                                    guideTextMore.value =
+                                                                        "现在，开启你的Vyx之旅吧！\n祝您有个美好的使用体验。"
+                                                                    message.value = "让我进去！"
+                                                                    step.value = 6
+                                                                    break
+                                                                }
                                                             }
                                                         }
                                                     }
