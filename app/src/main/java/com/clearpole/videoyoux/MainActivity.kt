@@ -122,7 +122,7 @@ class MainActivity :
 
     private fun carouselModel(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }
+            val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
             for (element in data) {
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
                 add(CarouselModel(item))
