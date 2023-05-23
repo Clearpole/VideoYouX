@@ -26,18 +26,21 @@ class ReadMediaStore {
                 )!!.apply {
                     moveToPosition(-1)
                     while (moveToNext()) {
-                        val timeStamp = getString(getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
+                        val timeStamp =
+                            getString(getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
                         val title = getString(getColumnIndexOrThrow(MediaStore.Video.Media.TITLE))
                         val size = getString(getColumnIndexOrThrow(MediaStore.Video.Media.SIZE))
-                        val folder = getString(getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
+                        val folder =
+                            getString(getColumnIndexOrThrow(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
                         val path = getString(getColumnIndexOrThrow(MediaStore.Video.Media.DATA))
-                        val duration = getString(getColumnIndexOrThrow(MediaStore.Video.Media.DURATION))
+                        val duration =
+                            getString(getColumnIndexOrThrow(MediaStore.Video.Media.DURATION))
                         val uri = Uri.withAppendedPath(
                             MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                             getString(getColumnIndexOrThrow(MediaStore.Video.Media._ID))
                         )
                         val key = "$timeStamp\u001a$title\u001A$size\u001A$folder\u001A$duration"
-                        kv_video.encode(key,"$path\u001A$uri")
+                        kv_video.encode(key, "$path\u001A$uri")
                     }
                     close()
                 }
