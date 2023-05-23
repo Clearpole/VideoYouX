@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.clearpole.videoyoux.utils.System.Companion.isNightMode
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.DynamicColorsOptions
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 
@@ -19,7 +20,7 @@ abstract class BaseActivity<VB : ViewBinding>(val isHideStatus: Boolean,private 
             // 安卓版本大于12
             DynamicColors.applyToActivityIfAvailable(this)
         } else {
-            TODO("安卓版本小于12的主题")
+            DynamicColors.applyToActivityIfAvailable(this,DynamicColorsOptions.Builder().build())
         }
         binding = inflate(layoutInflater)
         if (isHideStatus) {
