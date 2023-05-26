@@ -15,7 +15,8 @@ import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
     val isHideStatus: Boolean,
-    private val inflate: (LayoutInflater) -> VB
+    private val inflate: (LayoutInflater) -> VB,
+    private val inflateLand: (LayoutInflater) -> T
 ) : AppCompatActivity() {
     lateinit var binding: VB
     lateinit var bindingLand: T
@@ -28,6 +29,7 @@ abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
             DynamicColors.applyToActivityIfAvailable(this, DynamicColorsOptions.Builder().build())
         }
         binding = inflate(layoutInflater)
+        bindingLand = inflateLand(layoutInflater)
         if (isHideStatus) {
             ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)
                 .init()

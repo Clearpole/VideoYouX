@@ -35,7 +35,11 @@ import org.json.JSONObject
 
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding,ActivityMainLandBinding>(isHideStatus = false, ActivityMainBinding::inflate) {
+    BaseActivity<ActivityMainBinding, ActivityMainLandBinding>(
+        isHideStatus = false,
+        ActivityMainBinding::inflate,
+        ActivityMainLandBinding::inflate
+    ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -48,7 +52,6 @@ class MainActivity :
             viewPager(binding)
         }
     }
-
 
 
     private fun viewPager(binding: ActivityMainBinding) {
