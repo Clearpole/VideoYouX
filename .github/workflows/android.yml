@@ -14,13 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Post to channel
-      env:
-        CHANNEL_ID: ${{ secrets.TELEGRAM_TO }}
-        BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-        COMMIT_MESSAGE: |+
-            test successfully
-        run: |
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; print(urllib.parse.quote(json.dumps(os.environ["COMMIT_MESSAGE"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&%22caption%22:${ESCAPED}%7D%5D"
+    - name: Telegram Msg
+      uses: colutius/Telegram-Msg@3.0.0
+      with:
+       token: ${{ secrets.TELEGRAM_TOKEN }}
+       chatid: ${{ secrets.TELEGRAM_TO }}
+       message: ${{ github.event.commits[0].message }}
