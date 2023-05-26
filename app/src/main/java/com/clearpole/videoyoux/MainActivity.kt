@@ -8,6 +8,8 @@ import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
@@ -20,9 +22,11 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.google.android.material.search.SearchView.TransitionState
+import com.gyf.immersionbar.ImmersionBar
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,16 +50,24 @@ class MainActivity :
             finish()
         } else {
             if (landScape) {
-
+                startRailView()
             } else {
-                bottomNavigationView(binding)
-                viewPager(binding)
+                bottomNavigationView()
+                viewPager()
             }
         }
     }
 
+    private fun startRailView() {
+        bindingLand.screenHomeRail.apply {
+            bindingLand.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
+                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()
+            )
+            itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
+        }
+    }
 
-    private fun viewPager(binding: ActivityMainBinding) {
+    private fun viewPager() {
         val view = binding.screenHomePagerView
         val pagesList = ArrayList<View>()
         pagesList.apply {
@@ -137,7 +149,7 @@ class MainActivity :
         }
     }
 
-    private fun bottomNavigationView(binding: ActivityMainBinding) {
+    private fun bottomNavigationView() {
         binding.screenHomeBottomView.apply {
             this.setOnItemSelectedListener {
                 when (it.itemId) {
