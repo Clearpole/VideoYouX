@@ -28,8 +28,19 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleRelease
       
-    - name: Upload APK
+    - name: Sign APK
+      if: success()
+      id: sign_apk
+      uses: r0adkll/sign-android-release@v1.0.4
+      with:
+        releaseDirectory: ./app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD  }}
+
+    - name: Upload Signed APK
       uses: actions/upload-artifact@v3
       with:
-        name: app-release
-        path: "app/build/outputs/apk/release/*.apk"
+        name: Signed Apk
+        path: ${{steps.sign_apk.outputs.signedReleaseFile}}
