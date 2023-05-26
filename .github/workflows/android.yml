@@ -51,7 +51,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         document: ${{steps.sign_apk.outputs.signedReleaseFile}}
-        message: 
+        message: |
           ${{ github.actor }} created commit:
 
           Commit message: ${{ github.event.commits[0].message }}
