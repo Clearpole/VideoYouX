@@ -2,7 +2,6 @@ package com.clearpole.videoyoux
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
@@ -20,7 +19,6 @@ import com.clearpole.videoyoux.utils.ReadMediaStore
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
-import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
@@ -30,13 +28,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
 
 
 class MainActivity :
     BaseActivity<ActivityMainBinding, ActivityMainLandBinding>(
         isHideStatus = false,
+        isLandScape = false,
         ActivityMainBinding::inflate,
         ActivityMainLandBinding::inflate
     ) {
@@ -48,8 +45,12 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-            bottomNavigationView(binding)
-            viewPager(binding)
+            if (landScape) {
+
+            } else {
+                bottomNavigationView(binding)
+                viewPager(binding)
+            }
         }
     }
 

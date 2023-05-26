@@ -15,11 +15,13 @@ import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
     val isHideStatus: Boolean,
+    val isLandScape: Boolean,
     private val inflate: (LayoutInflater) -> VB,
     private val inflateLand: (LayoutInflater) -> T
 ) : AppCompatActivity() {
     lateinit var binding: VB
     lateinit var bindingLand: T
+    var landScape:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -37,16 +39,24 @@ abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
             ImmersionBar.with(this).transparentBar().statusBarDarkFont(!isNightMode(resources))
                 .init()
         }
-        setContentView(binding.root)
+        landScape = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(bindingLand.root)
+            true
+        } else {
+            setContentView(binding.root)
+            false
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         val orientation = newConfig.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        landScape = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(bindingLand.root)
+            true
         } else {
             setContentView(binding.root)
+            false
         }
     }
 }
