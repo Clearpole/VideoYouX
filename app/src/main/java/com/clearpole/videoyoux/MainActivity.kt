@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
+import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux.models.CarouselModel
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
@@ -34,7 +35,7 @@ import org.json.JSONObject
 
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(isHideStatus = false, ActivityMainBinding::inflate) {
+    BaseActivity<ActivityMainBinding,ActivityMainLandBinding>(isHideStatus = false, ActivityMainBinding::inflate) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -47,6 +48,8 @@ class MainActivity :
             viewPager(binding)
         }
     }
+
+
 
     private fun viewPager(binding: ActivityMainBinding) {
         val view = binding.screenHomePagerView
