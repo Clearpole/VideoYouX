@@ -2,7 +2,6 @@ package com.clearpole.videoyoux
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
+import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux.models.CarouselModel
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
@@ -19,7 +19,6 @@ import com.clearpole.videoyoux.utils.ReadMediaStore
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
-import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
@@ -29,12 +28,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
 
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(isHideStatus = false, ActivityMainBinding::inflate) {
+    BaseActivity<ActivityMainBinding, ActivityMainLandBinding>(
+        isHideStatus = false,
+        isLandScape = false,
+        ActivityMainBinding::inflate,
+        ActivityMainLandBinding::inflate
+    ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -43,10 +45,15 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-            bottomNavigationView(binding)
-            viewPager(binding)
+            if (landScape) {
+
+            } else {
+                bottomNavigationView(binding)
+                viewPager(binding)
+            }
         }
     }
+
 
     private fun viewPager(binding: ActivityMainBinding) {
         val view = binding.screenHomePagerView
