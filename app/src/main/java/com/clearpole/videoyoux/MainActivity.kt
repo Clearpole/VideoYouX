@@ -1,5 +1,6 @@
 package com.clearpole.videoyoux
 
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -14,7 +15,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
 import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
-import com.clearpole.videoyoux.models.CarouselModel
+import com.clearpole.videoyoux.models.MainPageHomeModel
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.clearpole.videoyoux.utils.ReadMediaStore
@@ -55,9 +56,21 @@ class MainActivity :
                 bottomNavigationView()
                 viewPager()
             }
-            bindingLand.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
-                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()+100
-            )
+            ConvertUtils.px2dp(
+                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat() + 100
+            ).apply {
+                bindingLand.screenHomeRailSpace.layoutParams.width = this
+                bindingLand.homeLandStatus.layoutParams.height = this - 100
+            }
+        }
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val orientation = newConfig.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            viewPagerLand()
+        } else {
+            viewPager()
         }
     }
 
@@ -66,8 +79,27 @@ class MainActivity :
             itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
         }
     }
-    private fun viewPagerLand(){
-        val view = bindingLand.screenHomePagerView
+
+    private fun viewPagerLand() {
+        val viewLand = bindingLand.screenHomeLandPagerView
+        val pagesLandList = ArrayList<View>()
+        pagesLandList.apply {
+            add(View.inflate(this@MainActivity, R.layout.main_page_home_land, null))
+            viewLand.adapter = ViewPagerAdapter(this)
+            viewLand.setCanSwipe(false)
+        }
+        pagesLandList[0].apply {
+            val rvLand = findViewById<RecyclerView>(R.id.home_land_rv)
+            CoroutineScope(Dispatchers.IO).launch {
+                val data = ReadMediaStore.readVideosData()
+                val model = model(data,true)
+                withContext(Dispatchers.Main) {
+                    rvLand.linear().setup {
+                        addType<MainPageHomeModel> { R.layout.main_page_rv_item_land }
+                    }.models = model
+                }
+            }
+        }
     }
 
     private fun viewPager() {
@@ -131,23 +163,27 @@ class MainActivity :
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideosData()
-                val model = carouselModel(data)
+                val model = model(data,false)
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
-                        addType<CarouselModel> { R.layout.main_page_carousel_item }
+                        addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
                     }.models = model
                 }
             }
         }
     }
 
-    private fun carouselModel(dataList: MMKV): MutableList<Any> {
+    private fun model(dataList: MMKV, land: Boolean): MutableList<Any> {
         return mutableListOf<Any>().apply {
             val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
             for (element in data) {
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
-                add(CarouselModel(item))
+                if (land) {
+                    add(MainPageHomeModel(item,true))
+                } else {
+                    add(MainPageHomeModel(item,false))
+                }
             }
         }
     }

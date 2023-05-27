@@ -3,6 +3,7 @@ package com.clearpole.videoyoux.utils
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.MediaStore
+import com.clearpole.videoyoux.Values
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +11,7 @@ import kotlinx.coroutines.withContext
 
 class ReadMediaStore {
     companion object {
-        private val kv_video = MMKV.mmkvWithID("vyx-videos", MMKV.SINGLE_PROCESS_MODE)!!
+        private val kv_video = MMKV.mmkvWithID("vyx-videos", MMKV.SINGLE_PROCESS_MODE,Values.KEY)!!
         suspend fun readVideosData(): MMKV = kv_video
 
         suspend fun writeData(contentResolver: ContentResolver) {
