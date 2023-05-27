@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             app:backgroundTint="#00000000"
             app:itemMinHeight="80dp"
-            app:labelVisibilityMode="auto"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/menu_screen_home"
             app:menuGravity="center" />
     </LinearLayout>
