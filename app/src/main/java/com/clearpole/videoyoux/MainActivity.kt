@@ -54,14 +54,14 @@ class MainActivity :
                 bottomNavigationView()
                 viewPager()
             }
+            bindingLand.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
+                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()+100
+            )
         }
     }
 
     private fun startRailView() {
         bindingLand.screenHomeRail.apply {
-            bindingLand.screenHomeRailSpace.layoutParams.width = ConvertUtils.px2dp(
-                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat()
-            )
             itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
         }
     }
