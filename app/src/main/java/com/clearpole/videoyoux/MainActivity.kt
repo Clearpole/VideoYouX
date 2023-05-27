@@ -10,7 +10,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux.compose.ui.GuideActivity
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
@@ -64,6 +63,7 @@ class MainActivity :
             }
         }
     }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         val orientation = newConfig.orientation
@@ -75,9 +75,9 @@ class MainActivity :
     }
 
     private fun startRailView() {
-        bindingLand.screenHomeRail.apply {
-            itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
-        }
+        /* bindingLand.screenHomeRail.apply {
+             itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
+         }*/
     }
 
     private fun viewPagerLand() {
@@ -92,7 +92,7 @@ class MainActivity :
             val rvLand = findViewById<RecyclerView>(R.id.home_land_rv)
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideosData()
-                val model = model(data,true)
+                val model = model(data, true)
                 withContext(Dispatchers.Main) {
                     rvLand.linear().setup {
                         addType<MainPageHomeModel> { R.layout.main_page_rv_item_land }
@@ -163,7 +163,7 @@ class MainActivity :
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideosData()
-                val model = model(data,false)
+                val model = model(data, false)
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
@@ -180,9 +180,9 @@ class MainActivity :
             for (element in data) {
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(item,true))
+                    add(MainPageHomeModel(item, true))
                 } else {
-                    add(MainPageHomeModel(item,false))
+                    add(MainPageHomeModel(item, false))
                 }
             }
         }
