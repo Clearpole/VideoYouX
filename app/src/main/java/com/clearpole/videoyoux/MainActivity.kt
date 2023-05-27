@@ -50,6 +50,7 @@ class MainActivity :
         } else {
             if (landScape) {
                 startRailView()
+                viewPagerLand()
             } else {
                 bottomNavigationView()
                 viewPager()
@@ -64,6 +65,9 @@ class MainActivity :
         bindingLand.screenHomeRail.apply {
             itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
         }
+    }
+    private fun viewPagerLand(){
+        val view = bindingLand.screenHomePagerView
     }
 
     private fun viewPager() {
