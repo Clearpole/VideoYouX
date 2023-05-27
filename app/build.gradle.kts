@@ -19,7 +19,7 @@ fun buildInfo(type: String): Any? {
         }
 
         "subVersion" -> {
-            return "Canary03"
+            return "Canary04"
         }
 
         else -> {
@@ -136,4 +136,6 @@ dependencies {
     implementation(libs.tooltip)
     implementation(libs.brv)
     implementation(libs.glide)
+    implementation(libs.gsyVideoPlayer.java)
+    implementation(libs.gsyVideoPlayer.ex.so)
 }

@@ -97,6 +97,7 @@ class MainActivity :
                     rvLand.linear().setup {
                         addType<MainPageHomeModel> { R.layout.main_page_rv_item_land }
                     }.models = model
+                    rvLand.setHasFixedSize(true)
                 }
             }
         }
@@ -169,6 +170,7 @@ class MainActivity :
                         it.layoutManager = CarouselLayoutManager()
                         addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
                     }.models = model
+                    rv.setHasFixedSize(true)
                 }
             }
         }
@@ -179,10 +181,11 @@ class MainActivity :
             val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
             for (element in data) {
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
+                val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(item, true))
+                    add(MainPageHomeModel(item,title, true))
                 } else {
-                    add(MainPageHomeModel(item, false))
+                    add(MainPageHomeModel(item,title,false))
                 }
             }
         }
