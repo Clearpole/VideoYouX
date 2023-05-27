@@ -31,7 +31,7 @@ open class MainPageHomeModel(
                 if (titleString.contains(one)) {
                     titleString.split(one).apply {
                         titleStringHandled = this[0]
-                        subTitleStringHandled = titleString.split(this[0]+one)[1]
+                        subTitleStringHandled = titleString.split(this[0] + one)[1]
                     }
                 }
             }
