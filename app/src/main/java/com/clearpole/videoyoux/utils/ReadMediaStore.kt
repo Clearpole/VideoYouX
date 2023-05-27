@@ -3,14 +3,9 @@ package com.clearpole.videoyoux.utils
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
-import com.clearpole.videoyoux.Values
-import com.drake.tooltip.toast
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
 
 
 class ReadMediaStore {
