@@ -3,20 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:layout_toStartOf="@id/home_land_rv_root">
+
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+            android:id="@+id/home_land_player"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
+        android:id="@+id/home_land_rv_root"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:clipChildren="false"
         android:layout_alignParentEnd="true"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:clipChildren="false"
+        android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_land_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:clipChildren="false"
-            android:requiresFadingEdge="vertical"
-            android:fadingEdgeLength="10dp"/>
+            android:fadingEdgeLength="10dp"
+            android:orientation="vertical"
+            android:requiresFadingEdge="vertical" />
     </LinearLayout>
 </RelativeLayout>

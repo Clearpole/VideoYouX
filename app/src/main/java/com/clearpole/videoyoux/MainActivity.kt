@@ -26,11 +26,19 @@ import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.google.android.material.search.SearchView.TransitionState
 import com.gyf.immersionbar.ImmersionBar
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.cache.CacheFactory
+import com.shuyu.gsyvideoplayer.cache.ProxyCacheManager
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
+import com.shuyu.gsyvideoplayer.player.PlayerFactory
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 
 class MainActivity :
@@ -40,6 +48,7 @@ class MainActivity :
         ActivityMainBinding::inflate,
         ActivityMainLandBinding::inflate
     ) {
+    lateinit var videoPlayer:StandardGSYVideoPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -61,6 +70,7 @@ class MainActivity :
                 bindingLand.screenHomeRailSpace.layoutParams.width = this
                 bindingLand.homeLandStatus.layoutParams.height = this - 100
             }
+            videoPlayer()
         }
     }
 
@@ -72,6 +82,26 @@ class MainActivity :
         } else {
             viewPager()
         }
+    }
+
+    private fun videoPlayer(){
+        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
+        CacheFactory.setCacheManager(ProxyCacheManager::class.java)
+        val list = arrayListOf(
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 10
+            ),
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1
+            ),
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER,
+                "enable-accurate-seek",
+                1
+            )
+        )
+        GSYVideoManager.instance().optionModelList = list
     }
 
     private fun startRailView() {
@@ -90,6 +120,7 @@ class MainActivity :
         }
         pagesLandList[0].apply {
             val rvLand = findViewById<RecyclerView>(R.id.home_land_rv)
+            videoPlayer = findViewById(R.id.home_land_player)
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideosData()
                 val model = model(data, true)
@@ -183,9 +214,9 @@ class MainActivity :
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
                 val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(item,title, true))
+                    add(MainPageHomeModel(item,title, videoPlayer,true))
                 } else {
-                    add(MainPageHomeModel(item,title,false))
+                    add(MainPageHomeModel(item,title, videoPlayer,false))
                 }
             }
         }

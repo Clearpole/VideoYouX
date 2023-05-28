@@ -22,23 +22,6 @@ class MainPlayer : BaseActivity<ActivityMainPlayerBinding, ActivityMainPlayerLan
     private val uri:String by bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
-        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
-        CacheFactory.setCacheManager(ProxyCacheManager::class.java)
-        val list = arrayListOf(
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 10
-            ),
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1
-            ),
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER,
-                "enable-accurate-seek",
-                1
-            )
-        )
-        GSYVideoManager.instance().optionModelList = list
         if (landScape){
 
         }else{
@@ -48,5 +31,10 @@ class MainPlayer : BaseActivity<ActivityMainPlayerBinding, ActivityMainPlayerLan
     private fun videoPlayer(){
         GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri)
             .setStartAfterPrepared(true).setAutoFullWithSize(true).build(binding.player)
+    }
+
+    override fun onBackPressed() {
+        GSYVideoManager.releaseAllVideos()
+        finish()
     }
 }

@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="8dp"
+    android:id="@+id/root"
     android:foreground="?attr/selectableItemBackground">
 
     <RelativeLayout
