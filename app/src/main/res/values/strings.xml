@@ -8,4 +8,5 @@
     <string name="title_activity_guide">GuideActivity</string>
     <string name="search">搜索</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="refresh">刷新</string>
 </resources>
