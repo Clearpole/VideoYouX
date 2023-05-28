@@ -3,10 +3,12 @@ package com.clearpole.videoyoux.models
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.clearpole.videoyoux.MainPlayer
 import com.clearpole.videoyoux.databinding.MainPageCarouselItemBinding
 import com.clearpole.videoyoux.databinding.MainPageRvItemLandBinding
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
+import com.drake.serialize.intent.openActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -47,6 +49,11 @@ open class MainPageHomeModel(
                         load.into(carouselImageView)
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled
+                        carouselItemContainer.setOnClickListener {
+                            holder.context.openActivity<MainPlayer>(
+                                "uri" to uri
+                            )
+                        }
                     }
                 }
             }
