@@ -4,15 +4,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.clearpole.videoyoux.MainPlayer
-import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux.databinding.MainPageCarouselItemBinding
 import com.clearpole.videoyoux.databinding.MainPageRvItemLandBinding
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -22,7 +21,7 @@ import kotlinx.coroutines.withContext
 open class MainPageHomeModel(
     private val uri: String,
     private val titleString: String,
-    private val videoPlayer: StandardGSYVideoPlayer,
+    private val videoPlayer: StandardGSYVideoPlayer?,
     private val land: Boolean
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
@@ -49,8 +48,9 @@ open class MainPageHomeModel(
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled
                         root.setOnClickListener {
-                            GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri)
-                                .setStartAfterPrepared(true).setAutoFullWithSize(true).build(videoPlayer)
+                            GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).setAutoFullWithSize(true).setLooping(true)
+                                .build(videoPlayer)
+                            videoPlayer!!.startPlayLogic()
                         }
                     }
                 } else {

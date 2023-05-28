@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MainPlayer">
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.clearpole.videoyoux.videoplayer.EmptyControlVideo
         android:id="@+id/player"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

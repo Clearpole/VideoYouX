@@ -3,6 +3,7 @@ package com.clearpole.videoyoux
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
@@ -18,9 +19,12 @@ import com.clearpole.videoyoux.models.MainPageHomeModel
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.clearpole.videoyoux.utils.ReadMediaStore
+import com.clearpole.videoyoux.utils.RefreshMediaStore
+import com.clearpole.videoyoux.videoplayer.EmptyControlVideo
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
+import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
@@ -32,7 +36,6 @@ import com.shuyu.gsyvideoplayer.cache.ProxyCacheManager
 import com.shuyu.gsyvideoplayer.model.VideoOptionModel
 import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +51,7 @@ class MainActivity :
         ActivityMainBinding::inflate,
         ActivityMainLandBinding::inflate
     ) {
-    lateinit var videoPlayer:StandardGSYVideoPlayer
+    private lateinit var videoPlayer: EmptyControlVideo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -84,7 +87,7 @@ class MainActivity :
         }
     }
 
-    private fun videoPlayer(){
+    private fun videoPlayer() {
         PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
         CacheFactory.setCacheManager(ProxyCacheManager::class.java)
@@ -147,6 +150,7 @@ class MainActivity :
         }
 
         pagesList[0].apply {
+            val rv = findViewById<RecyclerView>(R.id.home_rv)
             val animUpDown = AnimationUtils.loadAnimation(
                 this@MainActivity,
                 R.anim.main_up_down
@@ -157,7 +161,34 @@ class MainActivity :
             val searchView = findViewById<SearchView>(R.id.cat_search_view)
             val greetings = greetings()
             searchView.hint = greetings
-            findViewById<SearchBar>(R.id.page_home_search_bar).hint = greetings
+            findViewById<SearchBar>(R.id.page_home_search_bar).apply {
+                hint = greetings
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.main_searchView_refresh -> {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                RefreshMediaStore.updateMedia(
+                                    context,
+                                    Environment.getExternalStorageDirectory().toString()
+                                )
+                                ReadMediaStore.writeData(contentResolver)
+                                withContext(Dispatchers.Main) {
+                                    logicList(rv)
+                                    toast("已尝试刷新")
+                                }
+                            }
+                            true
+                        }
+
+                        R.id.main_searchView_more -> {
+                            toast("(/▽＼)")
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            }
             searchView.isAutoShowKeyboard = false
             searchView.addTransitionListener { _, _, newState ->
                 when (newState) {
@@ -192,17 +223,20 @@ class MainActivity :
                 onBackPressedCallback.isEnabled =
                     newState == TransitionState.SHOWN
             }
-            val rv = findViewById<RecyclerView>(R.id.home_rv)
-            CoroutineScope(Dispatchers.IO).launch {
-                val data = ReadMediaStore.readVideosData()
-                val model = model(data, false)
-                withContext(Dispatchers.Main) {
-                    rv.linear().setup {
-                        it.layoutManager = CarouselLayoutManager()
-                        addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
-                    }.models = model
-                    rv.setHasFixedSize(true)
-                }
+            logicList(rv)
+        }
+    }
+
+    private fun logicList(rv: RecyclerView) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val data = ReadMediaStore.readVideosData()
+            val model = model(data, false)
+            withContext(Dispatchers.Main) {
+                rv.linear().setup {
+                    it.layoutManager = CarouselLayoutManager()
+                    addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
+                }.models = model
+                rv.setHasFixedSize(true)
             }
         }
     }
@@ -214,9 +248,9 @@ class MainActivity :
                 val item = dataList.decodeString(element)!!.split("\u001A")[1]
                 val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(item,title, videoPlayer,true))
+                    add(MainPageHomeModel(item, title, videoPlayer, true))
                 } else {
-                    add(MainPageHomeModel(item,title, videoPlayer,false))
+                    add(MainPageHomeModel(item, title, null, false))
                 }
             }
         }

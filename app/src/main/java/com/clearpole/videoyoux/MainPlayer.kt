@@ -1,36 +1,31 @@
 package com.clearpole.videoyoux
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.clearpole.videoyoux.databinding.ActivityMainPlayerBinding
-import com.clearpole.videoyoux.databinding.ActivityMainPlayerLandBinding
 import com.drake.serialize.intent.bundle
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ImmersionBar
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.cache.CacheFactory
-import com.shuyu.gsyvideoplayer.cache.ProxyCacheManager
-import com.shuyu.gsyvideoplayer.model.VideoOptionModel
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
-import com.shuyu.gsyvideoplayer.player.PlayerFactory
-import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
-class MainPlayer : BaseActivity<ActivityMainPlayerBinding, ActivityMainPlayerLandBinding>(
-    isHideStatus = true,
-    isLandScape = false,
-    ActivityMainPlayerBinding::inflate,
-    ActivityMainPlayerLandBinding::inflate
-) {
-    private val uri:String by bundle()
+class MainPlayer : AppCompatActivity() {
+    private val uri: String by bundle()
+    private lateinit var binding: ActivityMainPlayerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (landScape){
-
-        }else{
-            videoPlayer()
-        }
+        binding = ActivityMainPlayerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR).init()
+        videoPlayer()
     }
-    private fun videoPlayer(){
-        GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri)
-            .setStartAfterPrepared(true).setAutoFullWithSize(true).build(binding.player)
+
+    private fun videoPlayer() {
+        GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).setAutoFullWithSize(true).setLooping(true)
+            .apply {
+                build(binding.player)
+            }
+        binding.player.startPlayLogic()
     }
 
     override fun onBackPressed() {
