@@ -30,12 +30,11 @@ fun buildInfo(type: String): Any? {
 
 android {
     namespace = "com.clearpole.videoyoux"
-    compileSdk = 33
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.clearpole.videoyoux"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == "true") {
             buildInfo("version").toString() + " - " + buildInfo("subVersion").toString()
@@ -87,7 +86,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildToolsVersion = "34.0.0 rc4"
+    buildToolsVersion = "34.0.0"
     android.applicationVariants.all {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
