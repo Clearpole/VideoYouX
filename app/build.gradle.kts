@@ -31,6 +31,7 @@ fun buildInfo(type: String): Any? {
 android {
     namespace = "com.clearpole.videoyoux"
     compileSdk = 34
+    compileSdkPreview = "UpsideDownCake"
     defaultConfig {
         applicationId = "com.clearpole.videoyoux"
         minSdk = 24
@@ -47,9 +48,6 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a")
         }
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     sourceSets {
@@ -58,7 +56,7 @@ android {
         }
     }
 
-    buildTypes {
+   /* buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -66,7 +64,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
-    }
+    }*/
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -137,5 +135,5 @@ dependencies {
     implementation(libs.brv)
     implementation(libs.glide)
     implementation(libs.gsyVideoPlayer.java)
-    implementation(libs.gsyVideoPlayer.ex.so)
+    implementation(libs.gsyVideoPlayer.arm64)
 }

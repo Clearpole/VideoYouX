@@ -1,9 +1,11 @@
 package com.clearpole.videoyoux
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.clearpole.videoyoux.databinding.ActivityMainPlayerBinding
 import com.drake.serialize.intent.bundle
+import com.drake.tooltip.toast
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -21,10 +23,7 @@ class MainPlayer : AppCompatActivity() {
     }
 
     private fun videoPlayer() {
-        GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).setAutoFullWithSize(true).setLooping(true)
-            .apply {
-                build(binding.player)
-            }
+        GSYVideoOptionBuilder().setCacheWithPlay(true).setUrl(uri).build(binding.player)
         binding.player.startPlayLogic()
     }
 

@@ -48,8 +48,7 @@ open class MainPageHomeModel(
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled
                         root.setOnClickListener {
-                            GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).setAutoFullWithSize(true).setLooping(true)
-                                .build(videoPlayer)
+                            GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).build(videoPlayer)
                             videoPlayer!!.startPlayLogic()
                         }
                     }

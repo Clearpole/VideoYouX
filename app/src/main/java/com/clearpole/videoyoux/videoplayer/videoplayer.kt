@@ -28,7 +28,7 @@ class EmptyControlVideo : StandardGSYVideoPlayer {
     }
 
     override fun touchDoubleUp(e: MotionEvent) {
-        //super.touchDoubleUp();
+        super.touchDoubleUp(e)
         //不需要双击暂停
     }
 }
