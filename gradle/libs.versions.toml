@@ -6,7 +6,7 @@ glide = "4.15.1"
 gsyVideoPlayer-java = "v8.3.5-release-jitpack"
 immersionbar = "3.2.2"
 navigation-compose = "2.6.0-alpha08"
-org-jetbrains-kotlin-android = "1.8.0"
+org-jetbrains-kotlin-android = "1.8.10"
 core-ktx = "1.9.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
@@ -16,6 +16,7 @@ material = "1.10.0-alpha01"
 constraintlayout = "2.1.4"
 serialize = "3.0.1"
 tooltip = "1.2.2"
+uiViewbinding = "1.4.0-beta02"
 utilcodex = "1.31.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.0"
@@ -25,6 +26,7 @@ xx-permissions = "16.6"
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist-navigation-animation" }
+androidx-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "uiViewbinding" }
 brv = { module = "com.github.liangjingkanji:BRV", version.ref = "brv" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

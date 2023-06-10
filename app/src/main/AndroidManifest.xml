@@ -24,16 +24,21 @@
         android:theme="@style/Theme.VideoYou"
         tools:targetApi="31">
         <activity
+            android:name="._compose.MainPlayerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main_player"
+            android:theme="@style/Theme.VideoYou" />
+        <activity
             android:name=".MainPlayer"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".compose.ui.GuideActivity"
+            android:name="._compose.GuideActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
-            android:screenOrientation="fullSensor"
             android:label="@string/title_activity_guide"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.VideoYou" />
         <activity
             android:name=".MainActivity"

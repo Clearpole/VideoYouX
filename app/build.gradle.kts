@@ -48,6 +48,9 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a")
         }
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     sourceSets {
@@ -114,6 +117,7 @@ dependencies {
     implementation(files("libs\\json.jar"))
     implementation(libs.androidx.viewbinding)
     implementation(platform(libs.compose.bom))
+    implementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -126,6 +130,7 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
@@ -136,4 +141,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.gsyVideoPlayer.java)
     implementation(libs.gsyVideoPlayer.arm64)
+    implementation(libs.androidx.ui.viewbinding)
 }
