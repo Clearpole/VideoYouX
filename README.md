@@ -2,7 +2,7 @@
 Vyx 是一款基于最新 Material Desgin 3 设计的视频播放器。
 
 
-#### 软件处于内测阶段，遇到任何Bug欢迎提Issues。
+#### 软件处于内测阶段，遇到任何 Bug 欢迎提 Issues。
 
 
 ## 展望未来
