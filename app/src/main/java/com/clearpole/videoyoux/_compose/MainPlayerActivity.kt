@@ -1,7 +1,10 @@
 package com.clearpole.videoyoux._compose
 
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -19,6 +22,8 @@ import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.drake.serialize.intent.bundle
+import com.drake.tooltip.toast
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 
 class MainPlayerActivity : ComponentActivity() {
@@ -32,8 +37,12 @@ class MainPlayerActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     VideoPlayer(mThis = this)
-                    ControlLayout(mThis = this)
+                    ControlLayout(mThis = this, resources = resources)
                 }
+            }
+            BackHandler {
+                GSYVideoManager.releaseAllVideos()
+                finish()
             }
         }
     }
@@ -42,7 +51,7 @@ class MainPlayerActivity : ComponentActivity() {
     fun VideoPlayer(mThis: MainPlayerActivity) {
         AndroidView(factory = {
             EmptyControlVideo(it).apply {
-                GSYVideoOptionBuilder().setCacheWithPlay(true).setUrl(uri).build(this)
+                GSYVideoOptionBuilder().setCacheWithPlay(true).setUrl(uri).setLooping(true).build(this)
                 this.startPlayLogic()
             }
         })
@@ -50,7 +59,7 @@ class MainPlayerActivity : ComponentActivity() {
 }
 
 @Composable
-fun ControlLayout(mThis: MainPlayerActivity) {
+fun ControlLayout(mThis: MainPlayerActivity,resources: Resources) {
     Box(Modifier.fillMaxSize()) {
         // @formatter:off
         Column(Modifier.fillMaxSize()) {
@@ -58,8 +67,12 @@ fun ControlLayout(mThis: MainPlayerActivity) {
             Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Transparent,Color.Black.copy(alpha = 0.5f)))).weight(1f,true)) {}
         }
         // @formatter:on
-        AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
+        }else {
+            AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
+
+            }
         }
     }
 }
