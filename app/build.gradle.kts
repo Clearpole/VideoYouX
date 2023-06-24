@@ -31,7 +31,6 @@ fun buildInfo(type: String): Any? {
 android {
     namespace = "com.clearpole.videoyoux"
     compileSdk = 34
-    compileSdkPreview = "UpsideDownCake"
     defaultConfig {
         applicationId = "com.clearpole.videoyoux"
         minSdk = 24
