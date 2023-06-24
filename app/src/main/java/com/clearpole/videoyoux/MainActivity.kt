@@ -93,7 +93,7 @@ class MainActivity :
         CacheFactory.setCacheManager(ProxyCacheManager::class.java)
         val list = arrayListOf(
             VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 10
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5
             ),
             VideoOptionModel(
                 IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1

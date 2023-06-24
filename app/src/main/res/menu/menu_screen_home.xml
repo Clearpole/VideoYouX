@@ -2,7 +2,7 @@
     <item
         android:id="@+id/menu_screen_page1"
         android:enabled="true"
-        android:icon="@drawable/outline_home_24"
+        android:icon="@drawable/baseline_home_24"
         android:title="@string/home"/>
     <item
         android:id="@+id/menu_screen_page2"
