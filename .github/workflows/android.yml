@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '19'
-        distribution: 'temurin'
+        distribution: 'corretto'
         cache: gradle
         
     - name: Setup Android SDK
