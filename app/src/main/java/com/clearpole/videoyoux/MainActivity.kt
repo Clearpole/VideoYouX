@@ -245,12 +245,14 @@ class MainActivity :
         return mutableListOf<Any>().apply {
             val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
             for (element in data) {
-                val item = dataList.decodeString(element)!!.split("\u001A")[1]
+                val item = dataList.decodeString(element)!!.split("\u001A")
+                val uri = item[1]
+                val path = item[0]
                 val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(item, title, videoPlayer, true))
+                    add(MainPageHomeModel(path,uri, title, videoPlayer, true))
                 } else {
-                    add(MainPageHomeModel(item, title, null, false))
+                    add(MainPageHomeModel(path,uri, title, null, false))
                 }
             }
         }

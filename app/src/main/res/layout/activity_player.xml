@@ -4,13 +4,37 @@
     android:id="@+id/player_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
+        android:id="@+id/player_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="15dp"
         android:layout_marginTop="60dp"
-        android:contentDescription="@string/back" />
+        android:contentDescription="@string/back"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/player_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="60dp"
+        android:singleLine="true"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/player_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackCornerRadius="10dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

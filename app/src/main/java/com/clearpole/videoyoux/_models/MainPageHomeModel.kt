@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 open class MainPageHomeModel(
+    private val paths: String,
     private val uri: String,
     private val titleString: String,
     private val videoPlayer: StandardGSYVideoPlayer?,
@@ -58,7 +59,8 @@ open class MainPageHomeModel(
                         subTitle.text = subTitleStringHandled
                         carouselItemContainer.setOnClickListener {
                             holder.context.openActivity<MainPlayerActivity>(
-                                "uri" to uri
+                                "uri" to uri,
+                                "paths" to paths
                             )
                         }
                     }
