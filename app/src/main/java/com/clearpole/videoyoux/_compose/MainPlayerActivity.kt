@@ -60,7 +60,7 @@ class MainPlayerActivity : ComponentActivity() {
             var code by remember {
                 mutableStateOf(0)
             }
-            VideoYouXTheme(hideBar = false) {
+            VideoYouXTheme(hideBar = false, darkBar = true) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

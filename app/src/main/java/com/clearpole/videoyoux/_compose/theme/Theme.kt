@@ -32,6 +32,7 @@ private val lightColorScheme = lightColorScheme(
 fun VideoYouXTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     hideBar: Boolean,
+    darkBar: Boolean = false,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -50,8 +51,15 @@ fun VideoYouXTheme(
             if (hideBar) {
                 ImmersionBar.with(view.context as Activity).hideBar(BarHide.FLAG_HIDE_BAR).init()
             } else {
-                ImmersionBar.with(view.context as Activity)
-                    .statusBarDarkFont(!System.isNightMode(view.resources)).transparentBar().init()
+                if (!darkBar) {
+                    ImmersionBar.with(view.context as Activity)
+                        .statusBarDarkFont(!System.isNightMode(view.resources)).transparentBar()
+                        .init()
+                } else {
+                    ImmersionBar.with(view.context as Activity)
+                        .statusBarDarkFont(false).transparentBar()
+                        .init()
+                }
             }
         }
     }
