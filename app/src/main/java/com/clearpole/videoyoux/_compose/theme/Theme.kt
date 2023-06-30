@@ -51,7 +51,7 @@ fun VideoYouXTheme(
                 ImmersionBar.with(view.context as Activity).hideBar(BarHide.FLAG_HIDE_BAR).init()
             } else {
                 ImmersionBar.with(view.context as Activity)
-                    .statusBarDarkFont(System.isNightMode(view.resources)).transparentBar().init()
+                    .statusBarDarkFont(!System.isNightMode(view.resources)).transparentBar().init()
             }
         }
     }
