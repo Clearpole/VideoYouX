@@ -34,7 +34,7 @@ android {
     namespace = "com.clearpole.videoyoux"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.clearpole.videoyoux"
+        applicationId = namespace
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -43,41 +43,6 @@ android {
         } else {
             buildInfo("version").toString()
         }
-        val properties = Properties()
-        runCatching { properties.load(project.rootProject.file("local.properties").inputStream()) }
-        val keystorePath = properties.getProperty("KEYSTORE_PATH") ?: System.getenv("KEYSTORE_PATH")
-        val keystorePwd = properties.getProperty("KEYSTORE_PASS") ?: System.getenv("KEYSTORE_PASS")
-        val alias = properties.getProperty("KEY_ALIAS") ?: System.getenv("KEY_ALIAS")
-        val pwd = properties.getProperty("KEY_PASSWORD") ?: System.getenv("KEY_PASSWORD")
-        if (keystorePath != null) {
-            signingConfigs {
-                create("release") {
-                    storeFile = file(keystorePath)
-                    storePassword = keystorePwd
-                    keyAlias = alias
-                    keyPassword = pwd
-                    enableV3Signing = true
-                }
-            }
-        }
-        buildTypes {
-            release {
-//                isMinifyEnabled = true
-//                isShrinkResources = true
-//                proguardFiles(
-//                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-//                )
-                if (keystorePath != null) {
-                    signingConfig = signingConfigs.getByName("release")
-                }
-            }
-            debug {
-                if (keystorePath != null) {
-                    signingConfig = signingConfigs.getByName("release")
-                }
-            }
-        }
-
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -86,6 +51,42 @@ android {
         }
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    val properties = Properties()
+    runCatching { properties.load(project.rootProject.file("local.properties").inputStream()) }
+    val keystorePath = properties.getProperty("KEYSTORE_PATH") ?: System.getenv("KEYSTORE_PATH")
+    val keystorePwd = properties.getProperty("KEYSTORE_PASS") ?: System.getenv("KEYSTORE_PASS")
+    val alias = properties.getProperty("KEY_ALIAS") ?: System.getenv("KEY_ALIAS")
+    val pwd = properties.getProperty("KEY_PASSWORD") ?: System.getenv("KEY_PASSWORD")
+    if (keystorePath != null) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = keystorePwd
+                keyAlias = alias
+                keyPassword = pwd
+                enableV3Signing = true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+//                isMinifyEnabled = true
+//                isShrinkResources = true
+//                proguardFiles(
+//                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+//                )
+            if (keystorePath != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+        }
+        debug {
+            if (keystorePath != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
@@ -99,21 +100,26 @@ android {
         sourceCompatibility = JavaVersion.VERSION_19
         targetCompatibility = JavaVersion.VERSION_19
     }
+
     kotlinOptions {
         jvmTarget = "19"
     }
+
     buildFeatures {
         viewBinding = true
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildToolsVersion = "34.0.0"
     android.applicationVariants.all {
         outputs.all {
