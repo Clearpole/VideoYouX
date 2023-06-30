@@ -91,9 +91,9 @@ android {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 this.outputFileName = if (buildInfo("isCanary") == "false") {
-                    buildInfo("name").toString() + buildInfo("version") + "-${(0..99999).random()}-release.apk"
+                    buildInfo("name").toString() + buildInfo("version") + "-${(0..99999).random()}-${buildType.name}.apk"
                 } else {
-                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + "-${(0..99999).random()}.apk"
+                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + "-${(0..99999).random()}-${buildType.name}.apk"
                 }
             }
         }
