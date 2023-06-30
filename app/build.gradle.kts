@@ -90,10 +90,11 @@ android {
     android.applicationVariants.all {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
+                val code = (0..99999).random()
                 this.outputFileName = if (buildInfo("isCanary") == "false") {
-                    buildInfo("name").toString() + buildInfo("version") + "-${(0..99999).random()}-${buildType.name}.apk"
+                    buildInfo("name").toString() + buildInfo("version") + "-$code-${buildType.name}.apk"
                 } else {
-                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + "-${(0..99999).random()}-${buildType.name}.apk"
+                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + "-$code-${buildType.name}.apk"
                 }
             }
         }
