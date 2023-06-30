@@ -32,8 +32,16 @@ import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
+import com.google.android.material.color.DynamicColors
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
     private val uri: String by bundle()
@@ -41,11 +49,13 @@ class MainPlayerActivity : ComponentActivity() {
     private lateinit var player: EmptyControlVideo
     private lateinit var info: ArrayList<String>
     private val TAG = "MPA"
+    private lateinit var coroutine: Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DynamicColors.applyToActivityIfAvailable(this)
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        info = VideoInfo.get(paths,requiredParams)
-        Log.e(TAG, "onCreate:$info", )
+        info = VideoInfo.get(paths, requiredParams)
+        Log.e(TAG, "onCreate:$info")
         setContent {
             var code by remember {
                 mutableStateOf(0)
@@ -61,6 +71,7 @@ class MainPlayerActivity : ComponentActivity() {
             }
             BackHandler {
                 GSYVideoManager.releaseAllVideos()
+                coroutine.cancel()
                 finish()
             }
         }
@@ -97,9 +108,46 @@ class MainPlayerActivity : ComponentActivity() {
                 }
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
-                    this.playerTitle.text = paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
+                    playerTitle.text =
+                        paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
+                    playSlider.apply {
+                        valueTo = info[0].toFloat()
+                        setLabelFormatter { value: Float ->
+                            return@setLabelFormatter timeParse(value.toLong()).toString()
+                        }
+                    }
+
+                    playAll.text = timeParse(info[0].toLong())
+                    coroutine = CoroutineScope(Dispatchers.IO).launch {
+                        while (coroutine.isActive) {
+                            withContext(Dispatchers.Main) {
+                                val current = player.currentPositionWhenPlaying
+                                playNow.text = timeParse(current)
+                                if (current <= info[0].toFloat()) {
+                                    playSlider.value = current.toFloat()
+                                }
+                            }
+                            delay(1000)
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private fun timeParse(duration: Long): String? {
+        var time: String? = ""
+        val minute = duration / 60000
+        val seconds = duration % 60000
+        val second = (seconds.toFloat() / 1000).roundToInt().toLong()
+        if (minute < 10) {
+            time += "0"
+        }
+        time += "$minute:"
+        if (second < 10) {
+            time += "0"
+        }
+        time += second
+        return time!!.trim()
     }
 }

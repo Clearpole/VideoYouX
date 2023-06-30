@@ -11,4 +11,5 @@
     <string name="refresh">刷新</string>
     <string name="title_activity_main_player">MainPlayerActivity</string>
     <string name="back">back</string>
+    <string name="pause_play">pause/play</string>
 </resources>
