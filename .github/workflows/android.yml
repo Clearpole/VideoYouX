@@ -30,49 +30,39 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assemble
+      run: |
+        echo ${{ secrets.SIGNING_KEY }} | base64 -d > keystore.jks
+        bash ./gradlew assemble
+      env:
+        KEYSTORE_PATH: "../keystore.jks"
+        KEYSTORE_PASS: ${{ secrets.KEY_STORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ALIAS }}
+        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-    - name: Sign Release APK
-      if: success()
-      id: sign_release_apk
-      uses: r0adkll/sign-android-release@v1.0.4
-      with:
-        releaseDirectory: ./app/build/outputs/apk/release
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD  }}
-
-    - name: Sign Debug APK
-      if: success()
-      id: sign_debug_apk
-      uses: r0adkll/sign-android-release@v1.0.4
-      with:
-        releaseDirectory: ./app/build/outputs/apk/debug
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD  }}
+    - name: Find APK
+      run: |
+        echo "RELEASE=$(find 'app/build/outputs/apk/release' -name '*.apk')" >> $GITHUB_ENV
+        echo "DEBUG=$(find 'app/build/outputs/apk/debug' -name '*.apk')" >> $GITHUB_ENV
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v3
       with:
         name: VideoYouX_Release
-        path: ${{steps.sign_release_apk.outputs.signedReleaseFile}}
+        path: "app/build/outputs/apk/release/*.apk"
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v3
       with:
         name: VideoYouX_Debug
-        path: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
+        path: "app/build/outputs/apk/debug/*.apk"
 
     - name: Post to Channel
       if: github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[skip post]') == false
       env:
           CHANNEL_ID: ${{ secrets.TELEGRAM_TO }}
           BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          RELEASE: ${{steps.sign_release_apk.outputs.signedReleaseFile}}
-          DEBUG: ${{steps.sign_debug_apk.outputs.signedReleaseFile}}
+          RELEASE: ${{ env.RELEASE }}
+          DEBUG: ${{ env.DEBUG }}
           COMMIT_MESSAGE: |+
             GitHub New CI\
             
