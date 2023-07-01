@@ -53,7 +53,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
-androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha09" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha10" }
 
 
 [plugins]
