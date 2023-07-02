@@ -94,10 +94,6 @@ android {
         getByName("main") {
             jniLibs.srcDirs("libs")
         }
-
-        getByName("debug") {
-            java.srcDirs("src/main/java", "build/generated/data_binding_base_class_source_out/debug/out")
-        }
     }
 
     compileOptions {

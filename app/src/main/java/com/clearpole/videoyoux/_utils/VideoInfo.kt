@@ -15,7 +15,6 @@ class VideoInfo {
                     retriever.extractMetadata(type)
                         .toString()
                 )
-                Log.e("MPA",type.toString())
             }
             retriever.release()
             return resultList

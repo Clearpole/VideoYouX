@@ -12,7 +12,7 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
-material = "1.10.0-alpha01"
+material = "1.9.0-beta01"
 constraintlayout = "2.1.4"
 serialize = "3.0.1"
 tooltip = "1.2.2"
@@ -37,7 +37,6 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version = "1.9.0-beta01" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 serialize = { module = "com.github.liangjingkanji:Serialize", version.ref = "serialize" }
 tooltip = { module = "com.github.liangjingkanji:Tooltip", version.ref = "tooltip" }
@@ -54,6 +53,11 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
 androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha10" }
+
+[libraries.material]
+group = "com.google.android.material"
+name = "material"
+version.ref = "material"
 
 
 [plugins]

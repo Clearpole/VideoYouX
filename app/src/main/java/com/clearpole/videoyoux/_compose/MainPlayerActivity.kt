@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -26,6 +27,8 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
@@ -33,6 +36,7 @@ import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.slider.Slider
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -44,18 +48,18 @@ import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
+    private val TAG = "MPA"
     private val uri: String by bundle()
     private val paths: String by bundle()
+    private var requireWhile = true
     private lateinit var player: EmptyControlVideo
     private lateinit var info: ArrayList<String>
-    private val TAG = "MPA"
     private lateinit var coroutine: Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DynamicColors.applyToActivityIfAvailable(this)
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
-        Log.e(TAG, "onCreate:$info")
         setContent {
             var code by remember {
                 mutableStateOf(0)
@@ -108,6 +112,11 @@ class MainPlayerActivity : ComponentActivity() {
                 }
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
+                    playerBack.setOnClickListener {
+                        GSYVideoManager.releaseAllVideos()
+                        coroutine.cancel()
+                        finish()
+                    }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
                     playSlider.apply {
@@ -115,19 +124,34 @@ class MainPlayerActivity : ComponentActivity() {
                         setLabelFormatter { value: Float ->
                             return@setLabelFormatter timeParse(value.toLong()).toString()
                         }
+                        addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+                            override fun onStartTrackingTouch(slider: Slider) {
+                                requireWhile = false
+                                player.onVideoPause()
+                            }
+
+                            override fun onStopTrackingTouch(slider: Slider) {
+                                player.seekTo(value.toLong())
+                                player.onVideoResume()
+                                requireWhile = true
+                            }
+                        })
                     }
 
                     playAll.text = timeParse(info[0].toLong())
                     coroutine = CoroutineScope(Dispatchers.IO).launch {
                         while (coroutine.isActive) {
-                            withContext(Dispatchers.Main) {
-                                val current = player.currentPositionWhenPlaying
-                                playNow.text = timeParse(current)
-                                if (current <= info[0].toFloat()) {
-                                    playSlider.value = current.toFloat()
+                            if (requireWhile) {
+                                withContext(Dispatchers.Main) {
+                                    val current = player.currentPositionWhenPlaying
+                                    playNow.text = timeParse(current)
+                                    if (current <= info[0].toFloat()) {
+                                        playSlider.value = current.toFloat()
+                                    }
                                 }
+                                delay(500)
                             }
-                            delay(1000)
+                            delay(500)
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
