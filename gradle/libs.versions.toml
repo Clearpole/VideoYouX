@@ -19,7 +19,7 @@ tooltip = "1.2.2"
 uiViewbinding = "1.4.3"
 utilcodex = "1.31.1"
 lifecycle-runtime-ktx = "2.6.1"
-activity-compose = "1.7.0"
+activity-compose = "1.7.2"
 compose-bom = "2023.03.00"
 xx-permissions = "16.6"
 
