@@ -5,11 +5,6 @@
   "extends": [
     "config:base"
   ],
-  "platformAutomerge": true,
-  "packageRules": [
-    {
-      "matchPackagePrefixes":["*"],
-      "automerge": true
-    }
-  ]
+  "automerge": true,
+  "automergeType": "pr"
 }
