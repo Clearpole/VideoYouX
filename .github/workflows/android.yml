@@ -9,6 +9,7 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - "README.md"
+  merge_group:
   workflow_dispatch:
 
 jobs:
