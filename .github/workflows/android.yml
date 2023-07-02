@@ -40,6 +40,7 @@ jobs:
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
     - name: Find APK
+      if: github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[skip post]') == false
       run: |
         echo "RELEASE=$(find 'app/build/outputs/apk/release' -name '*.apk')" >> $GITHUB_ENV
         echo "DEBUG=$(find 'app/build/outputs/apk/debug' -name '*.apk')" >> $GITHUB_ENV
