@@ -140,7 +140,9 @@ class MainPlayerActivity : ComponentActivity() {
                     player.setGSYVideoProgressListener { _, _, currentPosition, duration ->
                         playNow.text = timeParse(currentPosition)
                         playAll.text = timeParse(duration)
-                        playSlider.value = currentPosition.toFloat()
+                        if (currentPosition<=playSlider.valueTo) {
+                            playSlider.value = currentPosition.toFloat()
+                        }
                     }
                 }
             }
