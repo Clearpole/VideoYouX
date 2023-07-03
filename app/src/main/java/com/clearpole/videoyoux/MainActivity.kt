@@ -42,7 +42,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 
@@ -90,7 +89,23 @@ class MainActivity :
     }
 
     private fun videoPlayer() {
-        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
+        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
+        CacheFactory.setCacheManager(ProxyCacheManager::class.java)
+        val list = arrayListOf(
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5
+            ),
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1
+            ),
+            VideoOptionModel(
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER,
+                "enable-accurate-seek",
+                1
+            )
+        )
+        GSYVideoManager.instance().optionModelList = list
     }
 
     private fun startRailView() {

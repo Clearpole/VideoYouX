@@ -19,7 +19,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/player_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:singleLine="true"
@@ -111,10 +111,10 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="50dp"
         android:contentDescription="@string/pause_play"
         android:src="@drawable/round_format_list_bulleted_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/play_pip"
+        app:layout_constraintTop_toTopOf="@id/play_pip"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
