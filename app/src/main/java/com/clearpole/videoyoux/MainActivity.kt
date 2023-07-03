@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
@@ -13,15 +12,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.GuideActivity
-import com.clearpole.videoyoux.databinding.ActivityMainBinding
-import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux._models.MainPageHomeModel
-import com.clearpole.videoyoux.screen_home.Greetings
-import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
-import com.clearpole.videoyoux._assembly.EmptyControlVideo
+import com.clearpole.videoyoux.databinding.ActivityMainBinding
+import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
+import com.clearpole.videoyoux.screen_home.Greetings
+import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
@@ -40,6 +39,7 @@ import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
@@ -61,6 +61,10 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
+            CoroutineScope(Dispatchers.IO).launch {
+                refreshMediaData()
+                cancel()
+            }
             if (landScape) {
                 startRailView()
                 viewPagerLand()
@@ -168,15 +172,11 @@ class MainActivity :
                     when (it.itemId) {
                         R.id.main_searchView_refresh -> {
                             CoroutineScope(Dispatchers.IO).launch {
-                                RefreshMediaStore.updateMedia(
-                                    context,
-                                    Environment.getExternalStorageDirectory().toString()
-                                )
-                                ReadMediaStore.writeData(contentResolver)
+                               refreshMediaData()
                                 withContext(Dispatchers.Main) {
                                     logicList(rv)
-                                    toast("已尝试刷新")
                                 }
+                                cancel()
                             }
                             true
                         }
@@ -228,6 +228,14 @@ class MainActivity :
         }
     }
 
+    private suspend fun refreshMediaData() {
+        RefreshMediaStore.updateMedia(
+            this@MainActivity,
+            Environment.getExternalStorageDirectory().toString()
+        )
+        ReadMediaStore.writeData(contentResolver)
+    }
+
     private fun logicList(rv: RecyclerView) {
         CoroutineScope(Dispatchers.IO).launch {
             val data = ReadMediaStore.readVideosData()
@@ -251,9 +259,9 @@ class MainActivity :
                 val path = item[0]
                 val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(path,uri, title, videoPlayer, true))
+                    add(MainPageHomeModel(path, uri, title, videoPlayer, true))
                 } else {
-                    add(MainPageHomeModel(path,uri, title, null, false))
+                    add(MainPageHomeModel(path, uri, title, null, false))
                 }
             }
         }

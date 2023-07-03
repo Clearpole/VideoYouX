@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -27,24 +26,18 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
+import com.drake.tooltip.toast
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.slider.Slider
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
@@ -59,9 +52,6 @@ class MainPlayerActivity : ComponentActivity() {
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
         setContent {
-            var code by remember {
-                mutableStateOf(0)
-            }
             VideoYouXTheme(hideBar = false, darkBar = true) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -136,20 +126,61 @@ class MainPlayerActivity : ComponentActivity() {
                             }
                         })
                     }
-
-                    player.setGSYVideoProgressListener { _, _, currentPosition, duration ->
+                    player.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
                         playNow.text = timeParse(currentPosition)
                         playAll.text = timeParse(duration)
-                        if (currentPosition<=playSlider.valueTo) {
+                        if (currentPosition <= playSlider.valueTo) {
                             playSlider.value = currentPosition.toFloat()
                         }
                     }
+                    playerListenerLogic(this)
                 }
             }
         }
     }
 
-    private fun timeParse(duration: Long): String? {
+    private fun playerListenerLogic(
+        binding: ActivityPlayerBinding? = null,
+        bindingLand: ActivityPlayerLandBinding? = null
+    ) {
+        player.setVideoAllCallBack(object : VideoAllCallBack {
+            override fun onStartPrepared(url: String?, vararg objects: Any?) {
+                if (binding != null) {
+                    binding.playLoading.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onPrepared(url: String?, vararg objects: Any?) {
+                if (binding != null) {
+                    binding.playLoading.visibility = View.GONE
+                }
+            }
+
+            override fun onClickStartIcon(url: String?, vararg objects: Any?) {}
+            override fun onClickStartError(url: String?, vararg objects: Any?) {}
+            override fun onClickStop(url: String?, vararg objects: Any?) {}
+            override fun onClickStopFullscreen(url: String?, vararg objects: Any?) {}
+            override fun onClickResume(url: String?, vararg objects: Any?) {}
+            override fun onClickResumeFullscreen(url: String?, vararg objects: Any?) {}
+            override fun onClickSeekbar(url: String?, vararg objects: Any?) {}
+            override fun onClickSeekbarFullscreen(url: String?, vararg objects: Any?) {}
+            override fun onAutoComplete(url: String?, vararg objects: Any?) {}
+            override fun onComplete(url: String?, vararg objects: Any?) {}
+            override fun onEnterFullscreen(url: String?, vararg objects: Any?) {}
+            override fun onQuitFullscreen(url: String?, vararg objects: Any?) {}
+            override fun onQuitSmallWidget(url: String?, vararg objects: Any?) {}
+            override fun onEnterSmallWidget(url: String?, vararg objects: Any?) {}
+            override fun onTouchScreenSeekVolume(url: String?, vararg objects: Any?) {}
+            override fun onTouchScreenSeekPosition(url: String?, vararg objects: Any?) {}
+            override fun onTouchScreenSeekLight(url: String?, vararg objects: Any?) {}
+            override fun onPlayError(url: String?, vararg objects: Any?) {}
+            override fun onClickStartThumb(url: String?, vararg objects: Any?) {}
+            override fun onClickBlank(url: String?, vararg objects: Any?) {}
+            override fun onClickBlankFullscreen(url: String?, vararg objects: Any?) {}
+        })
+    }
+
+    private fun timeParse(duration: Long): String {
         var time: String? = ""
         val minute = duration / 60000
         val seconds = duration % 60000
