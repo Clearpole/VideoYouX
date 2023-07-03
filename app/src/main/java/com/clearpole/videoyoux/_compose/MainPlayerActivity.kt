@@ -53,7 +53,6 @@ class MainPlayerActivity : ComponentActivity() {
     private val paths: String by bundle()
     private lateinit var player: EmptyControlVideo
     private lateinit var info: ArrayList<String>
-    private lateinit var coroutine: Job
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DynamicColors.applyToActivityIfAvailable(this)
@@ -74,7 +73,6 @@ class MainPlayerActivity : ComponentActivity() {
             }
             BackHandler {
                 GSYVideoManager.releaseAllVideos()
-                coroutine.cancel()
                 finish()
             }
         }
@@ -113,7 +111,6 @@ class MainPlayerActivity : ComponentActivity() {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
                     playerBack.setOnClickListener {
                         GSYVideoManager.releaseAllVideos()
-                        coroutine.cancel()
                         finish()
                     }
                     playerTitle.text =
