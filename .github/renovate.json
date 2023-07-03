@@ -6,5 +6,10 @@
     "config:base"
   ],
   "automerge": true,
-  "automergeType": "pr"
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "excludePackagePrefixes": ["com.github.CarGuo.GSYVideoPlayer"]
+    }
+  ]
 }
