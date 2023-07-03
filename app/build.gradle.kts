@@ -174,6 +174,6 @@ dependencies {
     implementation(libs.brv)
     implementation(libs.glide)
     implementation(libs.gsyVideoPlayer.java)
-    implementation(libs.gsyVideoPlayer.arm64)
     implementation(libs.androidx.ui.viewbinding)
+    implementation(libs.gsyVideoPlayer.exo2)
 }

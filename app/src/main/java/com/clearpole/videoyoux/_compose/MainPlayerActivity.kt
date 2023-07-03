@@ -51,7 +51,6 @@ class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
     private val uri: String by bundle()
     private val paths: String by bundle()
-    private var requireWhile = true
     private lateinit var player: EmptyControlVideo
     private lateinit var info: ArrayList<String>
     private lateinit var coroutine: Job
@@ -126,33 +125,25 @@ class MainPlayerActivity : ComponentActivity() {
                         }
                         addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
                             override fun onStartTrackingTouch(slider: Slider) {
-                                requireWhile = false
                                 player.onVideoPause()
                             }
 
                             override fun onStopTrackingTouch(slider: Slider) {
-                                player.seekTo(value.toLong())
-                                player.onVideoResume()
-                                requireWhile = true
+                                if (value == 0F) {
+                                    player.seekTo(1L)
+                                    player.onVideoResume()
+                                } else {
+                                    player.seekTo(value.toLong())
+                                    player.onVideoResume()
+                                }
                             }
                         })
                     }
 
-                    playAll.text = timeParse(info[0].toLong())
-                    coroutine = CoroutineScope(Dispatchers.IO).launch {
-                        while (coroutine.isActive) {
-                            if (requireWhile) {
-                                withContext(Dispatchers.Main) {
-                                    val current = player.currentPositionWhenPlaying
-                                    playNow.text = timeParse(current)
-                                    if (current <= info[0].toFloat()) {
-                                        playSlider.value = current.toFloat()
-                                    }
-                                }
-                                delay(500)
-                            }
-                            delay(500)
-                        }
+                    player.setGSYVideoProgressListener { _, _, currentPosition, duration ->
+                        playNow.text = timeParse(currentPosition)
+                        playAll.text = timeParse(duration)
+                        playSlider.value = currentPosition.toFloat()
                     }
                 }
             }
