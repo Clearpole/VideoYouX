@@ -21,7 +21,7 @@ utilcodex = "1.31.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
 compose-bom = "2023.06.01"
-xx-permissions = "16.6"
+xx-permissions = "18.2"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
