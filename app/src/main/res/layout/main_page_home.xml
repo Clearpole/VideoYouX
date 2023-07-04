@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/nested_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:ignore="PrivateResource">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:layout_margin="20dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_rv"
@@ -25,65 +13,6 @@
                 android:fadingEdgeLength="10dp"
                 android:layout_height="196dp"
                 android:clipChildren="false" />
-        </LinearLayout>
-    </LinearLayout>
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:fitsSystemWindows="true">
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/page_home_search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/app_name"
-            app:menu="@menu/main_search_view"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.search.SearchView
-        android:id="@+id/cat_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="@string/app_name"
-        app:commitIcon="@drawable/baseline_search_24"
-        app:layout_anchor="@id/page_home_search_bar">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
-
-            <RelativeLayout
-                android:id="@+id/cat_search_view_suggestion_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="40dp"
-                        android:src="@drawable/outline_info_24"
-                        app:tint="@color/grey" />
-
-                    <TextView
-                        android:id="@+id/main_searchView_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:layout_marginBottom="60dp"
-                        android:text="可输入视频直链，本地视频绝对路径，或视频名称" />
-                </LinearLayout>
-            </RelativeLayout>
-        </ScrollView>
-    </com.google.android.material.search.SearchView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
