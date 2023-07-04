@@ -149,6 +149,7 @@ class MainActivity :
         pagesList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
+            // wuhu
         }
     }
 
