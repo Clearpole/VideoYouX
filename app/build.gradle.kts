@@ -150,7 +150,7 @@ fun getGitHeadRefsSuffix(project: Project): String {
             // 示例："90312cd9157587d11779ed7be776e3220050b308\n"
             refFile.readText(Charsets.UTF_8).replace(Regex("""\s"""), "").subSequence(0, 8)
         } else {
-            string.substring(0, 7)
+            string.substring(0, 8)
         }
         println("commit_id: $result")
         return "$result"
