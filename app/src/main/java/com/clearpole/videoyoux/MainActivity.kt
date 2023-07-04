@@ -26,9 +26,11 @@ import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
 import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.google.android.material.search.SearchView.TransitionState
+import com.google.android.material.textview.MaterialTextView
 import com.gyf.immersionbar.ImmersionBar
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.cache.CacheFactory
@@ -40,6 +42,7 @@ import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
@@ -96,7 +99,7 @@ class MainActivity :
         PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
         val list = arrayListOf(
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1),
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 3),
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1),
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1),
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0)
@@ -149,7 +152,34 @@ class MainActivity :
         pagesList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
-            // wuhu
+            homeTitleAnim(findViewById(R.id.home_title_last),findViewById(R.id.home_title_x))
+        }
+    }
+
+    private fun homeTitleAnim(titleViewLast:MaterialTextView,titleViewNext: MaterialTextView){
+        val disAppear = AnimationUtils.loadAnimation(this,R.anim.disappear_appear)
+        val appearDis = AnimationUtils.loadAnimation(this,R.anim.appear_disappear)
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(600)
+            withContext(Dispatchers.Main){
+                titleViewLast.visibility = View.VISIBLE
+                titleViewNext.visibility = View.VISIBLE
+                titleViewLast.startAnimation(disAppear)
+                titleViewNext.startAnimation(disAppear)
+            }
+            delay(600)
+            withContext(Dispatchers.Main){
+                titleViewLast.startAnimation(appearDis)
+                titleViewNext.startAnimation(appearDis)
+                titleViewLast.visibility = View.GONE
+                titleViewNext.visibility = View.GONE
+            }
+            delay(600)
+            withContext(Dispatchers.Main){
+                titleViewLast.text = "主页"
+                titleViewLast.visibility = View.VISIBLE
+                titleViewLast.startAnimation(disAppear)
+            }
         }
     }
 
@@ -217,6 +247,11 @@ class MainActivity :
                             getDrawableRes(R.drawable.outline_list_24)
                         this.menu.getItem(4).icon =
                             getDrawableRes(R.drawable.outline_settings_24)
+                        true
+                    }
+
+                    R.id.menu_screen_page3 -> {
+                        toast("咕咕咕")
                         true
                     }
 

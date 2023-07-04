@@ -13,4 +13,6 @@
     <string name="back">back</string>
     <string name="pause_play">pause/play</string>
     <string name="notimportant">notImportant</string>
+    <string name="videoyou">VideoYou</string>
+    <string name="x">X</string>
 </resources>

@@ -12,6 +12,8 @@
         android:id="@+id/screen_home_bottomView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemBackground="@null"
+        app:itemRippleColor="@null"
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="auto"
         app:menu="@menu/menu_screen_home" />

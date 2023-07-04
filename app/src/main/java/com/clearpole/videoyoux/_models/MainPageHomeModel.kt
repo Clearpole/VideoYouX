@@ -1,5 +1,6 @@
 package com.clearpole.videoyoux._models
 
+import android.annotation.SuppressLint
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -9,6 +10,9 @@ import com.clearpole.videoyoux._compose.MainPlayerActivity
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
+import com.google.android.material.animation.AnimationUtils
+import com.google.android.material.carousel.MaskableFrameLayout
+import com.google.android.material.math.MathUtils.lerp
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +28,7 @@ open class MainPageHomeModel(
     private val videoPlayer: StandardGSYVideoPlayer?,
     private val land: Boolean
 ) : ItemBind {
+    @SuppressLint("RestrictedApi")
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
         CoroutineScope(Dispatchers.IO).launch {
             val load = Glide.with(holder.context).load(uri)
@@ -54,6 +59,10 @@ open class MainPageHomeModel(
                     }
                 } else {
                     holder.getBinding<MainPageCarouselItemBinding>().apply {
+                        (holder.itemView as MaskableFrameLayout).setOnMaskChangedListener {
+                            carouselMask.translationX = it.left
+                            carouselMask.alpha = AnimationUtils.lerp(1F,0F,0F,80F,it.left)
+                        }
                         load.into(carouselImageView)
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled

@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/color_black_transparent"
+            android:background="@drawable/color_dark_system_mask"
             android:gravity="bottom"
             android:orientation="vertical">
 

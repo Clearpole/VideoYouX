@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+    android:foreground="@drawable/system_light_ripple"
+    app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
 
     <ImageView
         android:id="@+id/carousel_image_view"
@@ -17,32 +17,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/color_black_transparent"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:background="@drawable/color_dark_system_mask">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:textSize="17sp"
-            android:ellipsize="middle"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginEnd="20dp"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/subTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:maxLines="1"
-            android:textSize="15sp"
-            android:ellipsize="middle"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="20dp"/>
+        <LinearLayout
+            android:id="@+id/carousel_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="2dp"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.carousel.MaskableFrameLayout>

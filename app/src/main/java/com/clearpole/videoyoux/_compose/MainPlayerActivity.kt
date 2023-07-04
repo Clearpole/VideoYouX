@@ -77,6 +77,7 @@ class MainPlayerActivity : ComponentActivity() {
                 player = this
                 player.startPlayLogic()
             }
+            
         })
     }
 

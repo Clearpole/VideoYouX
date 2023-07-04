@@ -33,6 +33,7 @@ fun buildInfo(type: String): Any? {
 android {
     namespace = "com.clearpole.videoyoux"
     compileSdk = 34
+    //compileSdkPreview = ""
     defaultConfig {
         applicationId = namespace
         minSdk = 24

@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.VideoYou" parent="Base.Theme.VideoYou" />
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/BottomNavigationView</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="">
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+    </style>
 </resources>
