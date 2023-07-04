@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/player_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/player_back"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="60dp"
-        android:contentDescription="@string/back"
-        android:foreground="@drawable/ripple"
-        android:src="@drawable/round_arrow_back_24"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/notimportant"
+        app:icon="@drawable/round_arrow_back_24"
+        app:iconSize="25dp"
+        app:iconTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +23,7 @@
         android:id="@+id/player_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="3dp"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -45,7 +47,7 @@
         android:id="@+id/play_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/play_slider"
@@ -55,7 +57,7 @@
         android:id="@+id/play_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/play_slider"
@@ -65,66 +67,82 @@
         android:id="@+id/play_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="12dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@id/pause_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_before"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="24dp"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/pause_play"
-        android:src="@drawable/round_navigate_before_24"
+        app:icon="@drawable/round_navigate_before_24"
+        app:iconSize="25dp"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/pause_play" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/pause_play"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="24dp"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/pause_play"
-        android:src="@drawable/round_pause_24"
+        app:icon="@drawable/round_pause_24"
+        app:iconSize="25dp"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/play_next" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_next"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="14dp"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/pause_play"
-        android:src="@drawable/round_navigate_next_24"
+        app:icon="@drawable/round_navigate_next_24"
+        app:iconSize="25dp"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_list"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="24dp"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:contentDescription="@string/pause_play"
-        android:src="@drawable/round_format_list_bulleted_24"
+        app:icon="@drawable/round_format_list_bulleted_24"
+        app:iconSize="26dp"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/play_pip"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/play_pip"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:ignore="TouchTargetSizeCheck" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pip"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/pause_play"
-        android:src="@drawable/round_picture_in_picture_alt_24"
+        app:icon="@drawable/round_picture_in_picture_alt_24"
+        app:iconSize="24dp"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/play_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>

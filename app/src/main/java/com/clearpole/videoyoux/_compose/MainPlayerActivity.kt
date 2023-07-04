@@ -173,7 +173,9 @@ class MainPlayerActivity : ComponentActivity() {
             override fun onTouchScreenSeekVolume(url: String?, vararg objects: Any?) {}
             override fun onTouchScreenSeekPosition(url: String?, vararg objects: Any?) {}
             override fun onTouchScreenSeekLight(url: String?, vararg objects: Any?) {}
-            override fun onPlayError(url: String?, vararg objects: Any?) {}
+            override fun onPlayError(url: String?, vararg objects: Any?) {
+                toast("播放错误")
+            }
             override fun onClickStartThumb(url: String?, vararg objects: Any?) {}
             override fun onClickBlank(url: String?, vararg objects: Any?) {}
             override fun onClickBlankFullscreen(url: String?, vararg objects: Any?) {}

@@ -12,4 +12,5 @@
     <string name="title_activity_main_player">MainPlayerActivity</string>
     <string name="back">back</string>
     <string name="pause_play">pause/play</string>
+    <string name="notimportant">notImportant</string>
 </resources>
