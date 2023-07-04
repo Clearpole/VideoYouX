@@ -12,10 +12,15 @@
     <item
         android:id="@+id/menu_screen_page3"
         android:enabled="true"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/search"/>
+    <item
+        android:id="@+id/menu_screen_page4"
+        android:enabled="true"
         android:icon="@drawable/outline_list_24"
         android:title="@string/play"/>
     <item
-        android:id="@+id/menu_screen_page4"
+        android:id="@+id/menu_screen_page5"
         android:enabled="true"
         android:icon="@drawable/outline_settings_24"
         android:title="@string/settings"/>

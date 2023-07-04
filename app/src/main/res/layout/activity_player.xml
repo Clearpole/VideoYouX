@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/black_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33000000"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/player_back"
         style="?attr/materialIconButtonStyle"
@@ -18,6 +26,7 @@
         app:iconTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/player_title"
@@ -42,6 +51,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:trackCornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/play_pause"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/round_play_arrow_24"
+        app:iconSize="45dp"
+        app:iconTint="@android:color/system_accent1_600"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="s" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/play_now"

@@ -61,10 +61,10 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-            CoroutineScope(Dispatchers.IO).launch {
+           /* CoroutineScope(Dispatchers.IO).launch {
                 refreshMediaData()
                 cancel()
-            }
+            }*/
             if (landScape) {
                 startRailView()
                 viewPagerLand()
@@ -95,19 +95,11 @@ class MainActivity :
     private fun videoPlayer() {
         PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
-        CacheFactory.setCacheManager(ProxyCacheManager::class.java)
         val list = arrayListOf(
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5
-            ),
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 0
-            ),
-            VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER,
-                "enable-accurate-seek",
-                1
-            )
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1),
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1),
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1),
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0)
         )
         GSYVideoManager.instance().optionModelList = list
     }
@@ -276,9 +268,9 @@ class MainActivity :
                         it.icon = getDrawableRes(R.drawable.baseline_home_24)
                         this.menu.getItem(1).icon =
                             getDrawableRes(R.drawable.outline_folder_24)
-                        this.menu.getItem(2).icon =
-                            getDrawableRes(R.drawable.outline_list_24)
                         this.menu.getItem(3).icon =
+                            getDrawableRes(R.drawable.outline_list_24)
+                        this.menu.getItem(4).icon =
                             getDrawableRes(R.drawable.outline_settings_24)
                         true
                     }
@@ -288,32 +280,32 @@ class MainActivity :
                         it.icon = getDrawableRes(R.drawable.baseline_folder_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
-                        this.menu.getItem(2).icon =
+                        this.menu.getItem(3).icon =
                             getDrawableRes(R.drawable.outline_list_24)
-                        this.menu.getItem(3).icon =
-                            getDrawableRes(R.drawable.outline_settings_24)
-                        true
-                    }
-
-                    R.id.menu_screen_page3 -> {
-                        binding.screenHomePagerView.setCurrentItem(2, true)
-                        this.menu.getItem(0).icon =
-                            getDrawableRes(R.drawable.outline_home_24)
-                        this.menu.getItem(1).icon =
-                            getDrawableRes(R.drawable.outline_folder_24)
-                        this.menu.getItem(3).icon =
+                        this.menu.getItem(4).icon =
                             getDrawableRes(R.drawable.outline_settings_24)
                         true
                     }
 
                     R.id.menu_screen_page4 -> {
-                        binding.screenHomePagerView.setCurrentItem(3, true)
+                        binding.screenHomePagerView.setCurrentItem(2, true)
+                        this.menu.getItem(0).icon =
+                            getDrawableRes(R.drawable.outline_home_24)
+                        this.menu.getItem(1).icon =
+                            getDrawableRes(R.drawable.outline_folder_24)
+                        this.menu.getItem(4).icon =
+                            getDrawableRes(R.drawable.outline_settings_24)
+                        true
+                    }
+
+                    R.id.menu_screen_page5 -> {
+                        binding.screenHomePagerView.setCurrentItem(4, true)
                         it.icon = getDrawableRes(R.drawable.baseline_settings_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
                         this.menu.getItem(1).icon =
                             getDrawableRes(R.drawable.outline_folder_24)
-                        this.menu.getItem(2).icon =
+                        this.menu.getItem(3).icon =
                             getDrawableRes(R.drawable.outline_list_24)
                         true
                     }
