@@ -72,7 +72,7 @@ class MainPlayerActivity : ComponentActivity() {
     fun VideoPlayer(mThis: MainPlayerActivity) {
         AndroidView(factory = {
             EmptyControlVideo(it).apply {
-                GSYVideoOptionBuilder().setCacheWithPlay(true).setUrl(uri).setLooping(true)
+                GSYVideoOptionBuilder().setUrl(uri).setLooping(true)
                     .build(this)
                 player = this
                 player.startPlayLogic()

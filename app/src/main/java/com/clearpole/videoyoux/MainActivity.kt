@@ -101,7 +101,7 @@ class MainActivity :
                 IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5
             ),
             VideoOptionModel(
-                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1
+                IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 0
             ),
             VideoOptionModel(
                 IjkMediaPlayer.OPT_CATEGORY_PLAYER,
@@ -172,7 +172,7 @@ class MainActivity :
                     when (it.itemId) {
                         R.id.main_searchView_refresh -> {
                             CoroutineScope(Dispatchers.IO).launch {
-                               refreshMediaData()
+                                refreshMediaData()
                                 withContext(Dispatchers.Main) {
                                     logicList(rv)
                                 }
