@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -32,7 +30,6 @@ import androidx.core.animation.doOnEnd
 import com.clearpole.videoyoux.Values.isSystem
 import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
-import com.clearpole.videoyoux._utils.AnimSlider
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
@@ -143,10 +140,9 @@ class MainPlayerActivity : ComponentActivity() {
                                     ObjectAnimator.ofFloat(
                                         slider,
                                         "value",
-                                        if (value < 980) 0f else value - 980f,
+                                        if (value < 990) 0f else value - 990f,
                                         value
                                     )
-                                anim.duration = 980
                                 anim.start()
                                 anim.doOnEnd { isSystem = false }
                             }
