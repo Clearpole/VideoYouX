@@ -45,6 +45,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
@@ -140,11 +141,14 @@ class MainPlayerActivity : ComponentActivity() {
                                     ObjectAnimator.ofFloat(
                                         slider,
                                         "value",
-                                        if (value < 990) 0f else value - 990f,
+                                        if (value < 990f) 0f else value - 990f,
                                         value
                                     )
-                                anim.start()
-                                anim.doOnEnd { isSystem = false }
+                                try {
+                                    anim.start()
+                                    anim.doOnEnd { isSystem = false }
+                                } catch (_: Exception) {
+                                }
                             }
                         }
                     }
@@ -152,7 +156,6 @@ class MainPlayerActivity : ComponentActivity() {
                         playNow.text = timeParse(currentPosition)
                         playAll.text = timeParse(duration)
                         playSlider.value = currentPosition.toFloat()
-                        Log.i(TAG, "ControlLayout: $currentPosition")
                     }
                     playerListenerLogic(this)
                 }
