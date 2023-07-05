@@ -10,6 +10,7 @@ import com.clearpole.videoyoux._compose.MainPlayerActivity
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
+import com.drake.tooltip.toast
 import com.google.android.material.animation.AnimationUtils
 import com.google.android.material.carousel.MaskableFrameLayout
 import com.google.android.material.math.MathUtils.lerp
@@ -72,6 +73,10 @@ open class MainPageHomeModel(
                                     "uri" to uri,
                                     "paths" to paths
                                 )
+                            }
+                            carouselItemContainer.setOnLongClickListener {
+                                toast(paths)
+                                true
                             }
                         }
                     }
