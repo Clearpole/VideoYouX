@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
@@ -12,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.clearpole.videoyoux.Develop.TAG
 import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.GuideActivity
 import com.clearpole.videoyoux._models.MainPageHomeModel
@@ -193,14 +195,16 @@ class MainActivity :
 
     private fun logicList(rv: RecyclerView) {
         CoroutineScope(Dispatchers.IO).launch {
-            val data = ReadMediaStore.readVideosData()
-            val model = model(data, false)
-            withContext(Dispatchers.Main) {
-                rv.linear().setup {
-                    it.layoutManager = CarouselLayoutManager()
-                    addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
-                }.models = model
-                rv.setHasFixedSize(true)
+            refreshMediaData().apply {
+                val data = ReadMediaStore.readVideosData()
+                val model = model(data, false)
+                withContext(Dispatchers.Main) {
+                    rv.linear().setup {
+                        it.layoutManager = CarouselLayoutManager()
+                        addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
+                    }.models = model
+                    rv.setHasFixedSize(true)
+                }
             }
         }
     }

@@ -59,18 +59,20 @@ open class MainPageHomeModel(
                     }
                 } else {
                     holder.getBinding<MainPageCarouselItemBinding>().apply {
-                        (holder.itemView as MaskableFrameLayout).setOnMaskChangedListener {
-                            carouselMask.translationX = it.left
-                            carouselMask.alpha = AnimationUtils.lerp(1F,0F,0F,80F,it.left)
-                        }
-                        load.into(carouselImageView)
-                        title.text = titleStringHandled
-                        subTitle.text = subTitleStringHandled
-                        carouselItemContainer.setOnClickListener {
-                            holder.context.openActivity<MainPlayerActivity>(
-                                "uri" to uri,
-                                "paths" to paths
-                            )
+                        if (title.text.isEmpty()) {
+                            (holder.itemView as MaskableFrameLayout).setOnMaskChangedListener {
+                                carouselMask.translationX = it.left
+                                carouselMask.alpha = AnimationUtils.lerp(1F, 0F, 0F, 130F, it.left)
+                            }
+                            load.into(carouselImageView)
+                            title.text = titleStringHandled
+                            subTitle.text = subTitleStringHandled
+                            carouselItemContainer.setOnClickListener {
+                                holder.context.openActivity<MainPlayerActivity>(
+                                    "uri" to uri,
+                                    "paths" to paths
+                                )
+                            }
                         }
                     }
                 }
