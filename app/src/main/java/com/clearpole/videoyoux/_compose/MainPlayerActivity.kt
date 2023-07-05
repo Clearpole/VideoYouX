@@ -1,9 +1,11 @@
 package com.clearpole.videoyoux._compose
 
+import android.animation.ObjectAnimator
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -26,8 +28,11 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.core.animation.doOnEnd
+import com.clearpole.videoyoux.Values.isSystem
 import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
+import com.clearpole.videoyoux._utils.AnimSlider
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
@@ -38,6 +43,11 @@ import com.google.android.material.slider.Slider
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
@@ -77,7 +87,7 @@ class MainPlayerActivity : ComponentActivity() {
                 player = this
                 player.startPlayLogic()
             }
-            
+
         })
     }
 
@@ -126,13 +136,27 @@ class MainPlayerActivity : ComponentActivity() {
                                 }
                             }
                         })
+                        addOnChangeListener { slider, value, fromUser ->
+                            if (!isSystem && !fromUser) {
+                                isSystem = true
+                                val anim =
+                                    ObjectAnimator.ofFloat(
+                                        slider,
+                                        "value",
+                                        if (value < 980) 0f else value - 980f,
+                                        value
+                                    )
+                                anim.duration = 980
+                                anim.start()
+                                anim.doOnEnd { isSystem = false }
+                            }
+                        }
                     }
-                    player.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
+                    player.setGSYVideoProgressListener { _, _, currentPosition, duration ->
                         playNow.text = timeParse(currentPosition)
                         playAll.text = timeParse(duration)
-                        if (currentPosition <= playSlider.valueTo) {
-                            playSlider.value = currentPosition.toFloat()
-                        }
+                        playSlider.value = currentPosition.toFloat()
+                        Log.i(TAG, "ControlLayout: $currentPosition")
                     }
                     playerListenerLogic(this)
                 }
@@ -177,6 +201,7 @@ class MainPlayerActivity : ComponentActivity() {
             override fun onPlayError(url: String?, vararg objects: Any?) {
                 toast("播放错误")
             }
+
             override fun onClickStartThumb(url: String?, vararg objects: Any?) {}
             override fun onClickBlank(url: String?, vararg objects: Any?) {}
             override fun onClickBlankFullscreen(url: String?, vararg objects: Any?) {}

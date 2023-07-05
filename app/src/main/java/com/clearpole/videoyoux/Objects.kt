@@ -7,6 +7,7 @@ object Develop {
 }
 
 object Values {
+    var isSystem = false
     const val KEY = "vyx-encode-key"
 }
 
