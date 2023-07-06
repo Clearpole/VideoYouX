@@ -31,4 +31,5 @@ class EmptyControlVideo : StandardGSYVideoPlayer {
         //super.touchDoubleUp(e)
         //不需要双击暂停
     }
+
 }

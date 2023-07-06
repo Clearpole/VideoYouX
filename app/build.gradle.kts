@@ -201,5 +201,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.gsyVideoPlayer.java)
     implementation(libs.androidx.ui.viewbinding)
-    implementation(libs.gsyVideoPlayer.arm64)
+    implementation(libs.gsyVideoPlayer.exo2)
 }

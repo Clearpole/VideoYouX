@@ -47,6 +47,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 
@@ -98,7 +99,7 @@ class MainActivity :
     }
 
     private fun videoPlayer() {
-        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
+        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
         val list = arrayListOf(
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 3),

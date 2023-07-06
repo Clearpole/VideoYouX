@@ -83,6 +83,7 @@ class MainPlayerActivity : ComponentActivity() {
                 GSYVideoOptionBuilder().setUrl(uri).setLooping(true)
                     .build(this)
                 player = this
+                player.onPrepared()
                 player.startPlayLogic()
             }
 
@@ -114,6 +115,8 @@ class MainPlayerActivity : ComponentActivity() {
                     }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
+                    var isSliderTouchStop = false
+                    var valueOnStopping = 1f
                     playSlider.apply {
                         valueTo = info[0].toFloat()
                         setLabelFormatter { value: Float ->
@@ -129,33 +132,29 @@ class MainPlayerActivity : ComponentActivity() {
                                     player.seekTo(1L)
                                     player.onVideoResume()
                                 } else {
+                                    isSliderTouchStop = true
+                                    valueOnStopping = value
                                     player.seekTo(value.toLong())
                                     player.onVideoResume()
                                 }
                             }
                         })
-                        addOnChangeListener { slider, value, fromUser ->
-                            if (!isSystem && !fromUser) {
-                                isSystem = true
-                                val anim =
-                                    ObjectAnimator.ofFloat(
-                                        slider,
-                                        "value",
-                                        if (value < 990f) 0f else value - 990f,
-                                        value
-                                    )
-                                try {
-                                    anim.start()
-                                    anim.doOnEnd { isSystem = false }
-                                } catch (_: Exception) {
-                                }
-                            }
-                        }
                     }
                     player.setGSYVideoProgressListener { _, _, currentPosition, duration ->
                         playNow.text = timeParse(currentPosition)
                         playAll.text = timeParse(duration)
-                        playSlider.value = currentPosition.toFloat()
+                        val anim =
+                            ObjectAnimator.ofFloat(
+                                playSlider,
+                                "value",
+                                currentPosition.toFloat(),
+                                if ((currentPosition + 1000f) > playSlider.valueTo) playSlider.valueTo else currentPosition + 1000f
+                            )
+                        try {
+                            anim.start()
+                            anim.doOnEnd { isSystem = false }
+                        } catch (_: Exception) {
+                        }
                     }
                     playerListenerLogic(this)
                 }
