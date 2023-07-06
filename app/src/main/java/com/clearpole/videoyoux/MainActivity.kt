@@ -100,11 +100,9 @@ class MainActivity :
 
     private fun videoPlayer() {
         PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
-        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
         val list = arrayListOf(
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 3),
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1),
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1),
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1),
             VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0)
         )
         GSYVideoManager.instance().optionModelList = list

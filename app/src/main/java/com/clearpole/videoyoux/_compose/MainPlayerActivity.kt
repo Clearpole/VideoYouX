@@ -83,7 +83,6 @@ class MainPlayerActivity : ComponentActivity() {
                 GSYVideoOptionBuilder().setUrl(uri).setLooping(true)
                     .build(this)
                 player = this
-                player.onPrepared()
                 player.startPlayLogic()
             }
 
@@ -115,8 +114,6 @@ class MainPlayerActivity : ComponentActivity() {
                     }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
-                    var isSliderTouchStop = false
-                    var valueOnStopping = 1f
                     playSlider.apply {
                         valueTo = info[0].toFloat()
                         setLabelFormatter { value: Float ->
@@ -132,8 +129,6 @@ class MainPlayerActivity : ComponentActivity() {
                                     player.seekTo(1L)
                                     player.onVideoResume()
                                 } else {
-                                    isSliderTouchStop = true
-                                    valueOnStopping = value
                                     player.seekTo(value.toLong())
                                     player.onVideoResume()
                                 }
