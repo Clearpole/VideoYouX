@@ -6,6 +6,10 @@ object Develop {
     const val TAG = "Vyx"
 }
 
+object Play {
+
+}
+
 object Values {
     var isSystem = false
     const val KEY = "vyx-encode-key"

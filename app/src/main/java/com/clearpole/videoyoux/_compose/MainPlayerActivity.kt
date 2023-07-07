@@ -24,29 +24,29 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
+import com.drake.tooltip.toast
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.slider.Slider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
     private val uri: String by bundle()
     private val paths: String by bundle()
-    private val exoPlayer = ExoPlayer.Builder(this).build()
+    private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exoPlayer = ExoPlayer.Builder(this).build()
         DynamicColors.applyToActivityIfAvailable(this)
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
@@ -71,16 +71,13 @@ class MainPlayerActivity : ComponentActivity() {
     @Composable
     fun VideoPlayer(mThis: MainPlayerActivity) {
         AndroidView(factory = {
-            androidx.media3.ui.PlayerView(it).apply {
+            PlayerView(it).apply {
                 useController = false
-                CoroutineScope(Dispatchers.IO).launch {
-                    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                    exoPlayer.addMediaItem(MediaItem.fromUri(uri))
-                    withContext(Dispatchers.Main){
-                        player = exoPlayer
-                        exoPlayer.playWhenReady = true
-                    }
-                }
+                exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+                exoPlayer.addMediaItem(MediaItem.fromUri(uri))
+                exoPlayer.prepare()
+                exoPlayer.playWhenReady = true
+                player = exoPlayer
             }
         })
     }
@@ -148,6 +145,11 @@ class MainPlayerActivity : ComponentActivity() {
                         binding!!.playLoading.visibility = View.GONE
                     }
                 }
+            }
+
+            override fun onPlayerError(error: PlaybackException) {
+                super.onPlayerError(error)
+                toast("播放错误：$error")
             }
         })
     }
