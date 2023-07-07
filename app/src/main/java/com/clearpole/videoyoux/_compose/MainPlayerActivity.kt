@@ -1,9 +1,11 @@
 package com.clearpole.videoyoux._compose
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -22,6 +24,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
@@ -30,13 +33,17 @@ import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.slider.Slider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
     private val uri: String by bundle()
     private val paths: String by bundle()
-    private lateinit var exoPlayer: ExoPlayer
+    private val exoPlayer = ExoPlayer.Builder(this).build()
     private lateinit var info: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +61,8 @@ class MainPlayerActivity : ComponentActivity() {
                 }
             }
             BackHandler {
+                exoPlayer.stop()
+                exoPlayer.release()
                 finish()
             }
         }
@@ -64,11 +73,14 @@ class MainPlayerActivity : ComponentActivity() {
         AndroidView(factory = {
             androidx.media3.ui.PlayerView(it).apply {
                 useController = false
-                exoPlayer = ExoPlayer.Builder(mThis).build()
-                exoPlayer.addMediaItem(MediaItem.fromUri(uri))
-                player = exoPlayer
-                exoPlayer.prepare()
-                exoPlayer.playWhenReady = true
+                CoroutineScope(Dispatchers.IO).launch {
+                    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+                    exoPlayer.addMediaItem(MediaItem.fromUri(uri))
+                    withContext(Dispatchers.Main){
+                        player = exoPlayer
+                        exoPlayer.playWhenReady = true
+                    }
+                }
             }
         })
     }
@@ -93,6 +105,8 @@ class MainPlayerActivity : ComponentActivity() {
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
                     playerBack.setOnClickListener {
+                        exoPlayer.stop()
+                        exoPlayer.release()
                         finish()
                     }
                     playerTitle.text =
@@ -115,7 +129,6 @@ class MainPlayerActivity : ComponentActivity() {
                             }
                         })
                     }
-
                     playerListenerLogic(this)
                 }
             }
@@ -126,7 +139,17 @@ class MainPlayerActivity : ComponentActivity() {
         binding: ActivityPlayerBinding? = null,
         bindingLand: ActivityPlayerLandBinding? = null
     ) {
-
+        exoPlayer.addListener(object : Player.Listener {
+            @SuppressLint("SwitchIntDef")
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                super.onPlaybackStateChanged(playbackState)
+                when (playbackState) {
+                    Player.STATE_READY -> {
+                        binding!!.playLoading.visibility = View.GONE
+                    }
+                }
+            }
+        })
     }
 
     private fun timeParse(duration: Long): String {
