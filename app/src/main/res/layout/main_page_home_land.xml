@@ -9,10 +9,6 @@
         android:layout_margin="30dp"
         android:layout_toStartOf="@id/home_land_rv_root">
 
-        <com.clearpole.videoyoux._assembly.EmptyControlVideo
-            android:id="@+id/home_land_player"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout

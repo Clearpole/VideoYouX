@@ -3,8 +3,8 @@ accompanist-navigation-animation = "0.30.1"
 brv = "1.4.1"
 com-android-application = "8.2.0-alpha11"
 glide = "4.15.1"
-gsyVideoPlayer = "v8.3.5-release-jitpack"
 immersionbar = "3.2.2"
+media3 = "1.1.0"
 navigation-compose = "2.6.0"
 org-jetbrains-kotlin-android = "1.8.22"
 core-ktx = "1.10.1"
@@ -24,14 +24,15 @@ compose-bom = "2023.06.01"
 xx-permissions = "18.2"
 
 [libraries]
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3" }
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist-navigation-animation" }
 androidx-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "uiViewbinding" }
 brv = { module = "com.github.liangjingkanji:BRV", version.ref = "brv" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-gsyVideoPlayer-java = { module = "com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java", version.ref = "gsyVideoPlayer" }
-gsyVideoPlayer-exo2 = { module = "com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2", version.ref = "gsyVideoPlayer" }
 immersionbar = { module = "com.geyifeng.immersionbar:immersionbar", version.ref = "immersionbar" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }

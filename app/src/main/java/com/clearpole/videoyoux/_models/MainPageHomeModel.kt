@@ -13,9 +13,6 @@ import com.drake.serialize.intent.openActivity
 import com.drake.tooltip.toast
 import com.google.android.material.animation.AnimationUtils
 import com.google.android.material.carousel.MaskableFrameLayout
-import com.google.android.material.math.MathUtils.lerp
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -26,7 +23,6 @@ open class MainPageHomeModel(
     private val paths: String,
     private val uri: String,
     private val titleString: String,
-    private val videoPlayer: StandardGSYVideoPlayer?,
     private val land: Boolean
 ) : ItemBind {
     @SuppressLint("RestrictedApi")
@@ -54,8 +50,7 @@ open class MainPageHomeModel(
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled
                         root.setOnClickListener {
-                            GSYVideoOptionBuilder().setCacheWithPlay(false).setUrl(uri).build(videoPlayer)
-                            videoPlayer!!.startPlayLogic()
+
                         }
                     }
                 } else {

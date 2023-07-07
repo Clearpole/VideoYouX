@@ -4,17 +4,12 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
-import com.clearpole.videoyoux.Develop.TAG
-import com.clearpole.videoyoux._assembly.EmptyControlVideo
 import com.clearpole.videoyoux._compose.GuideActivity
 import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.ReadMediaStore
@@ -28,27 +23,14 @@ import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
 import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.HeroCarouselStrategy
-import com.google.android.material.search.SearchBar
-import com.google.android.material.search.SearchView
-import com.google.android.material.search.SearchView.TransitionState
 import com.google.android.material.textview.MaterialTextView
 import com.gyf.immersionbar.ImmersionBar
-import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.cache.CacheFactory
-import com.shuyu.gsyvideoplayer.cache.ProxyCacheManager
-import com.shuyu.gsyvideoplayer.model.VideoOptionModel
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
-import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
-import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 
 class MainActivity :
@@ -58,7 +40,6 @@ class MainActivity :
         ActivityMainBinding::inflate,
         ActivityMainLandBinding::inflate
     ) {
-    private lateinit var videoPlayer: EmptyControlVideo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -67,10 +48,10 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-           /* CoroutineScope(Dispatchers.IO).launch {
-                refreshMediaData()
-                cancel()
-            }*/
+            /* CoroutineScope(Dispatchers.IO).launch {
+                 refreshMediaData()
+                 cancel()
+             }*/
             if (landScape) {
                 startRailView()
                 viewPagerLand()
@@ -99,13 +80,7 @@ class MainActivity :
     }
 
     private fun videoPlayer() {
-        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
-        val list = arrayListOf(
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1),
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1),
-            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0)
-        )
-        GSYVideoManager.instance().optionModelList = list
+
     }
 
     private fun startRailView() {
@@ -124,7 +99,6 @@ class MainActivity :
         }
         pagesLandList[0].apply {
             val rvLand = findViewById<RecyclerView>(R.id.home_land_rv)
-            videoPlayer = findViewById(R.id.home_land_player)
             CoroutineScope(Dispatchers.IO).launch {
                 val data = ReadMediaStore.readVideosData()
                 val model = model(data, true)
@@ -153,30 +127,30 @@ class MainActivity :
         pagesList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
-            homeTitleAnim(findViewById(R.id.home_title_last),findViewById(R.id.home_title_x))
+            homeTitleAnim(findViewById(R.id.home_title_last), findViewById(R.id.home_title_x))
         }
     }
 
-    private fun homeTitleAnim(titleViewLast:MaterialTextView,titleViewNext: MaterialTextView){
-        val disAppear = AnimationUtils.loadAnimation(this,R.anim.disappear_appear)
-        val appearDis = AnimationUtils.loadAnimation(this,R.anim.appear_disappear)
+    private fun homeTitleAnim(titleViewLast: MaterialTextView, titleViewNext: MaterialTextView) {
+        val disAppear = AnimationUtils.loadAnimation(this, R.anim.disappear_appear)
+        val appearDis = AnimationUtils.loadAnimation(this, R.anim.appear_disappear)
         CoroutineScope(Dispatchers.IO).launch {
             delay(600)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 titleViewLast.visibility = View.VISIBLE
                 titleViewNext.visibility = View.VISIBLE
                 titleViewLast.startAnimation(disAppear)
                 titleViewNext.startAnimation(disAppear)
             }
             delay(600)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 titleViewLast.startAnimation(appearDis)
                 titleViewNext.startAnimation(appearDis)
                 titleViewLast.visibility = View.GONE
                 titleViewNext.visibility = View.GONE
             }
             delay(600)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 titleViewLast.text = "主页"
                 titleViewLast.visibility = View.VISIBLE
                 titleViewLast.startAnimation(disAppear)
@@ -217,9 +191,9 @@ class MainActivity :
                 val path = item[0]
                 val title = element.split("\u001A")[1]
                 if (land) {
-                    add(MainPageHomeModel(path, uri, title, videoPlayer, true))
+
                 } else {
-                    add(MainPageHomeModel(path, uri, title, null, false))
+                    add(MainPageHomeModel(path, uri, title, false))
                 }
             }
         }

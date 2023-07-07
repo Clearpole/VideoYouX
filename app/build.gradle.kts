@@ -199,7 +199,8 @@ dependencies {
     implementation(libs.tooltip)
     implementation(libs.brv)
     implementation(libs.glide)
-    implementation(libs.gsyVideoPlayer.java)
     implementation(libs.androidx.ui.viewbinding)
-    implementation(libs.gsyVideoPlayer.exo2)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.ui)
 }
