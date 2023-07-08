@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
@@ -25,6 +27,7 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.core.animation.doOnEnd
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -164,7 +167,7 @@ class MainPlayerActivity : ComponentActivity() {
                     Player.STATE_READY -> {
                         if (once) {
                             once = false
-                            binding!!.playLoading.visibility = View.GONE
+                            binding.playLoading.visibility = View.GONE
                             playerLifecycleScope = lifecycleScope.launch {
                                 while (true) {
                                     if (requireUpdateUI) {
@@ -198,7 +201,18 @@ class MainPlayerActivity : ComponentActivity() {
             playNow.text = timeParse(currentPosition)
             playAll.text = timeParse(duration)
             playSlider.valueTo = duration.toFloat()
-            playSlider.value = currentPosition.toFloat()
+            val to = currentPosition + 1000f
+            val anim =
+                ObjectAnimator.ofFloat(
+                    binding.playSlider,
+                    "value",
+                    currentPosition.toFloat(),
+                    if (to <= duration) to else duration.toFloat()
+                )
+            anim.start()
+            anim.doOnEnd {
+                anim.cancel()
+            }
         }
     }
 
