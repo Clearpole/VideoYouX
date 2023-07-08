@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -24,7 +25,6 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.core.animation.doOnEnd
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -33,7 +33,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.clearpole.videoyoux.Values
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
@@ -52,6 +51,7 @@ import kotlin.math.roundToInt
 class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
     private var requireUpdateUI = true
+    private var once = true
     private val uri: String by bundle()
     private val paths: String by bundle()
     private lateinit var playerLifecycleScope: Job
@@ -162,15 +162,17 @@ class MainPlayerActivity : ComponentActivity() {
                 super.onPlaybackStateChanged(playbackState)
                 when (playbackState) {
                     Player.STATE_READY -> {
-                        binding!!.playSlider.valueTo = exoPlayer.duration.toFloat()
-                        binding.playLoading.visibility = View.GONE
-                        playerLifecycleScope = lifecycleScope.launch {
-                            while (true) {
-                                if (requireUpdateUI) {
-                                    updateUI(binding = binding)
+                        if (once) {
+                            once = false
+                            binding!!.playLoading.visibility = View.GONE
+                            playerLifecycleScope = lifecycleScope.launch {
+                                while (true) {
+                                    if (requireUpdateUI) {
+                                        updateUI(binding = binding)
+                                        delay(500)
+                                    }
                                     delay(500)
                                 }
-                                delay(500)
                             }
                         }
                     }
@@ -192,17 +194,11 @@ class MainPlayerActivity : ComponentActivity() {
     private fun updateUI(binding: ActivityPlayerBinding) {
         binding.apply {
             val currentPosition = exoPlayer.currentPosition
+            val duration = exoPlayer.duration
             playNow.text = timeParse(currentPosition)
-            playAll.text = timeParse(exoPlayer.duration)
-            val anim =
-                ObjectAnimator.ofFloat(
-                    playSlider,
-                    "value",
-                    currentPosition.toFloat(),
-                    if ((currentPosition + 1000f) > playSlider.valueTo) playSlider.valueTo else currentPosition + 1000f
-                )
-            anim.start()
-            anim.doOnEnd { Values.isSystem = false }
+            playAll.text = timeParse(duration)
+            playSlider.valueTo = duration.toFloat()
+            playSlider.value = currentPosition.toFloat()
         }
     }
 
