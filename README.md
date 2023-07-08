@@ -13,7 +13,14 @@ Vyx 是一款基于最新 Material Desgin 3 设计的视频播放器。
 * And more...
 
 ## 下载渠道
-暂未开通
+[Telegram 频道] (https://t.me/VyxNotice)
+[Telegram CI频道] (https://t.me/VyxCiBuild)
+[QQ 频道] ()
+
+## 讨论交流
+[Telegram 群组] (https://t.me/VyxChatting)
+[QQ 群组] (http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=kuEgTkhx0YOeQVfCHpVCJvJRiZ2zvxlr&authKey=ufq2trrmsXJYXsw8uCP7C%2FN2pDSTyYzToW%2F7DM68pCYWf6%2FDjqW2rd4ImGqBWNLQ&noverify=0&group_code=854785060)
+[QQ 频道] ()
 
 ## LICENSE
     Copyright 2023 Clearpole
