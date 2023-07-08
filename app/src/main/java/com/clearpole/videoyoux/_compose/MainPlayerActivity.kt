@@ -139,6 +139,7 @@ class MainPlayerActivity : ComponentActivity() {
                         }
                         addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
                             override fun onStartTrackingTouch(slider: Slider) {
+                                slider.value = slider.value
                                 requireUpdateUI = false
                                 exoPlayer.pause()
                             }
@@ -167,7 +168,7 @@ class MainPlayerActivity : ComponentActivity() {
                     Player.STATE_READY -> {
                         if (once) {
                             once = false
-                            binding.playLoading.visibility = View.GONE
+                            binding!!.playLoading.visibility = View.GONE
                             playerLifecycleScope = lifecycleScope.launch {
                                 while (true) {
                                     if (requireUpdateUI) {
