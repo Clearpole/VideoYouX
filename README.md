@@ -15,7 +15,7 @@ Vyx 是一款基于最新 Material Desgin 3 设计的视频播放器。
 ## 下载渠道
 [Telegram 频道](https://t.me/VyxNotice)
 
-[Telegram CI频道](https://t.me/VyxCiBuild)
+[Telegram CI 频道](https://t.me/VyxCiBuild)
 
 [QQ 频道]()
 
