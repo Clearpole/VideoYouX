@@ -1,5 +1,6 @@
 package com.clearpole.videoyoux._compose
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -23,30 +24,44 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.core.animation.doOnEnd
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import com.clearpole.videoyoux.Values
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
-import com.drake.tooltip.toast
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
+
+@UnstableApi
 class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
+    private var requireUpdateUI = true
     private val uri: String by bundle()
     private val paths: String by bundle()
+    private lateinit var playerLifecycleScope: Job
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        exoPlayer = ExoPlayer.Builder(this).build()
+        exoPlayer = ExoPlayer.Builder(this)
+            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(true))
+            .build()
         DynamicColors.applyToActivityIfAvailable(this)
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
@@ -56,21 +71,30 @@ class MainPlayerActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    VideoPlayer(mThis = this)
-                    ControlLayout(mThis = this, resources = resources)
+                    VideoPlayer()
+                    ControlLayout(resources = resources)
                 }
             }
             BackHandler {
-                exoPlayer.stop()
-                exoPlayer.release()
-                finish()
+                end()
             }
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        exoPlayer.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        exoPlayer.play()
+    }
+
+
     @Composable
-    fun VideoPlayer(mThis: MainPlayerActivity) {
-        AndroidView(factory = {
+    fun VideoPlayer() {
+        AndroidView(modifier = Modifier.background(Color.Black), factory = {
             PlayerView(it).apply {
                 useController = false
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
@@ -83,7 +107,7 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ControlLayout(mThis: MainPlayerActivity, resources: Resources) {
+    fun ControlLayout(resources: Resources) {
         Box(
             Modifier
                 .fillMaxSize()
@@ -102,27 +126,24 @@ class MainPlayerActivity : ComponentActivity() {
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
                     playerBack.setOnClickListener {
-                        exoPlayer.stop()
-                        exoPlayer.release()
-                        finish()
+                        end()
                     }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
                     playSlider.apply {
-                        valueTo = info[0].toFloat()
                         setLabelFormatter { value: Float ->
-                            return@setLabelFormatter timeParse(value.toLong()).toString()
+                            return@setLabelFormatter timeParse(value.toLong())
                         }
                         addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
                             override fun onStartTrackingTouch(slider: Slider) {
+                                requireUpdateUI = false
+                                exoPlayer.pause()
                             }
 
                             override fun onStopTrackingTouch(slider: Slider) {
-                                if (value == 0F) {
-
-                                } else {
-
-                                }
+                                exoPlayer.seekTo(slider.value.toLong())
+                                exoPlayer.play()
+                                requireUpdateUI = true
                             }
                         })
                     }
@@ -133,8 +154,7 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     private fun playerListenerLogic(
-        binding: ActivityPlayerBinding? = null,
-        bindingLand: ActivityPlayerLandBinding? = null
+        binding: ActivityPlayerBinding? = null
     ) {
         exoPlayer.addListener(object : Player.Listener {
             @SuppressLint("SwitchIntDef")
@@ -142,16 +162,55 @@ class MainPlayerActivity : ComponentActivity() {
                 super.onPlaybackStateChanged(playbackState)
                 when (playbackState) {
                     Player.STATE_READY -> {
-                        binding!!.playLoading.visibility = View.GONE
+                        binding!!.playSlider.valueTo = exoPlayer.duration.toFloat()
+                        binding.playLoading.visibility = View.GONE
+                        playerLifecycleScope = lifecycleScope.launch {
+                            while (true) {
+                                if (requireUpdateUI) {
+                                    updateUI(binding = binding)
+                                    delay(500)
+                                }
+                                delay(500)
+                            }
+                        }
                     }
                 }
             }
 
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
-                toast("播放错误：$error")
+                playerLifecycleScope = lifecycleScope.launch {}
+                MaterialAlertDialogBuilder(this@MainPlayerActivity).setTitle("播放错误")
+                    .setMessage("name:\n${error.errorCodeName}\n\ncode:${error.errorCode}\n\nmessage:\n${error.message}")
+                    .setPositiveButton("退出") { _, _ ->
+                        end()
+                    }.show()
             }
         })
+    }
+
+    private fun updateUI(binding: ActivityPlayerBinding) {
+        binding.apply {
+            val currentPosition = exoPlayer.currentPosition
+            playNow.text = timeParse(currentPosition)
+            playAll.text = timeParse(exoPlayer.duration)
+            val anim =
+                ObjectAnimator.ofFloat(
+                    playSlider,
+                    "value",
+                    currentPosition.toFloat(),
+                    if ((currentPosition + 1000f) > playSlider.valueTo) playSlider.valueTo else currentPosition + 1000f
+                )
+            anim.start()
+            anim.doOnEnd { Values.isSystem = false }
+        }
+    }
+
+    private fun end() {
+        playerLifecycleScope.cancel()
+        exoPlayer.stop()
+        exoPlayer.release()
+        finish()
     }
 
     private fun timeParse(duration: Long): String {
