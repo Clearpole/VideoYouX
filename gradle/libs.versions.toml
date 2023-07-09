@@ -1,5 +1,5 @@
 [versions]
-brv = "1.4.1"
+brv = "1.4.2"
 com-android-application = "8.2.0-alpha11"
 glide = "4.15.1"
 immersionbar = "3.2.2"
