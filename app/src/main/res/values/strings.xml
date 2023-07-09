@@ -15,4 +15,10 @@
     <string name="notimportant">notImportant</string>
     <string name="videoyou">VideoYou</string>
     <string name="x">X</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="get_start">现在开始</string>
+    <string name="next_steps">接下来需要进行的操作：</string>
+    <string name="get_permission">存储空间权限申请</string>
+    <string name="read_write_data_store">数据库读取与写入</string>
+    <string name="exit_videoyoux">退出 VideoYouX</string>
 </resources>

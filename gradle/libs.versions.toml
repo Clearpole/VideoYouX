@@ -1,9 +1,9 @@
 [versions]
-accompanist-navigation-animation = "0.30.1"
 brv = "1.4.1"
 com-android-application = "8.2.0-alpha11"
 glide = "4.15.1"
 immersionbar = "3.2.2"
+lottie = "6.0.1"
 media3 = "1.1.0"
 navigation-compose = "2.6.0"
 org-jetbrains-kotlin-android = "1.8.22"
@@ -28,7 +28,6 @@ androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "medi
 androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist-navigation-animation" }
 androidx-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "uiViewbinding" }
 brv = { module = "com.github.liangjingkanji:BRV", version.ref = "brv" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -52,6 +51,7 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
 androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha11" }
 

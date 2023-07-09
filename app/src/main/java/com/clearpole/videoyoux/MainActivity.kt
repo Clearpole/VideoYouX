@@ -10,7 +10,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
-import com.clearpole.videoyoux._compose.GuideActivity
 import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
@@ -37,8 +36,8 @@ class MainActivity :
     BaseActivity<ActivityMainBinding, ActivityMainLandBinding>(
         isHideStatus = false,
         isLandScape = false,
-        ActivityMainBinding::inflate,
-        ActivityMainLandBinding::inflate
+        inflate = ActivityMainBinding::inflate,
+        inflateLand = ActivityMainLandBinding::inflate
     ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

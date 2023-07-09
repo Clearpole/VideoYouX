@@ -194,7 +194,6 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.accompanist.navigation.animation)
     implementation(libs.xx.permissions)
     implementation(libs.tooltip)
     implementation(libs.brv)
@@ -203,4 +202,5 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.exoplayer.dash)
     implementation(libs.androidx.media3.ui)
+    implementation(libs.lottie)
 }

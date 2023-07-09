@@ -16,12 +16,14 @@ import com.gyf.immersionbar.ImmersionBar
 abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
     val isHideStatus: Boolean,
     val isLandScape: Boolean,
+    val isRequireLightBarText: Boolean? = null,
+    val isRequireDarkBarText: Boolean? = null,
     private val inflate: (LayoutInflater) -> VB,
     private val inflateLand: (LayoutInflater) -> T
 ) : AppCompatActivity() {
     lateinit var binding: VB
     lateinit var bindingLand: T
-    var landScape:Boolean = false
+    var landScape: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -36,16 +38,25 @@ abstract class BaseActivity<VB : ViewBinding, T : ViewBinding>(
             ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)
                 .init()
         } else {
-            ImmersionBar.with(this).transparentBar().statusBarDarkFont(!isNightMode(resources))
+            ImmersionBar.with(this).transparentBar().statusBarDarkFont(
+                if (isRequireLightBarText == true) {
+                    false
+                } else if (isRequireDarkBarText == true) {
+                    true
+                } else {
+                    !isNightMode(resources)
+                }
+            )
                 .init()
         }
-        landScape = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setContentView(bindingLand.root)
-            true
-        } else {
-            setContentView(binding.root)
-            false
-        }
+        landScape =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setContentView(bindingLand.root)
+                true
+            } else {
+                setContentView(binding.root)
+                false
+            }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
