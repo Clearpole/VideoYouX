@@ -1,5 +1,5 @@
 [versions]
-brv = "1.4.1"
+brv = "1.4.2"
 com-android-application = "8.2.0-alpha12"
 glide = "4.15.1"
 immersionbar = "3.2.2"
@@ -19,7 +19,7 @@ tooltip = "1.2.2"
 uiViewbinding = "1.4.3"
 utilcodex = "1.31.1"
 lifecycle-runtime-ktx = "2.6.1"
-activity-compose = "1.7.2"
+activity-compose = "1.8.0-alpha06"
 compose-bom = "2023.06.01"
 xx-permissions = "18.2"
 
@@ -53,7 +53,7 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
-androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha11" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha12" }
 
 [libraries.material]
 group = "com.google.android.material"
