@@ -10,13 +10,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.clearpole.videoyoux._adapter.ViewPagerAdapter
 import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
 import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux.screen_home.Greetings
-import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity

@@ -1,4 +1,4 @@
-package com.clearpole.videoyoux.screen_home
+package com.clearpole.videoyoux._assembly
 
 import android.content.Context
 import android.util.AttributeSet

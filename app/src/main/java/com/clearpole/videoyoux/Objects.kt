@@ -11,6 +11,10 @@ object Values {
     const val KEY = "vyx-encode-key"
 }
 
+object Vars {
+    var guideRequireAnim = true
+}
+
 object Permissions {
     val PERMISSIONS = mutableListOf(Permission.READ_MEDIA_VIDEO)
 }

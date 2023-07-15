@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".GuideActivity">
 
-    <com.clearpole.videoyoux.screen_home.NoSwipeViewPager
+    <com.clearpole.videoyoux._assembly.NoSwipeViewPager
         android:id="@+id/guide_pagerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

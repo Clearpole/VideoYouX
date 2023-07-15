@@ -1,155 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@android:dimen/system_app_widget_background_radius"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:layout_height="match_parent">
+    tools:targetApi="s">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:gravity="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_colorFilter="@color/welcome_primary_color"
-        app:lottie_rawRes="@raw/bc_welcome_bg"/>
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/icon_foreground"
-        app:layout_constraintBottom_toTopOf="@id/guide_welcomeTo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/welcome_primary_color"
-        tools:ignore="ContentDescription"
-        tools:targetApi="s" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_layer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/bc_welcome_bg" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_welcomeTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:text="@string/welcome_to"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="57sp"
-        app:layout_constraintBottom_toTopOf="@id/guide_videoyou"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/icon_foreground"
+            app:layout_constraintBottom_toTopOf="@id/guide_welcomeTo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/welcome_primary_color"
+            tools:ignore="ContentDescription"
+            tools:targetApi="s" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="25dp"
-        android:text="@string/x"
-        android:textColor="@color/welcome_primary_color"
-        android:textSize="57sp"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/guide_videoyou"
-        app:layout_constraintStart_toEndOf="@id/guide_videoyou"
-        tools:targetApi="s" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_welcomeTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/welcome_to"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="57sp"
+            app:layout_constraintBottom_toTopOf="@id/guide_videoyou"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_videoyou"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/videoyou"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="57sp"
-        app:layout_constraintBottom_toTopOf="@id/guide_nextSteps"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/x"
+            android:textColor="@color/welcome_primary_color"
+            android:textSize="57sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/guide_videoyou"
+            app:layout_constraintStart_toEndOf="@id/guide_videoyou"
+            tools:targetApi="s" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_nextSteps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="35dp"
-        android:text="@string/next_steps"
-        android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/guide_permission_icon"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_videoyou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/videoyou"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="57sp"
+            app:layout_constraintBottom_toTopOf="@id/guide_nextSteps"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/guide_permission_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="25dp"
-        android:src="@drawable/outline_verified_user_24"
-        app:layout_constraintBottom_toTopOf="@id/guide_data_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/welcome_primary_color"
-        tools:ignore="ContentDescription"
-        tools:targetApi="s" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_nextSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/next_steps"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/guide_permission_icon"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_permission_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="@string/get_permission"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/guide_permission_icon"
-        app:layout_constraintStart_toEndOf="@id/guide_permission_icon"
-        app:layout_constraintTop_toTopOf="@id/guide_permission_icon" />
+        <ImageView
+            android:id="@+id/guide_permission_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/outline_verified_user_24"
+            app:layout_constraintBottom_toTopOf="@id/guide_data_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/welcome_primary_color"
+            tools:ignore="ContentDescription"
+            tools:targetApi="s" />
 
-    <ImageView
-        android:id="@+id/guide_data_icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="55dp"
-        android:src="@drawable/outline_layers_24"
-        app:layout_constraintBottom_toTopOf="@id/guide_getStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/welcome_primary_color"
-        tools:ignore="ContentDescription"
-        tools:targetApi="s" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_permission_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/get_permission"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/guide_permission_icon"
+            app:layout_constraintStart_toEndOf="@id/guide_permission_icon"
+            app:layout_constraintTop_toTopOf="@id/guide_permission_icon" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_data_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/read_write_data_store"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/guide_data_icon"
-        app:layout_constraintStart_toEndOf="@id/guide_data_icon"
-        app:layout_constraintTop_toTopOf="@id/guide_data_icon" />
+        <ImageView
+            android:id="@+id/guide_data_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="55dp"
+            android:src="@drawable/outline_layers_24"
+            app:layout_constraintBottom_toTopOf="@id/guide_getStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/welcome_primary_color"
+            tools:ignore="ContentDescription"
+            tools:targetApi="s" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/guide_exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:text="@string/exit_videoyoux"
-        android:textColor="@color/welcome_primary_color"
-        app:layout_constraintBottom_toBottomOf="@id/guide_getStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guide_getStart"
-        tools:targetApi="s" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_data_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/read_write_data_store"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/guide_data_icon"
+            app:layout_constraintStart_toEndOf="@id/guide_data_icon"
+            app:layout_constraintTop_toTopOf="@id/guide_data_icon" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/guide_getStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/get_start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/guide_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/exit_videoyoux"
+            android:textColor="@color/welcome_primary_color"
+            app:layout_constraintBottom_toBottomOf="@id/guide_getStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guide_getStart"
+            tools:targetApi="s" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/guide_getStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/get_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

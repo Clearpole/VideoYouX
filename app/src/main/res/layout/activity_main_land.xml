@@ -34,7 +34,7 @@
             app:menuGravity="center" />
     </LinearLayout>
 
-    <com.clearpole.videoyoux.screen_home.NoSwipeViewPager
+    <com.clearpole.videoyoux._assembly.NoSwipeViewPager
         android:id="@+id/screen_home_land_pagerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

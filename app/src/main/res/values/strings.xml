@@ -22,4 +22,6 @@
     <string name="get_permission" translatable="true">存储空间权限申请</string>
     <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
     <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
+    <string name="backStep">返回上一步</string>
+    <string name="nextStep">下一步</string>
 </resources>
