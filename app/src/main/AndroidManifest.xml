@@ -24,9 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoYou"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu">
         <activity
             android:name=".GuideActivity"
+            android:configChanges="uiMode"
             android:exported="false" />
         <activity
             android:name="._compose.MainPlayerActivity"
@@ -34,12 +35,7 @@
             android:exported="false"
             android:label="@string/title_activity_main_player"
             android:theme="@style/Theme.VideoYou" />
-        <activity
-            android:name="._compose.GuideActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:exported="true"
-            android:label="@string/title_activity_guide"
-            android:theme="@style/Theme.VideoYou" />
+
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

@@ -1,22 +1,40 @@
 package com.clearpole.videoyoux
 
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.clearpole.videoyoux.databinding.ActivityGuideBinding
 import com.clearpole.videoyoux.databinding.ActivityGuideLandBinding
 import com.clearpole.videoyoux.screen_home.ViewPagerAdapter
 
+
 class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBinding>(
     isHideStatus = false,
     isLandScape = false,
-    isRequireLightBarText = true,
+    isRequireLightBarText = false,
     inflate = ActivityGuideBinding::inflate,
     inflateLand = ActivityGuideLandBinding::inflate
 ) {
+    private lateinit var pageList: ArrayList<View>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewPager()
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        pageList[0].apply {
+            val monetColor =
+                if (newConfig.uiMode == Configuration.UI_MODE_NIGHT_YES) {
+
+                } else {
+
+                }
+        }
+
+    }
+
 
     private fun viewPager() {
         val view = binding.guidePagerView
@@ -30,8 +48,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
             view.setCanSwipe(false)
         }
 
-        pagesList[0].apply {
-        }
+        pageList = pagesList
     }
 
 }

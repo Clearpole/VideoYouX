@@ -3,17 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_fileName="google-pixel-setup-animation.json"/>
+        app:lottie_colorFilter="@color/welcome_primary_color"
+        app:lottie_rawRes="@raw/bc_welcome_bg"/>
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="12dp"
@@ -21,7 +26,7 @@
         android:src="@drawable/icon_foreground"
         app:layout_constraintBottom_toTopOf="@id/guide_welcomeTo"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/system_accent1_400"
+        app:tint="@color/welcome_primary_color"
         tools:ignore="ContentDescription"
         tools:targetApi="s" />
 
@@ -31,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:text="@string/welcome_to"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="57sp"
         app:layout_constraintBottom_toTopOf="@id/guide_videoyou"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,7 +48,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="25dp"
         android:text="@string/x"
-        android:textColor="@android:color/system_accent1_400"
+        android:textColor="@color/welcome_primary_color"
         android:textSize="57sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/guide_videoyou"
@@ -58,7 +63,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="50dp"
         android:text="@string/videoyou"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="57sp"
         app:layout_constraintBottom_toTopOf="@id/guide_nextSteps"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +75,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="35dp"
         android:text="@string/next_steps"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toTopOf="@id/guide_permission_icon"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -83,7 +88,7 @@
         android:src="@drawable/outline_verified_user_24"
         app:layout_constraintBottom_toTopOf="@id/guide_data_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/system_accent1_200"
+        app:tint="@color/welcome_primary_color"
         tools:ignore="ContentDescription"
         tools:targetApi="s" />
 
@@ -93,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:text="@string/get_permission"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guide_permission_icon"
         app:layout_constraintStart_toEndOf="@id/guide_permission_icon"
@@ -108,7 +113,7 @@
         android:src="@drawable/outline_layers_24"
         app:layout_constraintBottom_toTopOf="@id/guide_getStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/system_accent1_200"
+        app:tint="@color/welcome_primary_color"
         tools:ignore="ContentDescription"
         tools:targetApi="s" />
 
@@ -119,7 +124,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="5dp"
         android:text="@string/read_write_data_store"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guide_data_icon"
         app:layout_constraintStart_toEndOf="@id/guide_data_icon"
@@ -131,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:text="@string/exit_videoyoux"
-        android:textColor="@android:color/system_accent1_200"
+        android:textColor="@color/welcome_primary_color"
         app:layout_constraintBottom_toBottomOf="@id/guide_getStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guide_getStart"

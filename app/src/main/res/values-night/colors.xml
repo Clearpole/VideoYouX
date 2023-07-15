@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="welcome_primary_color" tools:targetApi="s">@android:color/system_accent1_300</color>
+</resources>
