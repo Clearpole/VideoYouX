@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="true">VideoYouX</string>
+    <string name="app_name" translatable="false">VideoYouX</string>
     <string name="home" translatable="true">主页</string>
     <string name="folders" translatable="true">文件夹</string>
     <string name="play" translatable="true">播放</string>
     <string name="settings" translatable="true">设置</string>
     <string name="mainWindow" translatable="true">主窗体</string>
-    <string name="title_activity_guide" translatable="true">GuideActivity</string>
+    <string name="title_activity_guide" translatable="false">GuideActivity</string>
     <string name="search" translatable="true">搜索</string>
-    <string name="title_activity_main2" translatable="true">MainActivity2</string>
+    <string name="title_activity_main2" translatable="false">MainActivity2</string>
     <string name="refresh" translatable="true">刷新</string>
-    <string name="title_activity_main_player" translatable="true">MainPlayerActivity</string>
-    <string name="back" translatable="true">back</string>
-    <string name="pause_play" translatable="true">pause/play</string>
-    <string name="notimportant" translatable="true">notImportant</string>
-    <string name="videoyou" translatable="true">VideoYou</string>
-    <string name="x" translatable="true">X</string>
-    <string name="welcome_to" translatable="true">Welcome to</string>
-    <string name="get_start" translatable="true">现在开始</string>
+    <string name="title_activity_main_player" translatable="false">MainPlayerActivity</string>
+    <string name="back" translatable="false">back</string>
+    <string name="pause_play" translatable="false">pause/play</string>
+    <string name="notimportant" translatable="false">notImportant</string>
+    <string name="videoyou" translatable="false">VideoYou</string>
+    <string name="x" translatable="false">X</string>
+    <string name="welcome_to" translatable="false">Welcome to</string>
+    <string name="get_start">现在开始</string>
     <string name="next_steps" translatable="true">接下来需要进行的操作：</string>
-    <string name="get_permission" translatable="true">存储空间权限申请</string>
+    <string name="get_permission" translatable="true">部分权限申请</string>
     <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
     <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
     <string name="backStep">返回上一步</string>
     <string name="nextStep">下一步</string>
+    <string name="guide_permission_information">为了此开源软件的正常运行，请给予它全部权限。</string>
+    <string name="permission_use_storage">用于扫描您手机上的视频</string>
+    <string name="read_video_permission">媒体文件访问权限</string>
 </resources>

@@ -21,7 +21,7 @@ fun buildInfo(type: String): Any? {
         }
 
         "subVersion" -> {
-            return "Canary04"
+            return "Canary05"
         }
 
         else -> {

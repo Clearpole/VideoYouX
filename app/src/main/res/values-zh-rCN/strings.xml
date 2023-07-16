@@ -19,7 +19,8 @@
     <string name="welcome_to" translatable="true">Welcome to</string>
     <string name="get_start" translatable="true">现在开始</string>
     <string name="next_steps" translatable="true">接下来需要进行的操作：</string>
-    <string name="get_permission" translatable="true">存储空间权限申请</string>
+    <string name="get_permission" translatable="true">部分权限申请</string>
     <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
     <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
+    <string name="read_video_permission">媒体文件访问权限</string>
 </resources>
