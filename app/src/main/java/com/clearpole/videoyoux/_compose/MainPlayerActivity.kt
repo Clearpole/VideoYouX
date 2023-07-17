@@ -1,33 +1,35 @@
 package com.clearpole.videoyoux._compose
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.core.animation.doOnEnd
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -37,13 +39,13 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
+import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.slider.Slider
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,6 +62,8 @@ class MainPlayerActivity : ComponentActivity() {
     private lateinit var playerLifecycleScope: Job
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
+
+    private lateinit var playerSliderV2ViewModel: PlayerSliderV2ViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exoPlayer = ExoPlayer.Builder(this)
@@ -68,6 +72,7 @@ class MainPlayerActivity : ComponentActivity() {
         DynamicColors.applyToActivityIfAvailable(this)
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
+        playerSliderV2ViewModel = ViewModelProvider(this)[PlayerSliderV2ViewModel::class.java]
         setContent {
             VideoYouXTheme(hideBar = false, darkBar = true) {
                 Surface(
@@ -118,8 +123,28 @@ class MainPlayerActivity : ComponentActivity() {
         ) {
             // @formatter:off
             Column(Modifier.fillMaxSize()) {
-                Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))).weight(1f,true)) {}
-                Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Transparent,Color.Black.copy(alpha = 0.5f)))).weight(1f,true)) {}
+                Column(modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                Color.Black.copy(alpha = 0.5f),
+                                Color.Transparent
+                            )
+                        )
+                    )
+                    .weight(1f, true)) {}
+                Column(modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                Color.Transparent,
+                                Color.Black.copy(alpha = 0.5f)
+                            )
+                        )
+                    )
+                    .weight(1f, true)) {}
             }
             // @formatter:on
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -133,7 +158,8 @@ class MainPlayerActivity : ComponentActivity() {
                     }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
-                    playSlider.apply {
+                    playSliderV2.apply {
+                        /*
                         setLabelFormatter { value: Float ->
                             return@setLabelFormatter timeParse(value.toLong())
                         }
@@ -150,6 +176,28 @@ class MainPlayerActivity : ComponentActivity() {
                                 requireUpdateUI = true
                             }
                         })
+                        */
+                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        setContent {
+                            var progress by remember {
+                                playerSliderV2ViewModel.nowPosition
+                            }
+                            var maxPosition by remember {
+                                playerSliderV2ViewModel.maxPosition
+                            }
+                            val animatedProgress by animateFloatAsState(
+                                targetValue = progress,
+                            )
+                            Slider(value = animatedProgress, onValueChange = {
+                                                                             playerSliderV2ViewModel.valueChanging.value = true
+                                playerSliderV2ViewModel.nowPosition.value = it
+                            }, valueRange = 0f..maxPosition,
+                            onValueChangeFinished = {
+                                playerSliderV2ViewModel.valueChanging.value = false
+                                exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
+                                exoPlayer.play()
+                            })
+                        }
                     }
                     playerListenerLogic(this)
                 }
@@ -171,11 +219,23 @@ class MainPlayerActivity : ComponentActivity() {
                             binding!!.playLoading.visibility = View.GONE
                             playerLifecycleScope = lifecycleScope.launch {
                                 while (true) {
+                                    /*
                                     if (requireUpdateUI) {
                                         updateUI(binding = binding)
                                         delay(500)
                                     }
                                     delay(500)
+                                    */
+                                    if (playerSliderV2ViewModel.valueChanging.value) {
+                                        updateUI(binding = binding)
+                                        delay(50)
+                                    }else{
+                                        if (requireUpdateUI) {
+                                            updateUI(binding = binding)
+                                            delay(500)
+                                        }
+                                        delay(500)
+                                    }
                                 }
                             }
                         }
@@ -199,8 +259,14 @@ class MainPlayerActivity : ComponentActivity() {
         binding.apply {
             val currentPosition = exoPlayer.currentPosition
             val duration = exoPlayer.duration
-            playNow.text = timeParse(currentPosition)
+            playNow.text = if (playerSliderV2ViewModel.valueChanging.value){
+                timeParse(playerSliderV2ViewModel.nowPosition.value.toLong())
+            }else{
+                playerSliderV2ViewModel.nowPosition.value = currentPosition.toFloat()
+                timeParse(currentPosition)
+            }
             playAll.text = timeParse(duration)
+            /*
             playSlider.valueTo = duration.toFloat()
             val to = currentPosition + 1000f
             val anim =
@@ -213,6 +279,11 @@ class MainPlayerActivity : ComponentActivity() {
             anim.start()
             anim.doOnEnd {
                 anim.cancel()
+            }
+            */
+            val thisMaxPosition = exoPlayer.duration.toFloat()
+            if (thisMaxPosition >= 0) {
+                playerSliderV2ViewModel.maxPosition.value = thisMaxPosition
             }
         }
     }
