@@ -1,16 +1,22 @@
 package com.clearpole.videoyoux._compose
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.LinearInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,12 +31,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.core.animation.doOnEnd
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
@@ -40,6 +48,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
 import com.clearpole.videoyoux._utils.VideoInfo
@@ -48,11 +57,11 @@ import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 
 @UnstableApi
@@ -73,6 +82,7 @@ class MainPlayerActivity : ComponentActivity() {
             .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(true))
             .build()
         DynamicColors.applyToActivityIfAvailable(this)
+        playerLifecycleScope = lifecycleScope.launch {}
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(paths, requiredParams)
         playerSliderV2ViewModel = ViewModelProvider(this)[PlayerSliderV2ViewModel::class.java]
@@ -105,7 +115,8 @@ class MainPlayerActivity : ComponentActivity() {
 
     @Composable
     fun VideoPlayer() {
-        AndroidView(modifier = Modifier.background(Color.Black), factory = {
+        AndroidView(modifier = Modifier
+            .background(Color.Black), factory = {
             PlayerView(it).apply {
                 useController = false
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
@@ -124,76 +135,86 @@ class MainPlayerActivity : ComponentActivity() {
                 .fillMaxSize()
                 .layoutId(LocalConfiguration.current)
         ) {
-            // @formatter:off
-            Column(Modifier.fillMaxSize()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.verticalGradient(
-                                listOf(
-                                    Color.Black.copy(alpha = 0.5f),
-                                    Color.Transparent
-                                )
-                            )
-                        )
-                        .weight(1f, true)
-                ) {}
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.verticalGradient(
-                                listOf(
-                                    Color.Transparent,
-                                    Color.Black.copy(alpha = 0.5f)
-                                )
-                            )
-                        )
-                        .weight(1f, true)
-                ) {}
-            }
-            // @formatter:on
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 AndroidViewBinding(factory = ActivityPlayerLandBinding::inflate) {
 
                 }
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
+                    playMask.apply {
+                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        setContent {
+                            // @formatter:off
+                            Column(Modifier.fillMaxSize()) { Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))).weight(1f, true)) {}
+                            Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.5f)))).weight(1f, true)) {}}
+                            // @formatter:on
+                        }
+                    }
                     playerBack.setOnClickListener {
                         end()
+                    }
+                    playPause.setOnClickListener {
+                        playPause(this@AndroidViewBinding)
+                    }
+                    pausePlay.setOnClickListener {
+                        playPause(this)
+                    }
+                    playPrimaryControlLayer.apply {
+                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        setContent {
+                            Box(modifier = Modifier
+                                .fillMaxSize()
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onTap = {
+                                            playControlUiLayer.visibility.apply {
+                                                AlphaAnimation(
+                                                    if (this == View.VISIBLE) 1f else 0f,
+                                                    if (this == View.VISIBLE) 0f else 1f
+                                                ).apply {
+                                                    duration = 110
+                                                    playControlUiLayer.startAnimation(this)
+                                                }
+                                                playControlUiLayer.visibility =
+                                                    if (this == View.VISIBLE) {
+                                                        ImmersionBar
+                                                            .with(this@MainPlayerActivity)
+                                                            .hideBar(BarHide.FLAG_HIDE_BAR)
+                                                            .init()
+                                                        View.GONE
+                                                    } else {
+                                                        ImmersionBar
+                                                            .with(this@MainPlayerActivity)
+                                                            .hideBar(BarHide.FLAG_SHOW_BAR)
+                                                            .init()
+                                                        View.VISIBLE
+                                                    }
+                                            }
+                                        },
+                                        onDoubleTap = {
+                                            playPause(this@AndroidViewBinding)
+                                        },
+                                        onLongPress = {
+
+                                        }
+                                    )
+                                }) {
+                            }
+                        }
                     }
                     playerTitle.text =
                         paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
                     playSliderV2.apply {
-                        /*
-                        setLabelFormatter { value: Float ->
-                            return@setLabelFormatter timeParse(value.toLong())
-                        }
-                        addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
-                            override fun onStartTrackingTouch(slider: Slider) {
-                                slider.value = slider.value
-                                requireUpdateUI = false
-                                exoPlayer.pause()
-                            }
-
-                            override fun onStopTrackingTouch(slider: Slider) {
-                                exoPlayer.seekTo(slider.value.toLong())
-                                exoPlayer.play()
-                                requireUpdateUI = true
-                            }
-                        })
-                        */
                         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {
-                            var progress by remember {
+                            val progress by remember {
                                 playerSliderV2ViewModel.nowPosition
                             }
-                            var maxPosition by remember {
+                            val maxPosition by remember {
                                 playerSliderV2ViewModel.maxPosition
                             }
                             val animatedProgress by animateFloatAsState(
-                                targetValue = progress,
+                                targetValue = progress, label = "",
                             )
                             Slider(
                                 value = animatedProgress, onValueChange = {
@@ -205,7 +226,6 @@ class MainPlayerActivity : ComponentActivity() {
                                 onValueChangeFinished = {
                                     playerSliderV2ViewModel.valueChanging.value = false
                                     exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
-                                    //exoPlayer.play()
                                     requireUpdateUI = true
                                 },
                                 modifier = Modifier.padding(horizontal = 10.dp)
@@ -218,8 +238,60 @@ class MainPlayerActivity : ComponentActivity() {
         }
     }
 
+    private fun playPause(binding: ActivityPlayerBinding){
+        if (exoPlayer.isPlaying){
+            exoPlayer.pause()
+            playPauseView(binding,true)
+        } else {
+            exoPlayer.play()
+            playPauseView(binding,false)
+        }
+    }
+
+    private fun playPauseView(binding: ActivityPlayerBinding,isPlaying:Boolean){
+        val playIcon = AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_play_arrow_24)
+        val pauseIcon = AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_pause_24)
+        AnimatorSet().apply {
+            interpolator = LinearInterpolator()
+            playTogether(
+                ObjectAnimator
+                    .ofFloat(
+                        binding!!.playPause,
+                        "translationY",
+                        if (isPlaying) 50f else 1f,
+                        if (isPlaying) 1f else -50f
+                    )
+                    .apply { duration = 50 },
+                ObjectAnimator
+                    .ofFloat(
+                        binding.playPause,
+                        "alpha",
+                        if (isPlaying) 0f else 1f,
+                        if (isPlaying) 1f else 0f
+                    )
+                    .apply { duration = 50 }
+            )
+            if (isPlaying){
+                exoPlayer.pause()
+                binding.playPause.visibility = View.VISIBLE
+                binding.pausePlay.icon = playIcon
+            }else{
+                exoPlayer.play()
+            }
+            start()
+            doOnEnd {
+                if (!isPlaying){
+                    binding.pausePlay.icon = pauseIcon
+                    binding.playPause.visibility = View.GONE
+                }
+                cancel()
+            }
+        }
+    }
+
     private fun playerListenerLogic(
-        binding: ActivityPlayerBinding? = null
+        binding: ActivityPlayerBinding? = null,
+        bindingLand: ActivityPlayerLandBinding? = null
     ) {
         exoPlayer.addListener(object : Player.Listener {
             @SuppressLint("SwitchIntDef")
@@ -267,21 +339,6 @@ class MainPlayerActivity : ComponentActivity() {
                 timeParse(currentPosition)
             }
             playAll.text = timeParse(duration)
-            /*
-            playSlider.valueTo = duration.toFloat()
-            val to = currentPosition + 1000f
-            val anim =
-                ObjectAnimator.ofFloat(
-                    binding.playSlider,
-                    "value",
-                    currentPosition.toFloat(),
-                    if (to <= duration) to else duration.toFloat()
-                )
-            anim.start()
-            anim.doOnEnd {
-                anim.cancel()
-            }
-            */
             val thisMaxPosition = exoPlayer.duration.toFloat()
             if (thisMaxPosition >= 0) {
                 playerSliderV2ViewModel.maxPosition.value = thisMaxPosition
@@ -297,21 +354,6 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     private fun timeParse(duration: Long): String {
-        /*
-        var time: String? = ""
-        val minute = duration / 60000
-        val seconds = duration % 60000
-        val second = (seconds.toFloat() / 1000).roundToInt().toLong()
-        if (minute < 10) {
-            time += "0"
-        }
-        time += "$minute:"
-        if (second < 10) {
-            time += "0"
-        }
-        time += second
-        return time!!.trim()
-        */
         val hours = duration / 3600000
         val minutes = (duration % 3600000) / 60000
         val seconds = (duration % 60000) / 1000
