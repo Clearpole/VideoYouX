@@ -1,6 +1,6 @@
 [versions]
 brv = "1.4.2"
-com-android-application = "8.2.0-alpha12"
+com-android-application = "8.0.2"
 glide = "4.15.1"
 immersionbar = "3.2.2"
 lottie = "6.1.0"
@@ -53,7 +53,7 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 xx-permissions = { module = "com.github.getActivity:XXPermissions", version.ref = "xx-permissions" }
-androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.2.0-alpha12" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version = "8.0.2" }
 
 [libraries.material]
 group = "com.google.android.material"
