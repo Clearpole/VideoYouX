@@ -49,6 +49,7 @@ import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -196,13 +197,16 @@ class MainPlayerActivity : ComponentActivity() {
                             )
                             Slider(
                                 value = animatedProgress, onValueChange = {
+                                    requireUpdateUI = false
                                     playerSliderV2ViewModel.valueChanging.value = true
                                     playerSliderV2ViewModel.nowPosition.value = it
+                                    updateUI(binding = this@AndroidViewBinding)
                                 }, valueRange = 0f..maxPosition,
                                 onValueChangeFinished = {
                                     playerSliderV2ViewModel.valueChanging.value = false
                                     exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
-                                    exoPlayer.play()
+                                    //exoPlayer.play()
+                                    requireUpdateUI = true
                                 },
                                 modifier = Modifier.padding(horizontal = 10.dp)
                             )
@@ -228,23 +232,11 @@ class MainPlayerActivity : ComponentActivity() {
                             binding!!.playLoading.visibility = View.GONE
                             playerLifecycleScope = lifecycleScope.launch {
                                 while (true) {
-                                    /*
                                     if (requireUpdateUI) {
                                         updateUI(binding = binding)
                                         delay(500)
                                     }
                                     delay(500)
-                                    */
-                                    if (playerSliderV2ViewModel.valueChanging.value) {
-                                        updateUI(binding = binding)
-                                        delay(50)
-                                    } else {
-                                        if (requireUpdateUI) {
-                                            updateUI(binding = binding)
-                                            delay(500)
-                                        }
-                                        delay(500)
-                                    }
                                 }
                             }
                         }
@@ -254,7 +246,7 @@ class MainPlayerActivity : ComponentActivity() {
 
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
-                playerLifecycleScope = lifecycleScope.launch {}
+                playerLifecycleScope.cancel()
                 MaterialAlertDialogBuilder(this@MainPlayerActivity).setTitle("播放错误")
                     .setMessage("name:\n${error.errorCodeName}\n\ncode:${error.errorCode}\n\nmessage:\n${error.message}")
                     .setPositiveButton("退出") { _, _ ->
