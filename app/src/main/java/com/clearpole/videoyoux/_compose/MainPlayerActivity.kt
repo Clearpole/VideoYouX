@@ -14,6 +14,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.lifecycle.ViewModelProvider
@@ -192,15 +194,18 @@ class MainPlayerActivity : ComponentActivity() {
                             val animatedProgress by animateFloatAsState(
                                 targetValue = progress,
                             )
-                            Slider(value = animatedProgress, onValueChange = {
-                                playerSliderV2ViewModel.valueChanging.value = true
-                                playerSliderV2ViewModel.nowPosition.value = it
-                            }, valueRange = 0f..maxPosition,
+                            Slider(
+                                value = animatedProgress, onValueChange = {
+                                    playerSliderV2ViewModel.valueChanging.value = true
+                                    playerSliderV2ViewModel.nowPosition.value = it
+                                }, valueRange = 0f..maxPosition,
                                 onValueChangeFinished = {
                                     playerSliderV2ViewModel.valueChanging.value = false
                                     exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
                                     exoPlayer.play()
-                                })
+                                },
+                                modifier = Modifier.padding(horizontal = 10.dp)
+                            )
                         }
                     }
                     playerListenerLogic(this)

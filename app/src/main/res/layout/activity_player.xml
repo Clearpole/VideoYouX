@@ -103,8 +103,6 @@
         android:id="@+id/play_slider_v2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@id/pause_play"
