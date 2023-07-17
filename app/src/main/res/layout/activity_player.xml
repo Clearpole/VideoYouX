@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:icon="@drawable/round_play_arrow_24"
-            android:alpha="0.9"
+            android:alpha="0.8"
             app:iconSize="45dp"
             app:iconTint="@android:color/system_accent1_600"
             app:layout_constraintBottom_toBottomOf="parent"

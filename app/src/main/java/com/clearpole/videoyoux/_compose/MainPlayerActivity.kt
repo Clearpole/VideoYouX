@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -27,7 +28,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -63,13 +63,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 @UnstableApi
 class MainPlayerActivity : ComponentActivity() {
     private val TAG = "MPA"
     private var requireUpdateUI = true
     private var once = true
-    private val uri: String by bundle()
+    private val uri: Uri by bundle()
     private val paths: String by bundle()
     private lateinit var playerLifecycleScope: Job
     private lateinit var exoPlayer: ExoPlayer
@@ -79,12 +78,12 @@ class MainPlayerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exoPlayer = ExoPlayer.Builder(this)
-            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(true))
+            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(true)).setUseLazyPreparation(true)
             .build()
         DynamicColors.applyToActivityIfAvailable(this)
         playerLifecycleScope = lifecycleScope.launch {}
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        info = VideoInfo.get(paths, requiredParams)
+        info = VideoInfo.get(this,uri, requiredParams)
         playerSliderV2ViewModel = ViewModelProvider(this)[PlayerSliderV2ViewModel::class.java]
         setContent {
             VideoYouXTheme(hideBar = false, darkBar = true) {
@@ -256,7 +255,7 @@ class MainPlayerActivity : ComponentActivity() {
             playTogether(
                 ObjectAnimator
                     .ofFloat(
-                        binding!!.playPause,
+                        binding.playPause,
                         "translationY",
                         if (isPlaying) 50f else 1f,
                         if (isPlaying) 1f else -50f

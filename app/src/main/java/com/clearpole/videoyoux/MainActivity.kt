@@ -2,6 +2,7 @@ package com.clearpole.videoyoux
 
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -192,7 +193,7 @@ class MainActivity :
                 if (land) {
 
                 } else {
-                    add(MainPageHomeModel(path, uri, title, false))
+                    add(MainPageHomeModel(path, Uri.parse(uri), title, false))
                 }
             }
         }

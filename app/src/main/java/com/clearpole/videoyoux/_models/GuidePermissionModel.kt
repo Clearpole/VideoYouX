@@ -53,8 +53,7 @@ class GuidePermissionModel(
                         permissions: MutableList<String>,
                         doNotAskAgain: Boolean
                     ) {
-                        toast("请自行开启权限：${permission.replace("android.permission.", "")}")
-                        XXPermissions.startPermissionActivity(holder.context)
+                        toast("权限获取中断：${permission.replace("android.permission.", "")}")
                     }
                 })
         }

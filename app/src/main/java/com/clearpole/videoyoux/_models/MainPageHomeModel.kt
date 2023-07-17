@@ -1,6 +1,7 @@
 package com.clearpole.videoyoux._models
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -21,7 +22,7 @@ import kotlinx.coroutines.withContext
 
 open class MainPageHomeModel(
     private val paths: String,
-    private val uri: String,
+    private val uri: Uri,
     private val titleString: String,
     private val land: Boolean
 ) : ItemBind {

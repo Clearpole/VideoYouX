@@ -10,7 +10,7 @@
     <string name="search" translatable="true">搜索</string>
     <string name="title_activity_main2" translatable="true">MainActivity2</string>
     <string name="refresh" translatable="true">刷新</string>
-    <string name="title_activity_main_player" translatable="true">MainPlayerActivity</string>
+    <string name="title_activity_main_player" translatable="true">Vyx 播放器</string>
     <string name="back" translatable="true">back</string>
     <string name="pause_play" translatable="true">pause/play</string>
     <string name="notimportant" translatable="true">notImportant</string>
@@ -22,5 +22,5 @@
     <string name="get_permission" translatable="true">部分权限申请</string>
     <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
     <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
-    <string name="read_video_permission">媒体文件访问权限</string>
+    <string name="read_video_permission">所有文件访问权限</string>
 </resources>
