@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.clearpole.videoyoux._compose
 
 import android.animation.AnimatorSet
@@ -45,8 +47,11 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.datasource.DefaultDataSourceFactory
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
 import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
@@ -119,8 +124,12 @@ class MainPlayerActivity : ComponentActivity() {
             PlayerView(it).apply {
                 useController = false
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                exoPlayer.addMediaItem(MediaItem.fromUri(uri))
-                exoPlayer.prepare()
+                //exoPlayer.addMediaItem(MediaItem.fromUri(uri))
+                //exoPlayer.prepare()
+                val dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
+                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+                    MediaItem.fromUri(uri))
+                exoPlayer.prepare(mediaSource)
                 exoPlayer.playWhenReady = true
                 player = exoPlayer
             }

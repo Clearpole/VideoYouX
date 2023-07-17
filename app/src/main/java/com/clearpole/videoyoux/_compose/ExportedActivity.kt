@@ -39,7 +39,12 @@ class ExportedActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DynamicColors.applyToActivityIfAvailable(this)
-        val folder = intent.data!!.path!!.subStringX("/Android/data/", "/")
+        openActivity<MainPlayerActivity>(
+            "uri" to intent.data!!,
+            "paths" to intent.data!!.path
+        )
+        finish()
+        /*val folder = intent.data!!.path!!.subStringX("/Android/data/", "/")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && intent.data!!.path!!.contains(
                 "/Android/data/"
             ) && !canReadDataDir(folder!!)
@@ -66,7 +71,7 @@ class ExportedActivity : ComponentActivity() {
                 "paths" to intent.data!!.path
             )
             finish()
-        }
+        }*/
         setContent {
             VideoYouXTheme(hideBar = false) {
                 Surface(
