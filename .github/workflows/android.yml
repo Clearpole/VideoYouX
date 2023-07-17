@@ -4,11 +4,15 @@ on:
   push:
     branches: [ "master" ]
     paths-ignore:
-      - "README.md"
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/renovate.json'
   pull_request:
     branches: [ "master" ]
     paths-ignore:
-      - "README.md"
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/renovate.json'
   workflow_dispatch:
 
 jobs:
@@ -24,7 +28,27 @@ jobs:
       with:
         java-version: '19'
         distribution: 'corretto'
-        cache: gradle
+        cache: 'gradle'
+        check-latest: true
+
+    - name: Cache Gradle Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+          !~/.gradle/caches/build-cache-*
+        key: gradle-deps-core-${{ hashFiles('**/build.gradle.kts') }}
+        restore-keys: gradle-deps
+
+    - name: Cache Gradle Build
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches/build-cache-*
+          ~/.gradle/buildOutputCleanup/cache.properties
+        key: gradle-builds-core-${{ github.sha }}
+        restore-keys: gradle-builds
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
