@@ -123,28 +123,32 @@ class MainPlayerActivity : ComponentActivity() {
         ) {
             // @formatter:off
             Column(Modifier.fillMaxSize()) {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                Color.Black.copy(alpha = 0.5f),
-                                Color.Transparent
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                listOf(
+                                    Color.Black.copy(alpha = 0.5f),
+                                    Color.Transparent
+                                )
                             )
                         )
-                    )
-                    .weight(1f, true)) {}
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                Color.Transparent,
-                                Color.Black.copy(alpha = 0.5f)
+                        .weight(1f, true)
+                ) {}
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                listOf(
+                                    Color.Transparent,
+                                    Color.Black.copy(alpha = 0.5f)
+                                )
                             )
                         )
-                    )
-                    .weight(1f, true)) {}
+                        .weight(1f, true)
+                ) {}
             }
             // @formatter:on
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -189,14 +193,14 @@ class MainPlayerActivity : ComponentActivity() {
                                 targetValue = progress,
                             )
                             Slider(value = animatedProgress, onValueChange = {
-                                                                             playerSliderV2ViewModel.valueChanging.value = true
+                                playerSliderV2ViewModel.valueChanging.value = true
                                 playerSliderV2ViewModel.nowPosition.value = it
                             }, valueRange = 0f..maxPosition,
-                            onValueChangeFinished = {
-                                playerSliderV2ViewModel.valueChanging.value = false
-                                exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
-                                exoPlayer.play()
-                            })
+                                onValueChangeFinished = {
+                                    playerSliderV2ViewModel.valueChanging.value = false
+                                    exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
+                                    exoPlayer.play()
+                                })
                         }
                     }
                     playerListenerLogic(this)
@@ -229,7 +233,7 @@ class MainPlayerActivity : ComponentActivity() {
                                     if (playerSliderV2ViewModel.valueChanging.value) {
                                         updateUI(binding = binding)
                                         delay(50)
-                                    }else{
+                                    } else {
                                         if (requireUpdateUI) {
                                             updateUI(binding = binding)
                                             delay(500)
@@ -259,9 +263,9 @@ class MainPlayerActivity : ComponentActivity() {
         binding.apply {
             val currentPosition = exoPlayer.currentPosition
             val duration = exoPlayer.duration
-            playNow.text = if (playerSliderV2ViewModel.valueChanging.value){
+            playNow.text = if (playerSliderV2ViewModel.valueChanging.value) {
                 timeParse(playerSliderV2ViewModel.nowPosition.value.toLong())
-            }else{
+            } else {
                 playerSliderV2ViewModel.nowPosition.value = currentPosition.toFloat()
                 timeParse(currentPosition)
             }
@@ -296,6 +300,7 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     private fun timeParse(duration: Long): String {
+        /*
         var time: String? = ""
         val minute = duration / 60000
         val seconds = duration % 60000
@@ -309,5 +314,14 @@ class MainPlayerActivity : ComponentActivity() {
         }
         time += second
         return time!!.trim()
+        */
+        val hours = duration / 3600000
+        val minutes = (duration % 3600000) / 60000
+        val seconds = (duration % 60000) / 1000
+        return if (hours > 0) {
+            String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            String.format("%02d:%02d", minutes, seconds)
+        }
     }
 }
