@@ -8,4 +8,5 @@
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
     <string name="get_start">Go on</string>
+    <string name="title_activity_main_player">Vyx Player</string>
 </resources>

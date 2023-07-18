@@ -10,7 +10,7 @@
     <string name="search" translatable="true">搜索</string>
     <string name="title_activity_main2" translatable="false">MainActivity2</string>
     <string name="refresh" translatable="true">刷新</string>
-    <string name="title_activity_main_player" translatable="false">Vyx 播放器</string>
+    <string name="title_activity_main_player">Vyx 播放器</string>
     <string name="back" translatable="false">back</string>
     <string name="pause_play" translatable="false">pause/play</string>
     <string name="notimportant" translatable="false">notImportant</string>
@@ -22,18 +22,18 @@
     <string name="get_permission" translatable="true">部分权限申请</string>
     <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
     <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
-    <string name="backStep">返回上一步</string>
+    <string name="backStep">上一步</string>
     <string name="nextStep">下一步</string>
-    <string name="guide_permission_information">为了此开源软件的正常运行，请给予它全部权限。</string>
-    <string name="permission_use_storage">用于扫描您手机上的视频</string>
+    <string name="permission_use_storage">用于扫描您设备上的视频</string>
     <string name="read_video_permission">所有文件访问权限</string>
-    <string name="guide_data_store_information">从媒体库扫描您设备储存内的视频文件</string>
+    <string name="guide_data_store_information">从媒体库扫描您设备中的视频，这可能需要一段时间，请坐和放宽。</string>
     <string name="get_data_store">扫描媒体文件</string>
     <string name="start_read">开始扫描</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="exported_data">正在解析外部数据</string>
     <string name="get_saf_permission">权限申请</string>
     <string name="get">获取</string>
     <string name="refuse_permission">拒绝给予权限</string>
-    <string name="exported_data_folder">您将要访问的文件位于/data/内，为了您的的隐私绝对安全，请手动授权访问权限。\n\nfolder: %1$s</string>
+    <string name="exported_data_folder">您将要访问的文件位于 /sdcard/Android/data/ 内，为了您的的隐私绝对安全，请手动授权访问权限。\n\n文件夹：%1$s</string>
+    <string name="guide_permission_information">请给予此应用权限以保证其能够正常运行。</string>
 </resources>
