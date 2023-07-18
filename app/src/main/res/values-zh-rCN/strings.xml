@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home" translatable="true">主页</string>
-    <string name="folders" translatable="true">文件夹</string>
-    <string name="play" translatable="true">播放</string>
-    <string name="settings" translatable="true">设置</string>
-    <string name="mainWindow" translatable="true">主窗体</string>
-    <string name="search" translatable="true">搜索</string>
-    <string name="refresh" translatable="true">刷新</string>
-    <string name="title_activity_main_player" translatable="true">Vyx 播放器</string>
-    <string name="get_start" translatable="true">现在开始</string>
-    <string name="next_steps" translatable="true">接下来需要进行的操作：</string>
-    <string name="get_permission" translatable="true">部分权限申请</string>
-    <string name="read_write_data_store" translatable="true">数据库读取与写入</string>
-    <string name="exit_videoyoux" translatable="true">退出 VideoYouX</string>
+    <string name="home">主页</string>
+    <string name="folders">文件夹</string>
+    <string name="play">播放</string>
+    <string name="settings">设置</string>
+    <string name="search">搜索</string>
+    <string name="refresh">刷新</string>
+    <string name="title_activity_main_player">Vyx 播放器</string>
+    <string name="get_start">现在开始</string>
+    <string name="next_steps">接下来需要进行的操作：</string>
+    <string name="get_permission">部分权限申请</string>
+    <string name="read_write_data_store">数据库读取与写入</string>
+    <string name="exit_videoyoux">退出 VideoYouX</string>
     <string name="backStep">上一步</string>
     <string name="nextStep">下一步</string>
     <string name="guide_permission_information">请给予此应用权限以保证其能够正常运行。</string>

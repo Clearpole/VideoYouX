@@ -22,5 +22,5 @@
         android:id="@+id/screen_home_pagerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/mainWindow" />
+        tools:ignore="contentDescription" />
 </RelativeLayout>
