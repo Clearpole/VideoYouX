@@ -28,10 +28,19 @@
         android:theme="@style/Theme.VideoYou"
         tools:targetApi="tiramisu">
         <activity
-            android:name="._compose.ExportedActivity"
+            android:name=".GuideActivity"
+            android:configChanges="uiMode"
+            android:exported="false" />
+        <activity
+            android:name="._compose.MainPlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
-            android:label="@string/title_activity_main_player"
-            android:theme="@style/Theme.VideoYou">
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.VideoYou"
+            android:usesCleartextTraffic="true"
+            tools:ignore="AppLinkUrlError"
+            android:label="@string/title_activity_main_player">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -41,20 +50,6 @@
                 <data android:mimeType="video/*" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GuideActivity"
-            android:configChanges="uiMode"
-            android:exported="false" />
-        <activity
-            android:name="._compose.MainPlayerActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:exported="false"
-            android:label="@string/title_activity_main_player"
-            android:launchMode="singleTask"
-            android:supportsPictureInPicture="true"
-            android:theme="@style/Theme.VideoYou"
-            android:usesCleartextTraffic="true"
-            tools:ignore="AppLinkUrlError" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"

@@ -5,11 +5,15 @@ package com.clearpole.videoyoux._compose
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.LinearInterpolator
@@ -53,6 +57,7 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
+import com.clearpole.videoyoux.Develop.TAG
 import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
@@ -68,13 +73,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @UnstableApi
 class MainPlayerActivity : ComponentActivity() {
-    private val TAG = "MPA"
     private var requireUpdateUI = true
     private var once = true
-    private val uri: Uri by bundle()
-    private val paths: String by bundle()
+    private var uri: Uri? by bundle()
+    private var paths: String? by bundle()
     private lateinit var playerLifecycleScope: Job
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
@@ -82,13 +87,17 @@ class MainPlayerActivity : ComponentActivity() {
     private lateinit var playerSliderV2ViewModel: PlayerSliderV2ViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (intent.data!=null){
+            uri = intent.data
+            paths = intent.data!!.path
+        }
         exoPlayer = ExoPlayer.Builder(this)
             .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false)).setUseLazyPreparation(false)
             .build()
         DynamicColors.applyToActivityIfAvailable(this)
         playerLifecycleScope = lifecycleScope.launch {}
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        info = VideoInfo.get(this,uri, requiredParams)
+        info = VideoInfo.get(this, uri!!, requiredParams)
         playerSliderV2ViewModel = ViewModelProvider(this)[PlayerSliderV2ViewModel::class.java]
         setContent {
             VideoYouXTheme(hideBar = false, darkBar = true) {
@@ -126,7 +135,7 @@ class MainPlayerActivity : ComponentActivity() {
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
                 val dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
                 val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                    MediaItem.Builder().setUri(uri).build())
+                    MediaItem.fromUri(uri!!))
                 exoPlayer.prepare(mediaSource)
                 exoPlayer.playWhenReady = true
                 player = exoPlayer
@@ -209,7 +218,7 @@ class MainPlayerActivity : ComponentActivity() {
                         }
                     }
                     playerTitle.text =
-                        paths.substring(paths.lastIndexOf("/") + 1, paths.lastIndexOf("."))
+                        paths!!.substring(paths!!.lastIndexOf("/") + 1, paths!!.lastIndexOf("."))
                     playSliderV2.apply {
                         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {

@@ -25,6 +25,7 @@ xx-permissions = "18.2"
 
 [libraries]
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }
 androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
@@ -59,7 +60,6 @@ androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", v
 group = "com.google.android.material"
 name = "material"
 version.ref = "material"
-
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }
