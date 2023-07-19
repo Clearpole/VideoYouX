@@ -16,8 +16,8 @@
     <string name="nextStep">下一步</string>
     <string name="guide_permission_information">请给予此应用权限以保证其能够正常运行。</string>
     <string name="permission_use_storage">用于扫描您设备上的视频</string>
-    <string name="read_video_permission">所有文件访问权限</string>
-    <string name="guide_data_store_information">从媒体库扫描您设备中的视频，这可能需要一段时间，请坐和放宽。</string>
+    <string name="read_video_permission">媒体文件访问权限</string>
+    <string name="guide_data_store_information">从媒体库扫描您设备中的视频\n这可能需要一段时间，请坐和放宽。</string>
     <string name="get_data_store">扫描媒体文件</string>
     <string name="start_read">开始扫描</string>
     <string name="exported_data">正在解析外部数据</string>
@@ -25,4 +25,6 @@
     <string name="get">获取</string>
     <string name="refuse_permission">拒绝给予权限</string>
     <string name="exported_data_folder">您将要访问的文件位于 /sdcard/Android/data/ 内，为了您的的隐私绝对安全，请手动授权访问权限。\n\n文件夹：%1$s</string>
+    <string name="reading">正在扫描中</string>
+    <string name="go_to_home">进入主页</string>
 </resources>

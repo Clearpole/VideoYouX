@@ -80,7 +80,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
                 }.models = mutableListOf<Any?>().apply {
                     add(
                         GuidePermissionModel(
-                            Permissions.storage,
+                            Permissions.video,
                             context.getString(R.string.read_video_permission),
                             context.getString(R.string.permission_use_storage),
                             AppCompatResources.getDrawable(
@@ -91,7 +91,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
                     )
                 }
                 findViewById<MaterialButton>(R.id.guide_permission_next).setOnClickListener {
-                    if (XXPermissions.isGranted(this@GuideActivity, Permissions.storage)) {
+                    if (XXPermissions.isGranted(this@GuideActivity, Permissions.video)) {
                         viewPagerAnimation(view, false)
                         binding.guidePagerView.setCurrentItem(2, true)
                     } else {
@@ -109,21 +109,21 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
                     binding.guidePagerView.setCurrentItem(1, true)
                 }
                 findViewById<MaterialButton>(R.id.guide_data_store_next).setOnClickListener {
-                    if ((it as MaterialButton).text == "开始扫描") {
+                    if ((it as MaterialButton).text == getString(R.string.start_read)) {
                         val progressView =
                             findViewById<CircularProgressIndicator>(R.id.guide_data_store_progress)
                         progressView.visibility = View.VISIBLE
-                        it.text = "正在扫描中"
+                        it.text = getString(R.string.reading)
                         CoroutineScope(Dispatchers.IO).launch {
                             ReadMediaStore.writeData(contentResolver).apply {
                                 delay(1000)
                                 withContext(Dispatchers.Main) {
                                     progressView.visibility = View.GONE
-                                    it.text = "进入主页"
+                                    it.text = getString(R.string.go_to_home)
                                 }
                             }
                         }
-                    } else if (it.text == "进入主页") {
+                    } else if (it.text == getString(R.string.go_to_home)) {
                         val sharedPreferences =
                             getSharedPreferences("values", MODE_PRIVATE)
                         val editor = sharedPreferences.edit()

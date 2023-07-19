@@ -10,7 +10,6 @@ import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.LinearInterpolator
@@ -54,7 +53,6 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
-import com.blankj.utilcode.util.UriUtils
 import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
@@ -126,12 +124,9 @@ class MainPlayerActivity : ComponentActivity() {
             PlayerView(it).apply {
                 useController = false
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                //exoPlayer.addMediaItem(MediaItem.fromUri(UriUtils.file2Uri()))
-                //exoPlayer.prepare()
                 val dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
                 val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                    MediaItem.fromUri(UriUtils.uri2FileNoCacheCopy(uri).path))
-                Log.i("testUri",UriUtils.uri2File(uri).path)
+                    MediaItem.Builder().setUri(uri).build())
                 exoPlayer.prepare(mediaSource)
                 exoPlayer.playWhenReady = true
                 player = exoPlayer
@@ -269,8 +264,8 @@ class MainPlayerActivity : ComponentActivity() {
                     .ofFloat(
                         binding.playPause,
                         "translationY",
-                        if (isPlaying) 50f else 1f,
-                        if (isPlaying) 1f else -50f
+                        if (isPlaying) 100f else 1f,
+                        if (isPlaying) 1f else -100f
                     )
                     .apply { duration = 50 },
                 ObjectAnimator
@@ -335,6 +330,7 @@ class MainPlayerActivity : ComponentActivity() {
                     .setPositiveButton("退出") { _, _ ->
                         end()
                     }.show()
+                exoPlayer.play()
             }
         })
     }

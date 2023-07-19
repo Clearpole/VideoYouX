@@ -17,4 +17,5 @@ object Vars {
 
 object Permissions {
     const val storage = Permission.MANAGE_EXTERNAL_STORAGE
+    const val video = Permission.READ_MEDIA_VIDEO
 }
