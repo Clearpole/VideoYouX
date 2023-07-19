@@ -3,7 +3,7 @@
     <string name="home">Home</string>
     <string name="folders">Folders</string>
     <string name="play">Play</string>
-    <string name="settings">Set up</string>
+    <string name="settings">Settings</string>
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
     <string name="get_start">Go on</string>
@@ -12,8 +12,8 @@
     <string name="get_permission">Permission request</string>
     <string name="read_write_data_store">Database reading and writing</string>
     <string name="exit_videoyoux">Exit VideoYouX</string>
-    <string name="backStep">Last step</string>
-    <string name="nextStep">Next step</string>
+    <string name="backStep">Back</string>
+    <string name="nextStep">Next</string>
     <string name="permission_use_storage">Used to scan videos on your device</string>
     <string name="read_video_permission">Media file read permissions</string>
     <string name="guide_data_store_information">Scan the videos in your device from the MediaStore\nThis may take a while, please sit back and relax.</string>
@@ -26,5 +26,5 @@
     <string name="exported_data_folder">null</string>
     <string name="guide_permission_information">Please grant this application permission to ensure its normal operation.</string>
     <string name="reading">Scanning</string>
-    <string name="go_to_home">Enter the home</string>
+    <string name="go_to_home">Finish</string>
 </resources>
