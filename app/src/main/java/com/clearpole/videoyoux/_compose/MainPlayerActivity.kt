@@ -2,12 +2,10 @@
 
 package com.clearpole.videoyoux._compose
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.media.MediaMetadataRetriever
@@ -16,7 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
-import android.view.animation.LinearInterpolator
+import android.view.animation.DecelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -78,21 +76,22 @@ import kotlinx.coroutines.launch
 class MainPlayerActivity : ComponentActivity() {
     private var requireUpdateUI = true
     private var once = true
+    private var seeked = true
     private var uri: Uri? by bundle()
     private var paths: String? by bundle()
     private lateinit var playerLifecycleScope: Job
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
-
     private lateinit var playerSliderV2ViewModel: PlayerSliderV2ViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.data!=null){
+        if (intent.data != null) {
             uri = intent.data
             paths = intent.data!!.path
         }
         exoPlayer = ExoPlayer.Builder(this)
-            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false)).setUseLazyPreparation(false)
+            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false))
+            .setUseLazyPreparation(false)
             .build()
         DynamicColors.applyToActivityIfAvailable(this)
         playerLifecycleScope = lifecycleScope.launch {}
@@ -133,9 +132,12 @@ class MainPlayerActivity : ComponentActivity() {
             PlayerView(it).apply {
                 useController = false
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                val dataSourceFactory = DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
-                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                    MediaItem.fromUri(uri!!))
+                val dataSourceFactory =
+                    DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
+                val mediaSource =
+                    ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+                        MediaItem.fromUri(uri!!)
+                    )
                 exoPlayer.prepare(mediaSource)
                 exoPlayer.playWhenReady = true
                 player = exoPlayer
@@ -239,6 +241,8 @@ class MainPlayerActivity : ComponentActivity() {
                                     updateUI(binding = this@AndroidViewBinding)
                                 }, valueRange = 0f..maxPosition,
                                 onValueChangeFinished = {
+                                    seeked = true
+                                    translationAlphaAnim(playLoading, true)
                                     playerSliderV2ViewModel.valueChanging.value = false
                                     exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
                                     requireUpdateUI = true
@@ -253,55 +257,87 @@ class MainPlayerActivity : ComponentActivity() {
         }
     }
 
-    private fun playPause(binding: ActivityPlayerBinding){
-        if (exoPlayer.isPlaying){
+    private fun playPause(binding: ActivityPlayerBinding) {
+        if (exoPlayer.isPlaying) {
             exoPlayer.pause()
-            playPauseView(binding,true)
+            playPauseView(binding, true)
         } else {
             exoPlayer.play()
-            playPauseView(binding,false)
+            playPauseView(binding, false)
         }
     }
 
-    private fun playPauseView(binding: ActivityPlayerBinding,isPlaying:Boolean){
-        val playIcon = AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_play_arrow_24)
-        val pauseIcon = AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_pause_24)
+    private fun playPauseView(binding: ActivityPlayerBinding, isPlaying: Boolean) {
+        val playIcon =
+            AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_play_arrow_24)
+        val pauseIcon =
+            AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_pause_24)
         AnimatorSet().apply {
-            interpolator = LinearInterpolator()
+            interpolator = DecelerateInterpolator(0.9f)
             playTogether(
-                ObjectAnimator
-                    .ofFloat(
-                        binding.playPause,
-                        "translationY",
-                        if (isPlaying) 100f else 1f,
-                        if (isPlaying) 1f else -100f
-                    )
-                    .apply { duration = 50 },
-                ObjectAnimator
-                    .ofFloat(
-                        binding.playPause,
-                        "alpha",
-                        if (isPlaying) 0f else 1f,
-                        if (isPlaying) 1f else 0f
-                    )
-                    .apply { duration = 50 }
+                if (isPlaying) playTogetherAnim(binding.playPause, 100f, 0f, 0f, 1f, 150L)
+                else playTogetherAnim(binding.playPause, 0f, -100f, 1f, 0f, 150L)
             )
-            if (isPlaying){
+            if (isPlaying) {
                 exoPlayer.pause()
                 binding.playPause.visibility = View.VISIBLE
                 binding.pausePlay.icon = playIcon
-            }else{
+            } else {
                 exoPlayer.play()
             }
             start()
             doOnEnd {
-                if (!isPlaying){
+                if (!isPlaying) {
                     binding.pausePlay.icon = pauseIcon
                     binding.playPause.visibility = View.GONE
                 }
                 cancel()
             }
         }
+    }
+
+    private fun translationAlphaAnim(view: View, visibility: Boolean) {
+        AnimatorSet().apply {
+            interpolator = DecelerateInterpolator(0.9f)
+            playTogether(
+                if (visibility) playTogetherAnim(view, 100f, 0f, 0f, 1f, 200L)
+                else playTogetherAnim(view, 0f, -100f, 1f, 0f, 200L)
+            )
+            if (visibility) {
+                view.visibility = View.VISIBLE
+            }
+            start()
+            doOnEnd {
+                if (!visibility) {
+                    view.visibility = View.GONE
+                }
+                cancel()
+            }
+        }
+    }
+
+    private fun playTogetherAnim(
+        view: View,
+        t: Float,
+        tE: Float,
+        a: Float,
+        aE: Float,
+        tS: Long
+    ): MutableList<Animator> {
+        return mutableListOf(
+            ObjectAnimator
+                .ofFloat(
+                    view,
+                    "translationY", t, tE
+                )
+                .apply { duration = tS },
+            ObjectAnimator
+                .ofFloat(
+                    view,
+                    "alpha", a, aE
+                )
+                .apply { duration = tS }
+        )
     }
 
     private fun playerListenerLogic(
@@ -316,17 +352,26 @@ class MainPlayerActivity : ComponentActivity() {
                     Player.STATE_READY -> {
                         if (once) {
                             once = false
-                            binding!!.playLoading.visibility = View.GONE
                             playerLifecycleScope = lifecycleScope.launch {
                                 while (true) {
                                     if (requireUpdateUI) {
-                                        updateUI(binding = binding)
+                                        updateUI(binding = binding!!)
                                         delay(500)
                                     }
                                     delay(500)
                                 }
                             }
                         }
+                    }
+                }
+            }
+
+            override fun onIsLoadingChanged(isLoading: Boolean) {
+                super.onIsLoadingChanged(isLoading)
+                if (!isLoading) {
+                    if (seeked) {
+                        translationAlphaAnim(binding!!.playLoading, false)
+                        seeked = false
                     }
                 }
             }
