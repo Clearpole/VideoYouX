@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux._adapter.ViewPagerAdapter
+import com.clearpole.videoyoux._compose.DevelopActivity
 import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
@@ -151,9 +152,12 @@ class MainActivity :
             }
             delay(600)
             withContext(Dispatchers.Main) {
-                titleViewLast.text = "主页"
+                titleViewLast.text = getString(R.string.home)
                 titleViewLast.visibility = View.VISIBLE
                 titleViewLast.startAnimation(disAppear)
+                titleViewLast.setOnClickListener {
+                    openActivity<DevelopActivity>()
+                }
             }
         }
     }

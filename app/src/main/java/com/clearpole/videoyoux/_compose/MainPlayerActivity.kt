@@ -11,7 +11,6 @@ import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.DecelerateInterpolator
@@ -55,9 +54,8 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
-import com.clearpole.videoyoux.Develop.TAG
 import com.clearpole.videoyoux.R
-import com.clearpole.videoyoux._compose.theme.VideoYouXTheme
+import com.clearpole.videoyoux._compose.ui.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
@@ -219,8 +217,11 @@ class MainPlayerActivity : ComponentActivity() {
                             }
                         }
                     }
-                    playerTitle.text =
+                    playerTitle.text = try {
                         paths!!.substring(paths!!.lastIndexOf("/") + 1, paths!!.lastIndexOf("."))
+                    } catch (_: Exception) {
+                        uri.toString()
+                    }
                     playSliderV2.apply {
                         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {

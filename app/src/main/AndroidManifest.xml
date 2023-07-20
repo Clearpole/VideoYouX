@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
         tools:ignore="ScopedStorage" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -28,6 +29,11 @@
         android:theme="@style/Theme.VideoYou"
         tools:targetApi="tiramisu">
         <activity
+            android:name="._compose.DevelopActivity"
+            android:exported="false"
+            android:label="@string/title_activity_develop"
+            android:theme="@style/Theme.VideoYou" />
+        <activity
             android:name=".GuideActivity"
             android:configChanges="uiMode"
             android:exported="false" />
@@ -35,12 +41,12 @@
             android:name="._compose.MainPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
+            android:label="@string/title_activity_main_player"
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             android:theme="@style/Theme.VideoYou"
             android:usesCleartextTraffic="true"
-            tools:ignore="AppLinkUrlError"
-            android:label="@string/title_activity_main_player">
+            tools:ignore="AppLinkUrlError">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 

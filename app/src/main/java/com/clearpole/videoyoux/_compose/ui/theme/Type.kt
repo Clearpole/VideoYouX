@@ -1,4 +1,4 @@
-package com.clearpole.videoyoux._compose.theme
+package com.clearpole.videoyoux._compose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

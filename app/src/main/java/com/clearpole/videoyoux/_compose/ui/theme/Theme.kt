@@ -1,4 +1,4 @@
-package com.clearpole.videoyoux._compose.theme
+package com.clearpole.videoyoux._compose.ui.theme
 
 import android.app.Activity
 import android.os.Build
