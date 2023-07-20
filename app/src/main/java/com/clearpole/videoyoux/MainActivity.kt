@@ -22,7 +22,6 @@ import com.clearpole.videoyoux.screen_home.Greetings
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
-import com.drake.tooltip.toast
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.textview.MaterialTextView
 import com.gyf.immersionbar.ImmersionBar
@@ -232,7 +231,6 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page3 -> {
-                        toast("咕咕咕")
                         true
                     }
 

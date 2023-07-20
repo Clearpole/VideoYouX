@@ -1,12 +1,12 @@
 package com.clearpole.videoyoux._models
 
 import android.graphics.drawable.Drawable
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux.databinding.GuidePermissionListBinding
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
-import com.drake.tooltip.toast
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 
@@ -53,7 +53,11 @@ class GuidePermissionModel(
                         permissions: MutableList<String>,
                         doNotAskAgain: Boolean
                     ) {
-                        toast("权限获取中断：${permission.replace("android.permission.", "")}")
+                        Toast.makeText(
+                            holder.context,
+                            "权限获取中断：${permission.replace("android.permission.", "")}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 })
         }

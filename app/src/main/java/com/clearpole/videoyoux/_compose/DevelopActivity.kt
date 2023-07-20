@@ -144,14 +144,7 @@ class DevelopActivity : ComponentActivity() {
 }
 
 private sealed class BoxState(val height: Dp, val width: Dp) {
-    data object OpenState : BoxState(30.dp, 100.dp)
-
-    // 默认状态
     data object CloseState : BoxState(30.dp, 30.dp)
-
-    // 充电状态
-    data object ChargeState : BoxState(30.dp, 170.dp)
-
     // 支付状态
     data object PayState : BoxState(60.dp, 60.dp)
 

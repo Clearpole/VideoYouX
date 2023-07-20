@@ -11,7 +11,6 @@ import com.clearpole.videoyoux._compose.MainPlayerActivity
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
-import com.drake.tooltip.toast
 import com.google.android.material.animation.AnimationUtils
 import com.google.android.material.carousel.MaskableFrameLayout
 import kotlinx.coroutines.CoroutineScope
@@ -31,8 +30,8 @@ open class MainPageHomeModel(
         CoroutineScope(Dispatchers.IO).launch {
             val load = Glide.with(holder.context).load(uri)
                 .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
-                    DiskCacheStrategy.RESOURCE
-                )
+                    DiskCacheStrategy.ALL
+                ).override(500,500).centerCrop()
             var titleStringHandled = titleString
             var subTitleStringHandled = titleString
             val regex = arrayListOf("-", "_", " ")
@@ -69,10 +68,6 @@ open class MainPageHomeModel(
                                     "uri" to uri,
                                     "paths" to paths
                                 )
-                            }
-                            carouselItemContainer.setOnLongClickListener {
-                                toast(paths)
-                                true
                             }
                         }
                     }
