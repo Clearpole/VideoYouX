@@ -49,16 +49,27 @@ jobs:
           echo "RELEASE_APK=$(find 'app/build/outputs/apk/release' -name '*.apk')" >> $GITHUB_ENV
           echo "DEBUG_APK=$(find 'app/build/outputs/apk/debug' -name '*.apk')" >> $GITHUB_ENV
 
-      - name: Upload Release APK
+      - name: Show Apks SHA256
+        if: success()
+        run: |
+          echo "### Build Success" >> $GITHUB_STEP_SUMMARY
+          echo "|Artifact|SHA256|" >> $GITHUB_STEP_SUMMARY
+          echo "|:--------:|:----------|" >> $GITHUB_STEP_SUMMARY
+          release=($(sha256sum ${{ env.RELEASE_APK }}))
+          echo "|Release|$release" >> $GITHUB_STEP_SUMMARY
+          debug=($(sha256sum ${{ env.DEBUG_APK }}))
+          echo "|Debug|$debug" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Release Apk
         uses: actions/upload-artifact@v3
         with:
-          name: VideoYouX_Release
+          name: VideoYouX-Release-${{ github.event.head_commit.id }}
           path: ${{ env.RELEASE_APK }}
 
-      - name: Upload Debug APK
+      - name: Upload Debug Apk
         uses: actions/upload-artifact@v3
         with:
-          name: VideoYouX_Debug
+          name: VideoYouX-Debug-${{ github.event.head_commit.id }}
           path: ${{ env.DEBUG_APK }}
 
       - name: Post to Channel
