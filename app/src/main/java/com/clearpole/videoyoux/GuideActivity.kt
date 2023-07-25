@@ -1,6 +1,5 @@
 package com.clearpole.videoyoux
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -8,23 +7,10 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
-import android.view.animation.CycleInterpolator
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.clearpole.videoyoux._adapter.ViewPagerAdapter
 import com.clearpole.videoyoux._assembly.FixedSpeedScroller
-import com.clearpole.videoyoux._models.GuidePermissionModel
-import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux.databinding.ActivityGuideBinding
-import com.clearpole.videoyoux.databinding.ActivityGuideLandBinding
-import com.drake.brv.utils.linear
-import com.drake.brv.utils.setup
-import com.drake.serialize.intent.openActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.textview.MaterialTextView
-import com.hjq.permissions.XXPermissions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,35 +18,58 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.reflect.Field
 
-class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBinding>(
+class GuideActivity : BaseActivity<ActivityGuideBinding>(
     isHideStatus = false,
     isLandScape = false,
     isRequireLightBarText = false,
-    inflate = ActivityGuideBinding::inflate,
-    inflateLand = ActivityGuideLandBinding::inflate
+    inflate = ActivityGuideBinding::inflate
 ) {
     private lateinit var pageList: ArrayList<View>
     private var mScroller: FixedSpeedScroller? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewPager()
+        viewPager(landScape)
     }
 
 
-    private fun viewPager() {
+    private fun viewPager(mLandSpace: Boolean) {
         val view = binding.guidePagerView
         val pagesList = ArrayList<View>()
         pagesList.apply {
-            add(View.inflate(this@GuideActivity, R.layout.guide_welcome, null))
-            add(View.inflate(this@GuideActivity, R.layout.guide_permission, null))
-            add(View.inflate(this@GuideActivity, R.layout.guide_data_store, null))
-            add(View.inflate(this@GuideActivity, R.layout.guide_settings, null))
+            add(
+                View.inflate(
+                    this@GuideActivity,
+                    if (!mLandSpace) R.layout.guide_welcome else R.layout.guide_welcome,
+                    null
+                )
+            )
+            add(
+                View.inflate(
+                    this@GuideActivity,
+                    if (!mLandSpace) R.layout.guide_permission else R.layout.guide_permission,
+                    null
+                )
+            )
+            add(
+                View.inflate(
+                    this@GuideActivity,
+                    if (!mLandSpace) R.layout.guide_data_store else R.layout.guide_data_store,
+                    null
+                )
+            )
+            add(
+                View.inflate(
+                    this@GuideActivity,
+                    if (!mLandSpace) R.layout.guide_settings else R.layout.guide_settings,
+                    null
+                )
+            )
             view.adapter = ViewPagerAdapter(this)
             controlViewPagerSpeed(this@GuideActivity, view, 250)
             view.setCanSwipe(false)
             pageList = this
         }.let {
-            it[0].apply {
+           /* it[0].apply {
                 findViewById<MaterialButton>(R.id.guide_getStart).setOnClickListener {
                     viewPagerAnimation(view, false)
                     binding.guidePagerView.setCurrentItem(1, true)
@@ -76,7 +85,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
                 }
                 val recyclerView = findViewById<RecyclerView>(R.id.guide_permission_list)
                 recyclerView.linear().setup {
-                    addType<GuidePermissionModel> { R.layout.guide_permission_list }
+                    addType<GuidePermissionModel> { R.layout.item_guide_permission }
                 }.models = mutableListOf<Any?>().apply {
                     add(
                         GuidePermissionModel(
@@ -133,7 +142,7 @@ class GuideActivity : BaseActivity<ActivityGuideBinding, ActivityGuideLandBindin
                         finish()
                     }
                 }
-            }
+            }*/
         }
     }
 

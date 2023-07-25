@@ -17,7 +17,6 @@ import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
-import com.clearpole.videoyoux.databinding.ActivityMainLandBinding
 import com.clearpole.videoyoux.screen_home.Greetings
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
@@ -34,11 +33,10 @@ import kotlinx.coroutines.withContext
 
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding, ActivityMainLandBinding>(
+    BaseActivity<ActivityMainBinding>(
         isHideStatus = false,
         isLandScape = false,
         inflate = ActivityMainBinding::inflate,
-        inflateLand = ActivityMainLandBinding::inflate
     ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +46,6 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-            /* CoroutineScope(Dispatchers.IO).launch {
-                 refreshMediaData()
-                 cancel()
-             }*/
             if (landScape) {
                 startRailView()
                 viewPagerLand()
@@ -62,8 +56,8 @@ class MainActivity :
             ConvertUtils.px2dp(
                 ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat() + 100
             ).apply {
-                bindingLand.screenHomeRailSpace.layoutParams.width = this
-                bindingLand.homeLandStatus.layoutParams.height = this - 100
+                binding.screenHomeRailSpace!!.layoutParams.width = this
+                binding.homeLandStatus!!.layoutParams.height = this - 100
             }
             videoPlayer()
         }
@@ -90,11 +84,11 @@ class MainActivity :
     }
 
     private fun viewPagerLand() {
-        val viewLand = bindingLand.screenHomeLandPagerView
+        val viewLand = binding.screenHomeLandPagerView
         val pagesLandList = ArrayList<View>()
         pagesLandList.apply {
-            add(View.inflate(this@MainActivity, R.layout.main_page_home_land, null))
-            viewLand.adapter = ViewPagerAdapter(this)
+            add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
+            viewLand!!.adapter = ViewPagerAdapter(this)
             viewLand.setCanSwipe(false)
         }
         pagesLandList[0].apply {
@@ -120,8 +114,10 @@ class MainActivity :
             add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_play, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_settings, null))
-            view.adapter = ViewPagerAdapter(this)
-            view.setCanSwipe(false)
+            if (view != null) {
+                view.adapter = ViewPagerAdapter(this)
+            }
+            view?.setCanSwipe(false)
         }
 
         pagesList[0].apply {
@@ -177,7 +173,7 @@ class MainActivity :
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
-                        addType<MainPageHomeModel> { R.layout.main_page_carousel_item }
+                        addType<MainPageHomeModel> { R.layout.item_main_carousel }
                     }.models = model
                     rv.setHasFixedSize(true)
                 }
@@ -204,10 +200,10 @@ class MainActivity :
 
     private fun bottomNavigationView() {
         binding.screenHomeBottomView.apply {
-            this.setOnItemSelectedListener {
+            this!!.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.menu_screen_page1 -> {
-                        binding.screenHomePagerView.setCurrentItem(0, true)
+                        binding.screenHomePagerView!!.setCurrentItem(0, true)
                         it.icon = getDrawableRes(R.drawable.baseline_home_24)
                         this.menu.getItem(1).icon =
                             getDrawableRes(R.drawable.outline_folder_24)
@@ -219,7 +215,7 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page2 -> {
-                        binding.screenHomePagerView.setCurrentItem(1, true)
+                        binding.screenHomePagerView!!.setCurrentItem(1, true)
                         it.icon = getDrawableRes(R.drawable.baseline_folder_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
@@ -235,7 +231,7 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page4 -> {
-                        binding.screenHomePagerView.setCurrentItem(2, true)
+                        binding.screenHomePagerView!!.setCurrentItem(2, true)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
                         this.menu.getItem(1).icon =
@@ -246,7 +242,7 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page5 -> {
-                        binding.screenHomePagerView.setCurrentItem(4, true)
+                        binding.screenHomePagerView!!!!.setCurrentItem(4, true)
                         it.icon = getDrawableRes(R.drawable.baseline_settings_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)

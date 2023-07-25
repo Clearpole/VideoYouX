@@ -5,9 +5,9 @@ import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.clearpole.videoyoux.databinding.MainPageCarouselItemBinding
 import com.clearpole.videoyoux.databinding.MainPageRvItemLandBinding
 import com.clearpole.videoyoux._compose.MainPlayerActivity
+import com.clearpole.videoyoux.databinding.ItemMainCarouselBinding
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
@@ -50,11 +50,11 @@ open class MainPageHomeModel(
                         title.text = titleStringHandled
                         subTitle.text = subTitleStringHandled
                         root.setOnClickListener {
-
+                            
                         }
                     }
                 } else {
-                    holder.getBinding<MainPageCarouselItemBinding>().apply {
+                    holder.getBinding<ItemMainCarouselBinding>().apply {
                         if (title.text.isEmpty()) {
                             (holder.itemView as MaskableFrameLayout).setOnMaskChangedListener {
                                 carouselMask.translationX = it.left

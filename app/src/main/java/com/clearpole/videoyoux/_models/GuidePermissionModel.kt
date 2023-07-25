@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.clearpole.videoyoux.R
-import com.clearpole.videoyoux.databinding.GuidePermissionListBinding
+import com.clearpole.videoyoux.databinding.ItemGuidePermissionBinding
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.hjq.permissions.OnPermissionCallback
@@ -17,7 +17,7 @@ class GuidePermissionModel(
     private val icon: Drawable?
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
-        val binding = holder.getBinding<GuidePermissionListBinding>()
+        val binding = holder.getBinding<ItemGuidePermissionBinding>()
         binding.img.setImageDrawable(icon)
         binding.title.text = title
         binding.info.text = info

@@ -59,7 +59,6 @@ import com.clearpole.videoyoux._compose.ui.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
-import com.clearpole.videoyoux.databinding.ActivityPlayerLandBinding
 import com.drake.serialize.intent.bundle
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -151,13 +150,13 @@ class MainPlayerActivity : ComponentActivity() {
                 .layoutId(LocalConfiguration.current)
         ) {
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                AndroidViewBinding(factory = ActivityPlayerLandBinding::inflate) {
+                AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
 
                 }
             } else {
                 AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
                     playMask.apply {
-                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        this!!.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {
                             // @formatter:off
                             Column(Modifier.fillMaxSize()) { Column(modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))).weight(1f, true)) {}
@@ -165,24 +164,24 @@ class MainPlayerActivity : ComponentActivity() {
                             // @formatter:on
                         }
                     }
-                    playerBack.setOnClickListener {
+                    playerBack!!.setOnClickListener {
                         end()
                     }
-                    playPause.setOnClickListener {
+                    playPause!!.setOnClickListener {
                         playPause(this@AndroidViewBinding)
                     }
-                    pausePlay.setOnClickListener {
+                    pausePlay!!.setOnClickListener {
                         playPause(this)
                     }
                     playPrimaryControlLayer.apply {
-                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        this!!.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {
                             Box(modifier = Modifier
                                 .fillMaxSize()
                                 .pointerInput(Unit) {
                                     detectTapGestures(
                                         onTap = {
-                                            playControlUiLayer.visibility.apply {
+                                            playControlUiLayer!!.visibility.apply {
                                                 AlphaAnimation(
                                                     if (this == View.VISIBLE) 1f else 0f,
                                                     if (this == View.VISIBLE) 0f else 1f
@@ -217,13 +216,13 @@ class MainPlayerActivity : ComponentActivity() {
                             }
                         }
                     }
-                    playerTitle.text = try {
+                    playerTitle!!.text = try {
                         paths!!.substring(paths!!.lastIndexOf("/") + 1, paths!!.lastIndexOf("."))
                     } catch (_: Exception) {
                         uri.toString()
                     }
                     playSliderV2.apply {
-                        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                        this!!.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                         setContent {
                             val progress by remember {
                                 playerSliderV2ViewModel.nowPosition
@@ -243,7 +242,7 @@ class MainPlayerActivity : ComponentActivity() {
                                 }, valueRange = 0f..maxPosition,
                                 onValueChangeFinished = {
                                     seeked = true
-                                    translationAlphaAnim(playLoading, true)
+                                    translationAlphaAnim(playLoading!!, true)
                                     playerSliderV2ViewModel.valueChanging.value = false
                                     exoPlayer.seekTo(playerSliderV2ViewModel.nowPosition.value.toLong())
                                     requireUpdateUI = true
@@ -276,20 +275,20 @@ class MainPlayerActivity : ComponentActivity() {
         AnimatorSet().apply {
             interpolator = DecelerateInterpolator(0.9f)
             playTogether(
-                if (isPlaying) playTogetherAnim(binding.playPause, 100f, 0f, 0f, 1f, 150L)
-                else playTogetherAnim(binding.playPause, 0f, -100f, 1f, 0f, 150L)
+                if (isPlaying) playTogetherAnim(binding.playPause!!, 100f, 0f, 0f, 1f, 150L)
+                else playTogetherAnim(binding.playPause!!, 0f, -100f, 1f, 0f, 150L)
             )
             if (isPlaying) {
                 exoPlayer.pause()
                 binding.playPause.visibility = View.VISIBLE
-                binding.pausePlay.icon = playIcon
+                binding.pausePlay!!.icon = playIcon
             } else {
                 exoPlayer.play()
             }
             start()
             doOnEnd {
                 if (!isPlaying) {
-                    binding.pausePlay.icon = pauseIcon
+                    binding.pausePlay!!.icon = pauseIcon
                     binding.playPause.visibility = View.GONE
                 }
                 cancel()
@@ -342,8 +341,7 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     private fun playerListenerLogic(
-        binding: ActivityPlayerBinding? = null,
-        bindingLand: ActivityPlayerLandBinding? = null
+        binding: ActivityPlayerBinding? = null
     ) {
         exoPlayer.addListener(object : Player.Listener {
             @SuppressLint("SwitchIntDef")
@@ -371,7 +369,7 @@ class MainPlayerActivity : ComponentActivity() {
                 super.onIsLoadingChanged(isLoading)
                 if (!isLoading) {
                     if (seeked) {
-                        translationAlphaAnim(binding!!.playLoading, false)
+                        translationAlphaAnim(binding!!.playLoading!!, false)
                         seeked = false
                     }
                 }
@@ -394,13 +392,13 @@ class MainPlayerActivity : ComponentActivity() {
         binding.apply {
             val currentPosition = exoPlayer.currentPosition
             val duration = exoPlayer.duration
-            playNow.text = if (playerSliderV2ViewModel.valueChanging.value) {
+            playNow!!.text = if (playerSliderV2ViewModel.valueChanging.value) {
                 timeParse(playerSliderV2ViewModel.nowPosition.value.toLong())
             } else {
                 playerSliderV2ViewModel.nowPosition.value = currentPosition.toFloat()
                 timeParse(currentPosition)
             }
-            playAll.text = timeParse(duration)
+            playAll!!.text = timeParse(duration)
             val thisMaxPosition = exoPlayer.duration.toFloat()
             if (thisMaxPosition >= 0) {
                 playerSliderV2ViewModel.maxPosition.value = thisMaxPosition
