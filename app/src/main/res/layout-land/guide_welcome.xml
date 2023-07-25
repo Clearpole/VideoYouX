@@ -9,6 +9,7 @@
     tools:targetApi="s"
     tools:ignore="MissingDefaultResource">
 
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_layer"
         android:layout_width="match_parent"
