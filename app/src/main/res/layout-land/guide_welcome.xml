@@ -25,7 +25,7 @@
         android:id="@+id/imageView3"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/icon_foreground"
         app:layout_constraintBottom_toTopOf="@id/guide_welcomeTo"
@@ -80,8 +80,8 @@
         android:layout_marginBottom="35dp"
         android:text="@string/next_steps"
         android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/guide_permission_icon"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_x" />
 
     <ImageView
         android:id="@+id/guide_permission_icon"
@@ -153,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/get_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
