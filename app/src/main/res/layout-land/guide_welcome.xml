@@ -20,6 +20,7 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/bc_welcome_bg" />
 
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="90dp"
