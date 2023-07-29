@@ -7,7 +7,7 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     tools:ignore="MissingDefaultResource"
-    android:background="@android:color/system_neutral1_50"
+    android:background="@color/background_color"
     tools:targetApi="s">
 
     <com.airbnb.lottie.LottieAnimationView

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/system_neutral1_50"
+    android:background="@color/background_color"
     tools:targetApi="s">
 
     <androidx.constraintlayout.widget.ConstraintLayout
