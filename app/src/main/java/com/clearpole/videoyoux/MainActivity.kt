@@ -1,6 +1,5 @@
 package com.clearpole.videoyoux
 
-import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux._adapter.ViewPagerAdapter
 import com.clearpole.videoyoux._compose.DevelopActivity
@@ -23,7 +21,6 @@ import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.textview.MaterialTextView
-import com.gyf.immersionbar.ImmersionBar
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +32,6 @@ import kotlinx.coroutines.withContext
 class MainActivity :
     BaseActivity<ActivityMainBinding>(
         isHideStatus = false,
-        isLandScape = false,
         inflate = ActivityMainBinding::inflate,
     ) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,65 +42,11 @@ class MainActivity :
             openActivity<GuideActivity>()
             finish()
         } else {
-            if (landScape) {
-                startRailView()
-                viewPagerLand()
-            } else {
-                bottomNavigationView()
-                viewPager()
-            }
-            ConvertUtils.px2dp(
-                ImmersionBar.getStatusBarHeight(this@MainActivity).toFloat() + 100
-            ).apply {
-                binding.screenHomeRailSpace!!.layoutParams.width = this
-                binding.homeLandStatus!!.layoutParams.height = this - 100
-            }
-            videoPlayer()
-        }
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        val orientation = newConfig.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            viewPagerLand()
-        } else {
+            bottomNavigationView()
             viewPager()
         }
     }
 
-    private fun videoPlayer() {
-
-    }
-
-    private fun startRailView() {
-        /* bindingLand.screenHomeRail.apply {
-             itemMinimumHeight = ScreenUtils.getScreenHeight() / 5
-         }*/
-    }
-
-    private fun viewPagerLand() {
-        val viewLand = binding.screenHomeLandPagerView
-        val pagesLandList = ArrayList<View>()
-        pagesLandList.apply {
-            add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
-            viewLand!!.adapter = ViewPagerAdapter(this)
-            viewLand.setCanSwipe(false)
-        }
-        pagesLandList[0].apply {
-            val rvLand = findViewById<RecyclerView>(R.id.home_land_rv)
-            CoroutineScope(Dispatchers.IO).launch {
-                val data = ReadMediaStore.readVideosData()
-                val model = model(data, true)
-                withContext(Dispatchers.Main) {
-                    rvLand.linear().setup {
-                        addType<MainPageHomeModel> { R.layout.main_page_rv_item_land }
-                    }.models = model
-                    rvLand.setHasFixedSize(true)
-                }
-            }
-        }
-    }
 
     private fun viewPager() {
         val view = binding.screenHomePagerView
@@ -114,10 +56,8 @@ class MainActivity :
             add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_play, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_settings, null))
-            if (view != null) {
-                view.adapter = ViewPagerAdapter(this)
-            }
-            view?.setCanSwipe(false)
+            view.adapter = ViewPagerAdapter(this)
+            view.setCanSwipe(false)
         }
 
         pagesList[0].apply {
@@ -169,7 +109,7 @@ class MainActivity :
         CoroutineScope(Dispatchers.IO).launch {
             refreshMediaData().apply {
                 val data = ReadMediaStore.readVideosData()
-                val model = model(data, false)
+                val model = model(data)
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
@@ -181,7 +121,7 @@ class MainActivity :
         }
     }
 
-    private fun model(dataList: MMKV, land: Boolean): MutableList<Any> {
+    private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
             val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
             for (element in data) {
@@ -189,11 +129,7 @@ class MainActivity :
                 val uri = item[1]
                 val path = item[0]
                 val title = element.split("\u001A")[1]
-                if (land) {
-
-                } else {
-                    add(MainPageHomeModel(path, Uri.parse(uri), title, false))
-                }
+                add(MainPageHomeModel(path, Uri.parse(uri), title, false))
             }
         }
     }

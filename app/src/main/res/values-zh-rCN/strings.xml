@@ -27,4 +27,5 @@
     <string name="exported_data_folder">您将要访问的文件位于 /sdcard/Android/data/ 内，为了您的的隐私绝对安全，请手动授权访问权限。\n\n文件夹：%1$s</string>
     <string name="reading">正在扫描中</string>
     <string name="go_to_home">进入主页</string>
+    <string name="no_pad_ui">横屏界面暂未开发</string>
 </resources>

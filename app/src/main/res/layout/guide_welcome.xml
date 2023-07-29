@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:background="@android:color/system_neutral1_50"
     tools:targetApi="s">
 
     <com.airbnb.lottie.LottieAnimationView

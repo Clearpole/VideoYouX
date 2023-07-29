@@ -9,7 +9,7 @@
     <string name="refresh">刷新</string>
     <string name="title_activity_main_player">Vyx 播放器</string>
     <string name="videoyou" translatable="false">VideoYou</string>
-    <string name="x" translatable="false">X</string>
+    <string name="x" translatable="false">𝕏</string>
     <string name="welcome_to" translatable="false">Welcome to</string>
     <string name="get_start">现在开始</string>
     <string name="next_steps">接下来需要进行的操作：</string>
@@ -32,4 +32,5 @@
     <string name="reading">正在扫描中</string>
     <string name="go_to_home">进入主页</string>
     <string name="title_activity_develop">DevelopActivity</string>
+    <string name="no_pad_ui">横屏界面暂未开发</string>
 </resources>

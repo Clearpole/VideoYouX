@@ -12,10 +12,8 @@ import com.google.android.material.color.DynamicColorsOptions
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 
-
 abstract class BaseActivity<VB : ViewBinding>(
     val isHideStatus: Boolean,
-    val isLandScape: Boolean,
     val isRequireLightBarText: Boolean? = null,
     val isRequireDarkBarText: Boolean? = null,
     private val inflate: (LayoutInflater) -> VB,
@@ -24,6 +22,7 @@ abstract class BaseActivity<VB : ViewBinding>(
     var landScape: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        landScape = resources.configuration.uiMode == Configuration.ORIENTATION_LANDSCAPE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             // 安卓版本大于12
             DynamicColors.applyToActivityIfAvailable(this)
@@ -46,6 +45,6 @@ abstract class BaseActivity<VB : ViewBinding>(
             )
                 .init()
         }
-                setContentView(binding.root)
+        setContentView(binding.root)
     }
 }

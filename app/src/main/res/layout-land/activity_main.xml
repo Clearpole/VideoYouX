@@ -1,45 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="?attr/colorSurfaceBright"
+    tools:context=".MainActivity">
 
-    <Space
-        android:id="@+id/home_land_status"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/screen_home_bottomView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
-
-    <LinearLayout
-        android:id="@+id/screen_home_rail_group"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/home_land_status"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-
-        <Space
-            android:id="@+id/screen_home_rail_space"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-        <com.google.android.material.navigationrail.NavigationRailView
-            android:id="@+id/screen_home_rail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:backgroundTint="#00000000"
-            app:itemMinHeight="80dp"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/menu_screen_home"
-            app:menuGravity="center" />
-    </LinearLayout>
+        app:itemBackground="@null"
+        app:itemRippleColor="@null"
+        android:layout_alignParentBottom="true"
+        app:labelVisibilityMode="auto"
+        app:menu="@menu/menu_screen_home" />
 
     <com.clearpole.videoyoux._assembly.NoSwipeViewPager
-        android:id="@+id/screen_home_land_pagerView"
+        android:id="@+id/screen_home_pagerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/home_land_status"
-        android:layout_toEndOf="@id/screen_home_rail_group"
         tools:ignore="contentDescription" />
 </RelativeLayout>
