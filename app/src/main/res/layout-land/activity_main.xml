@@ -8,14 +8,10 @@
     tools:context=".MainActivity">
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/screen_home_bottomView"
-        android:layout_width="match_parent"
+    <com.google.android.material.navigationrail.NavigationRailView
+        android:id="@+id/navigation_rail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:itemBackground="@null"
-        app:itemRippleColor="@null"
-        android:layout_alignParentBottom="true"
-        app:labelVisibilityMode="auto"
         app:menu="@menu/menu_screen_home" />
 
     <com.clearpole.videoyoux._assembly.NoSwipeViewPager
