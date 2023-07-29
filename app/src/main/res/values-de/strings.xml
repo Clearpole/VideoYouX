@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Start</string>
+    <string name="folders">Ordner</string>
+    <string name="play">Abspielen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="search">Suche</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="title_activity_main_player">Vyx Player</string>
+    <string name="get_start">Starte jetzt</string>
+    <string name="next_steps">Nächste Schritte</string>
+    <string name="get_permission">Antrag auf Genehmigung</string>
+    <string name="read_write_data_store">Lesen und Schreiben in der Datenbank</string>
+    <string name="exit_videoyoux">VideoYouX Verlassen</string>
+    <string name="backStep">Zurück</string>
+    <string name="nextStep">Weiter</string>
+    <string name="permission_use_storage">Für das Scannen von Videos auf deinem Gerät</string>
+    <string name="read_video_permission">Zugriffsrechte für Mediendateien</string>
+    <string name="guide_data_store_information">Scannen Sie ihre Dateien nach Videos,\ndies kann eine Weile dauern.</string>
+    <string name="get_data_store">Scannen von Videos</string>
+    <string name="start_read">Scan Starten</string>
+    <string name="exported_data">Parsen externer Daten</string>
+    <string name="get_saf_permission">Zugriff erforderlich</string>
+    <string name="get">Abrufen</string>
+    <string name="refuse_permission">Recht verweigern</string>
+    <string name="exported_data_folder">Die Dateien, auf die du zugreifen möchtest, befinden sich in /sdcard/Android/data/. Bitte genehmige den Zugriff auf diese Dateien manuell, um die Privatsphäre deiner Daten zu gewährleisten. \n\n Ordner: %1$s</string>
+    <string name="guide_permission_information">Bitte erteilen Sie die Erlaubnis, damit diese App funktionieren kann.</string>
+    <string name="reading">Scannen</string>
+    <string name="go_to_home">Zur Startseite gehen</string>
+    <string name="title_activity_develop">Fortschritt Entwicklung</string>
+    <string name="no_pad_ui">Der Horizontale Modus befindet sich noch in der Entwicklung</string>
+</resources>

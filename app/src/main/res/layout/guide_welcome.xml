@@ -34,9 +34,12 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/guide_welcomeTo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:maxLines="1"
         android:layout_marginStart="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/welcome_to"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="57sp"
@@ -63,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:maxLines="1"
         android:layout_marginBottom="50dp"
         android:text="@string/videoyou"
         android:textColor="?android:attr/textColorPrimary"
@@ -96,10 +100,11 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/guide_permission_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/get_permission"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
@@ -122,7 +127,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/guide_data_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="5dp"
@@ -131,6 +136,7 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guide_data_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guide_data_icon"
         app:layout_constraintTop_toTopOf="@id/guide_data_icon" />
 

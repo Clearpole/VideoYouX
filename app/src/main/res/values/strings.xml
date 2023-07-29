@@ -31,6 +31,6 @@
     <string name="guide_permission_information">请给予此应用权限以保证其能够正常运行。</string>
     <string name="reading">正在扫描中</string>
     <string name="go_to_home">进入主页</string>
-    <string name="title_activity_develop">DevelopActivity</string>
+    <string name="title_activity_develop">正在开发的项目</string>
     <string name="no_pad_ui">横屏界面暂未开发</string>
 </resources>
