@@ -1,5 +1,5 @@
 # ![app icon](https://img-blog.csdnimg.cn/651abd8e43fb44a49c1182c301272306.png) VideoYouX
-
+English, [Chinese](/README.md) | 
 Vyx is a Video Player based on the Material You 3 design
 
 #### The software is in the internal testing stage, any bugs encountered are welcome to submit Issues.
