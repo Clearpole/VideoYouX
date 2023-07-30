@@ -1,5 +1,6 @@
 [versions]
 brv = "1.4.3"
+collapsingtoolbarlayoutSubtitle = "1.5.0"
 com-android-application = "8.1.0"
 glide = "4.15.1"
 immersionbar = "3.2.2"
@@ -16,7 +17,6 @@ animation = "1.4.3"
 material3 = "1.1.1"
 recyclerview = "1.3.1"
 appcompatResources = "1.6.1"
-google-material = "1.9.0"
 
 [libraries]
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
@@ -25,6 +25,7 @@ androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-da
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 androidx-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "uiViewbinding" }
 brv = { module = "com.github.liangjingkanji:BRV", version.ref = "brv" }
+collapsingtoolbarlayout-subtitle = { module = "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle", version.ref = "collapsingtoolbarlayoutSubtitle" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 immersionbar = { module = "com.geyifeng.immersionbar:immersionbar", version.ref = "immersionbar" }
 serialize = { module = "com.github.liangjingkanji:Serialize", version.ref = "serialize" }
@@ -36,12 +37,7 @@ androidx-animation = { group = "androidx.compose.animation", name = "animation",
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-appcompat-resources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "appcompatResources" }
-google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
-
-[libraries.material]
-group = "com.google.android.material"
-name = "material"
-version.ref = "material"
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }

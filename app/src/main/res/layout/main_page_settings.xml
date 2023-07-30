@@ -7,18 +7,20 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?collapsingToolbarLayoutMediumSize"
+        android:layout_height="wrap_content"
         android:background="@color/transparent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?collapsingToolbarLayoutMediumStyle"
+        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+            style="?collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?collapsingToolbarLayoutMediumSize"
+            android:layout_height="200dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleCollapseMode="scale">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/settings_toolBar"
                 android:layout_width="match_parent"
+                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                 android:layout_height="?actionBarSize"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
@@ -26,7 +28,7 @@
                 app:title="@string/settings"
                 app:titleMarginStart="16dp" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

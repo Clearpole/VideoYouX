@@ -182,4 +182,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.lottie)
     implementation(libs.xx.permissions)
+    implementation(libs.collapsingtoolbarlayout.subtitle)
 }

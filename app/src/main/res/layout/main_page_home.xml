@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?collapsingToolbarLayoutLargeSize"
+        android:layout_height="200dp"
         android:background="@color/transparent">
 
         <RelativeLayout
@@ -43,16 +43,17 @@
                 tools:targetApi="s" />
         </RelativeLayout>
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
             android:id="@+id/toolbarRoot"
             style="?collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?collapsingToolbarLayoutLargeSize"
+            android:layout_height="200dp"
             android:visibility="gone"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleCollapseMode="scale">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:elevation="0dp"
@@ -61,7 +62,7 @@
                 app:title="@string/home"
                 app:titleMarginStart="16dp" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -76,13 +77,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/home_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="15dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="210dp"
+                    android:paddingVertical="30dp"
+                    android:layout_marginHorizontal="12dp"
                     android:clipChildren="false"
                     app:layout_constraintTop_toTopOf="parent" />
 

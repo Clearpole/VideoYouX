@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux._adapter.ViewPagerAdapter
 import com.clearpole.videoyoux._compose.DevelopActivity
 import com.clearpole.videoyoux._models.MainPageHomeModel
+import com.clearpole.videoyoux._utils.Greetings
 import com.clearpole.videoyoux._utils.ReadMediaStore
 import com.clearpole.videoyoux._utils.RefreshMediaStore
+import com.clearpole.videoyoux._utils.Statistics
 import com.clearpole.videoyoux.databinding.ActivityMainBinding
-import com.clearpole.videoyoux.screen_home.Greetings
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
@@ -35,6 +35,7 @@ class MainActivity :
         isHideStatus = false,
         inflate = ActivityMainBinding::inflate,
     ) {
+    private var pagesList = arrayListOf<View>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -51,8 +52,8 @@ class MainActivity :
 
     private fun viewPager() {
         val view = binding.screenHomePagerView
-        val pagesList = ArrayList<View>()
-        pagesList.apply {
+        var pageList = ArrayList<View>()
+        pageList.apply {
             add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_search, null))
@@ -60,16 +61,47 @@ class MainActivity :
             add(View.inflate(this@MainActivity, R.layout.main_page_settings, null))
             view.adapter = ViewPagerAdapter(this)
             view.setCanSwipe(false)
+            pagesList = this
         }
 
-        pagesList[0].apply {
+        pageList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
             homeTitleAnim(findViewById(R.id.titleRoot), findViewById(R.id.toolbarRoot))
+            findViewById<MaterialToolbar>(R.id.toolbar).subtitle = greetings()
+        }
+
+        pageList[1].apply {
+            val toolBar = findViewById<MaterialToolbar>(R.id.folders_toolBar)
+            toolBar.subtitle = context.getString(
+                R.string.all_folders_count,
+                Statistics.readInfo(Statistics.FOLDERS_COUNT)
+            )
+        }
+
+        pageList[2].apply {
+            val toolBar = findViewById<MaterialToolbar>(R.id.search_toolBar)
+            toolBar.subtitle = context.getString(
+                R.string.all_videos_count,
+                Statistics.readInfo(Statistics.VIDEOS_COUNT)
+            )
+        }
+
+        pageList[3].apply {
+            val toolBar = findViewById<MaterialToolbar>(R.id.play_toolBar)
+            toolBar.subtitle = context.getString(
+                R.string.all_play_count,
+                Statistics.readInfo(Statistics.PLAY_COUNT)
+            )
+        }
+
+        pageList[4].apply {
+            val toolBar = findViewById<MaterialToolbar>(R.id.settings_toolBar)
+            toolBar.subtitle = context.getString(R.string.diy_vyx)
         }
     }
 
-    private fun homeTitleAnim(titleRoot: View, toolBar: View) {
+    private fun homeTitleAnim(titleRoot: View, toolBarRoot: View) {
         val disAppear = AnimationUtils.loadAnimation(this, R.anim.disappear_appear)
         val appearDis = AnimationUtils.loadAnimation(this, R.anim.appear_disappear)
         CoroutineScope(Dispatchers.IO).launch {
@@ -85,9 +117,9 @@ class MainActivity :
             }
             delay(600)
             withContext(Dispatchers.Main) {
-                toolBar.startAnimation(disAppear)
-                toolBar.visibility = View.VISIBLE
-                toolBar.setOnClickListener {
+                toolBarRoot.startAnimation(disAppear)
+                toolBarRoot.visibility = View.VISIBLE
+                toolBarRoot.setOnClickListener {
                     openActivity<DevelopActivity>()
                 }
             }
@@ -106,7 +138,7 @@ class MainActivity :
         CoroutineScope(Dispatchers.IO).launch {
             refreshMediaData().apply {
                 val data = ReadMediaStore.readVideosData()
-                val model = model(data)
+                val model = model(data, ReadMediaStore.readFlodersData())
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
@@ -118,15 +150,16 @@ class MainActivity :
         }
     }
 
-    private fun model(dataList: MMKV): MutableList<Any> {
+    private fun model(dataList: MMKV, folderList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            val data = dataList.allKeys()!!.sortedBy { it.split("\u001A")[0] }.reversed()
-            for (element in data) {
-                val item = dataList.decodeString(element)!!.split("\u001A")
-                val uri = item[1]
-                val path = item[0]
-                val title = element.split("\u001A")[1]
-                add(MainPageHomeModel(path, Uri.parse(uri), title, false))
+            val folders = folderList.allKeys()!!.sortedBy { folderList.decodeString(it)!!.toLong() }
+                .reversed()
+            folders.forEachIndexed { index, s ->
+                val items = dataList.decodeString(s)!!
+                items.split("\u001A\u001A").forEachIndexed { count, video ->
+                    val data = video.split("\u001A")
+                    add(MainPageHomeModel(data[0], Uri.parse(data[1]), data[3], false))
+                }
             }
         }
     }
