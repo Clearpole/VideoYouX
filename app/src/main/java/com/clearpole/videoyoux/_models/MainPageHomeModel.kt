@@ -5,6 +5,7 @@ import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.clearpole.videoyoux.databinding.MainPageRvItemLandBinding
 import com.clearpole.videoyoux._compose.MainPlayerActivity
 import com.clearpole.videoyoux.databinding.ItemMainCarouselBinding
@@ -28,10 +29,10 @@ open class MainPageHomeModel(
     @SuppressLint("RestrictedApi")
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
         CoroutineScope(Dispatchers.IO).launch {
-            val load = Glide.with(holder.context).load(uri)
+            val load = Glide.with(holder.context).setDefaultRequestOptions(RequestOptions().frame(1000000)).load(paths)
                 .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
                     DiskCacheStrategy.ALL
-                ).override(500,500).centerCrop()
+                ).centerCrop()
             var titleStringHandled = titleString
             var subTitleStringHandled = titleString
             val regex = arrayListOf("-", "_", " ")

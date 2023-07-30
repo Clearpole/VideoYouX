@@ -15,7 +15,10 @@
             android:id="@+id/carousel_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:requestLegacyExternalStorage="true"
+            android:preserveLegacyExternalStorage="true"
+            android:scaleType="centerCrop"
+            tools:targetApi="r" />
 
         <LinearLayout
             android:layout_width="match_parent"

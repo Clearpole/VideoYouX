@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
@@ -19,8 +20,8 @@ import com.clearpole.videoyoux.screen_home.Greetings
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.textview.MaterialTextView
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -63,34 +64,29 @@ class MainActivity :
         pagesList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
-            homeTitleAnim(findViewById(R.id.home_title_last), findViewById(R.id.home_title_x))
+            homeTitleAnim(findViewById(R.id.titleRoot), findViewById(R.id.toolbarRoot))
         }
     }
 
-    private fun homeTitleAnim(titleViewLast: MaterialTextView, titleViewNext: MaterialTextView) {
+    private fun homeTitleAnim(titleRoot: View, toolBar: View) {
         val disAppear = AnimationUtils.loadAnimation(this, R.anim.disappear_appear)
         val appearDis = AnimationUtils.loadAnimation(this, R.anim.appear_disappear)
         CoroutineScope(Dispatchers.IO).launch {
             delay(600)
             withContext(Dispatchers.Main) {
-                titleViewLast.visibility = View.VISIBLE
-                titleViewNext.visibility = View.VISIBLE
-                titleViewLast.startAnimation(disAppear)
-                titleViewNext.startAnimation(disAppear)
+                titleRoot.visibility = View.VISIBLE
+                titleRoot.startAnimation(disAppear)
             }
             delay(600)
             withContext(Dispatchers.Main) {
-                titleViewLast.startAnimation(appearDis)
-                titleViewNext.startAnimation(appearDis)
-                titleViewLast.visibility = View.GONE
-                titleViewNext.visibility = View.GONE
+                titleRoot.startAnimation(appearDis)
+                titleRoot.visibility = View.GONE
             }
             delay(600)
             withContext(Dispatchers.Main) {
-                titleViewLast.text = getString(R.string.home)
-                titleViewLast.visibility = View.VISIBLE
-                titleViewLast.startAnimation(disAppear)
-                titleViewLast.setOnClickListener {
+                toolBar.startAnimation(disAppear)
+                toolBar.visibility = View.VISIBLE
+                toolBar.setOnClickListener {
                     openActivity<DevelopActivity>()
                 }
             }
