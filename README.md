@@ -1,7 +1,7 @@
 # ![app icon](https://img-blog.csdnimg.cn/651abd8e43fb44a49c1182c301272306.png) VideoYouX
-[English](/readme_en.md), Chinese | 
 Vyx 是一款基于最新 Material Desgin 3 设计的视频播放器。
 
+简体中文 | [English](/README_EN.md)
 
 #### 软件处于内测阶段，遇到任何 Bug 欢迎提 Issues。
 
@@ -37,3 +37,6 @@ Vyx 是一款基于最新 Material Desgin 3 设计的视频播放器。
 
 ## Disclaimer
 The developer of this application has no association with the content played by the user.
+
+
+[def]: README

@@ -1,6 +1,7 @@
 # ![app icon](https://img-blog.csdnimg.cn/651abd8e43fb44a49c1182c301272306.png) VideoYouX
-English, [Chinese](/README.md) | 
-Vyx is a Video Player based on the Material You 3 design
+Vyx is a Video Player based on the Material You 3 design.
+
+English | [简体中文](/README.md)
 
 #### The software is in the internal testing stage, any bugs encountered are welcome to submit Issues.
 
@@ -16,8 +17,8 @@ Possible future features:
 
 | Download Channels | Social Platform | All-round community |
 |:------------------|:----------------|:--------------------|
-| [Telegram Channel](https://t.me/VyxNotice) | [Telegram Group](https://t.me/VyxChatting) | [QQ 频道](https://pd.qq.com/s/7w9nfu9d) |
-| [Telegram CI Channel](https://t.me/VyxCiBuild) | [QQ 群组](http://qm.qq.com/cgi-bin/qm/qr?k=kuEgTkhx0YOeQVfCHpVCJvJRiZ2zvxlr) |  |
+| [Telegram Channel](https://t.me/VyxNotice) | [Telegram Group](https://t.me/VyxChatting) | [QQ Channel](https://pd.qq.com/s/7w9nfu9d) |
+| [Telegram CI Channel](https://t.me/VyxCiBuild) | [QQ Group](http://qm.qq.com/cgi-bin/qm/qr?k=kuEgTkhx0YOeQVfCHpVCJvJRiZ2zvxlr) |  |
 
 ## LICENSE
 

@@ -4,19 +4,21 @@ on:
   push:
     branches: [ "master" ]
     paths-ignore:
-      - 'README.md'
+      - '*.md'
       - 'LICENSE'
       - '.github/renovate.json'
+      - 'crowdin.yml'
   pull_request:
     branches: [ "master" ]
     paths-ignore:
-      - 'README.md'
+      - '*.md'
       - 'LICENSE'
       - '.github/renovate.json'
+      - 'crowdin.yml'
   workflow_dispatch:
 
 jobs:
-  build:
+  Build:
     if: contains(github.event.head_commit.message, '[skip_ci]') == false
     runs-on: ubuntu-latest
 
