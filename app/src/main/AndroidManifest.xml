@@ -38,7 +38,7 @@
             android:exported="false" />
         <activity
             android:name="._compose.MainPlayerActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:configChanges="uiMode"
             android:exported="true"
             android:label="@string/title_activity_main_player"
             android:launchMode="singleTask"

@@ -67,13 +67,15 @@ class MainActivity :
         pageList[0].apply {
             val rv = findViewById<RecyclerView>(R.id.home_rv)
             logicList(rv)
-            homeTitleAnim(findViewById(R.id.titleRoot), findViewById(R.id.toolbarRoot))
-            findViewById<MaterialToolbar>(R.id.toolbar).subtitle = greetings()
+            if (findViewById<View>(R.id.titleRoot) != null) {
+                homeTitleAnim(findViewById(R.id.titleRoot), findViewById(R.id.toolbarRoot))
+                findViewById<MaterialToolbar>(R.id.toolbar)!!.subtitle = greetings()
+            }
         }
 
         pageList[1].apply {
             val toolBar = findViewById<MaterialToolbar>(R.id.folders_toolBar)
-            toolBar.subtitle = context.getString(
+            toolBar!!.subtitle = context.getString(
                 R.string.all_folders_count,
                 Statistics.readInfo(Statistics.FOLDERS_COUNT)
             )
@@ -81,7 +83,7 @@ class MainActivity :
 
         pageList[2].apply {
             val toolBar = findViewById<MaterialToolbar>(R.id.search_toolBar)
-            toolBar.subtitle = context.getString(
+            toolBar!!.subtitle = context.getString(
                 R.string.all_videos_count,
                 Statistics.readInfo(Statistics.VIDEOS_COUNT)
             )
@@ -89,7 +91,7 @@ class MainActivity :
 
         pageList[3].apply {
             val toolBar = findViewById<MaterialToolbar>(R.id.play_toolBar)
-            toolBar.subtitle = context.getString(
+            toolBar!!.subtitle = context.getString(
                 R.string.all_play_count,
                 Statistics.readInfo(Statistics.PLAY_COUNT)
             )
@@ -97,7 +99,7 @@ class MainActivity :
 
         pageList[4].apply {
             val toolBar = findViewById<MaterialToolbar>(R.id.settings_toolBar)
-            toolBar.subtitle = context.getString(R.string.diy_vyx)
+            toolBar!!.subtitle = context.getString(R.string.diy_vyx)
         }
     }
 
