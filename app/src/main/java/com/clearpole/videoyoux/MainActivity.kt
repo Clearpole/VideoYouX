@@ -55,6 +55,7 @@ class MainActivity :
         pagesList.apply {
             add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))
+            add(View.inflate(this@MainActivity, R.layout.main_page_search, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_play, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_settings, null))
             view.adapter = ViewPagerAdapter(this)
@@ -132,10 +133,10 @@ class MainActivity :
 
     private fun bottomNavigationView() {
         binding.screenHomeBottomView.apply {
-            this!!.setOnItemSelectedListener {
+            this.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.menu_screen_page1 -> {
-                        binding.screenHomePagerView!!.setCurrentItem(0, true)
+                        binding.screenHomePagerView.setCurrentItem(0, true)
                         it.icon = getDrawableRes(R.drawable.baseline_home_24)
                         this.menu.getItem(1).icon =
                             getDrawableRes(R.drawable.outline_folder_24)
@@ -147,7 +148,7 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page2 -> {
-                        binding.screenHomePagerView!!.setCurrentItem(1, true)
+                        binding.screenHomePagerView.setCurrentItem(1, true)
                         it.icon = getDrawableRes(R.drawable.baseline_folder_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
@@ -159,11 +160,19 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page3 -> {
+                        binding.screenHomePagerView.setCurrentItem(2, true)
+                        this.menu.getItem(0).icon = getDrawableRes(R.drawable.outline_home_24)
+                        this.menu.getItem(1).icon =
+                            getDrawableRes(R.drawable.outline_folder_24)
+                        this.menu.getItem(3).icon =
+                            getDrawableRes(R.drawable.outline_list_24)
+                        this.menu.getItem(4).icon =
+                            getDrawableRes(R.drawable.outline_settings_24)
                         true
                     }
 
                     R.id.menu_screen_page4 -> {
-                        binding.screenHomePagerView!!.setCurrentItem(2, true)
+                        binding.screenHomePagerView.setCurrentItem(3, true)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)
                         this.menu.getItem(1).icon =
@@ -174,7 +183,7 @@ class MainActivity :
                     }
 
                     R.id.menu_screen_page5 -> {
-                        binding.screenHomePagerView!!!!.setCurrentItem(4, true)
+                        binding.screenHomePagerView.setCurrentItem(4, true)
                         it.icon = getDrawableRes(R.drawable.baseline_settings_24)
                         this.menu.getItem(0).icon =
                             getDrawableRes(R.drawable.outline_home_24)

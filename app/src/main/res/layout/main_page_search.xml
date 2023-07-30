@@ -22,8 +22,8 @@
                 android:layout_height="?actionBarSize"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
-                app:logo="@drawable/outline_list_24"
-                app:title="@string/play"
+                app:logo="@drawable/baseline_search_24"
+                app:title="@string/search"
                 app:titleMarginStart="16dp" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
