@@ -41,7 +41,6 @@
             android:configChanges="uiMode"
             android:exported="true"
             android:label="@string/title_activity_main_player"
-            android:launchMode="singleTask"
             android:supportsPictureInPicture="true"
             android:theme="@style/Theme.VideoYou"
             android:usesCleartextTraffic="true"

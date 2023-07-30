@@ -52,7 +52,7 @@ class MainActivity :
 
     private fun viewPager() {
         val view = binding.screenHomePagerView
-        var pageList = ArrayList<View>()
+        val pageList = ArrayList<View>()
         pageList.apply {
             add(View.inflate(this@MainActivity, R.layout.main_page_home, null))
             add(View.inflate(this@MainActivity, R.layout.main_page_folders, null))

@@ -56,6 +56,7 @@ import androidx.media3.ui.PlayerView
 import com.clearpole.videoyoux.R
 import com.clearpole.videoyoux._compose.ui.theme.VideoYouXTheme
 import com.clearpole.videoyoux._models.PlayerSliderV2ViewModel
+import com.clearpole.videoyoux._player.Media3PlayerUtils
 import com.clearpole.videoyoux._utils.VideoInfo
 import com.clearpole.videoyoux.databinding.ActivityPlayerBinding
 import com.drake.serialize.intent.bundle
@@ -75,20 +76,27 @@ class MainPlayerActivity : ComponentActivity() {
     private var seeked = true
     private var uri: Uri? by bundle()
     private var paths: String? by bundle()
+    lateinit var exoPlayer : ExoPlayer
     private lateinit var playerLifecycleScope: Job
-    private lateinit var exoPlayer: ExoPlayer
     private lateinit var info: ArrayList<String>
     private lateinit var playerSliderV2ViewModel: PlayerSliderV2ViewModel
+    private var exoExist = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (intent.data != null) {
             uri = intent.data
             paths = intent.data!!.path
         }
-        exoPlayer = ExoPlayer.Builder(this)
-            .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false))
-            .setUseLazyPreparation(false)
-            .build()
+       exoExist = Media3PlayerUtils.getIfExoExist()
+        if (!Media3PlayerUtils.getIfExoExist()) {
+            exoPlayer = ExoPlayer.Builder(this)
+                .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false))
+                .setUseLazyPreparation(false)
+                .build()
+            Media3PlayerUtils.exoPlayer = exoPlayer
+        }else{
+            exoPlayer = Media3PlayerUtils.exoPlayer
+        }
         DynamicColors.applyToActivityIfAvailable(this)
         playerLifecycleScope = lifecycleScope.launch {}
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
@@ -100,7 +108,7 @@ class MainPlayerActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    VideoPlayer()
+                    VideoPlayer(exoExist)
                     ControlLayout(resources = resources)
                 }
             }
@@ -117,24 +125,31 @@ class MainPlayerActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        exoPlayer.play()
+
     }
+
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        once = true
+    }*/
 
 
     @Composable
-    fun VideoPlayer() {
+    fun VideoPlayer(exoExist:Boolean) {
         AndroidView(modifier = Modifier
             .background(Color.Black), factory = {
             PlayerView(it).apply {
+                if (!exoExist) {
+                    exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
+                    val dataSourceFactory =
+                        DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
+                    val mediaSource =
+                        ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+                            MediaItem.fromUri(uri!!)
+                        )
+                    exoPlayer.prepare(mediaSource)
+                }
                 useController = false
-                exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                val dataSourceFactory =
-                    DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
-                val mediaSource =
-                    ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                        MediaItem.fromUri(uri!!)
-                    )
-                exoPlayer.prepare(mediaSource)
                 player = exoPlayer
             }
         })
@@ -244,7 +259,7 @@ class MainPlayerActivity : ComponentActivity() {
                             )
                         }
                     }
-                    playerListenerLogic(this)
+                    playerListenerLogic(this, exoExist)
                 }
             }
     }
@@ -252,14 +267,23 @@ class MainPlayerActivity : ComponentActivity() {
     private fun playPause(binding: ActivityPlayerBinding) {
         if (exoPlayer.isPlaying) {
             exoPlayer.pause()
-            playPauseView(binding, true)
+            //playPauseView(binding, true)
         } else {
             exoPlayer.play()
-            playPauseView(binding, false)
+            //playPauseView(binding, false)
         }
     }
 
     private fun playPauseView(binding: ActivityPlayerBinding, isPlaying: Boolean) {
+        val ifPause = binding.playPause.visibility == View.VISIBLE
+        //是否已暂停
+        //第一遍 isPlaying == false， ifPause也为false，执行
+        //第二遍 isPlayeing == false，但是 ifPause已经等于true，不执行
+        //第三遍 isPlaying == true，此时 ifPause等于true，执行
+        //第四遍 isPlaying == true，但是 ifPause等于false，不执行
+        if ((!isPlaying&&ifPause)||(isPlaying&&!ifPause)){
+            return
+        }
         val playIcon =
             AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_play_arrow_24)
         val pauseIcon =
@@ -271,11 +295,11 @@ class MainPlayerActivity : ComponentActivity() {
                 else playTogetherAnim(binding.playPause, 0f, -100f, 1f, 0f, 150L)
             )
             if (isPlaying) {
-                exoPlayer.pause()
+                //exoPlayer.pause()
                 binding.playPause.visibility = View.VISIBLE
                 binding.pausePlay.icon = playIcon
             } else {
-                exoPlayer.play()
+                //exoPlayer.play()
             }
             start()
             doOnEnd {
@@ -333,51 +357,55 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     private fun playerListenerLogic(
-        binding: ActivityPlayerBinding? = null
+        binding: ActivityPlayerBinding? = null,
+        exoExist:Boolean
     ) {
-        exoPlayer.addListener(object : Player.Listener {
-            @SuppressLint("SwitchIntDef")
-            override fun onPlaybackStateChanged(playbackState: Int) {
-                super.onPlaybackStateChanged(playbackState)
-                when (playbackState) {
-                    Player.STATE_READY -> {
-                        exoPlayer.play()
-                        if (once) {
-                            once = false
-                            playerLifecycleScope = lifecycleScope.launch {
-                                while (true) {
-                                    if (requireUpdateUI) {
-                                        updateUI(binding = binding!!)
-                                        delay(500)
-                                    }
-                                    delay(500)
-                                }
-                            }
+        playerLifecycleScope = lifecycleScope.launch {
+            while (true) {
+                if (requireUpdateUI) {
+                    updateUI(binding = binding!!)
+                    delay(500)
+                }
+                delay(500)
+            }
+        }
+            exoPlayer.addListener(object : Player.Listener {
+                @SuppressLint("SwitchIntDef")
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    super.onPlaybackStateChanged(playbackState)
+                    when (playbackState) {
+                        Player.STATE_READY -> {
+                            exoPlayer.play()
                         }
                     }
                 }
-            }
 
-            override fun onIsLoadingChanged(isLoading: Boolean) {
-                super.onIsLoadingChanged(isLoading)
-                if (!isLoading) {
-                    if (seeked) {
-                        translationAlphaAnim(binding!!.playLoading, false)
-                        seeked = false
+                override fun onIsLoadingChanged(isLoading: Boolean) {
+                    super.onIsLoadingChanged(isLoading)
+                    if (!isLoading) {
+                        if (seeked) {
+                            translationAlphaAnim(binding!!.playLoading, false)
+                            seeked = false
+                        }
                     }
                 }
-            }
 
-            override fun onPlayerError(error: PlaybackException) {
-                super.onPlayerError(error)
-                playerLifecycleScope.cancel()
-                MaterialAlertDialogBuilder(this@MainPlayerActivity).setTitle("播放错误")
-                    .setMessage("name:\n${error.errorCodeName}\n\ncode:${error.errorCode}\n\nmessage:\n${error.message}")
-                    .setPositiveButton("退出") { _, _ ->
-                        end()
-                    }.show()
-            }
-        })
+                override fun onPlayerError(error: PlaybackException) {
+                    super.onPlayerError(error)
+                    playerLifecycleScope.cancel()
+                    MaterialAlertDialogBuilder(this@MainPlayerActivity).setTitle("播放错误")
+                        .setMessage("name:\n${error.errorCodeName}\n\ncode:${error.errorCode}\n\nmessage:\n${error.message}")
+                        .setPositiveButton("退出") { _, _ ->
+                            end()
+                        }.show()
+                }
+            })
+
+        if (exoExist){
+            //存在
+            //重载不会重新调用事件，手动隐藏
+            binding!!.playLoading.visibility = View.GONE
+        }
     }
 
     private fun updateUI(binding: ActivityPlayerBinding) {
@@ -395,6 +423,7 @@ class MainPlayerActivity : ComponentActivity() {
             if (thisMaxPosition >= 0) {
                 playerSliderV2ViewModel.maxPosition.value = thisMaxPosition
             }
+            playPauseView(binding, exoPlayer.isPlaying)
         }
     }
 
