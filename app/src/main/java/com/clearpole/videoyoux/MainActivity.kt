@@ -154,9 +154,9 @@ class MainActivity :
         return mutableListOf<Any>().apply {
             val folders = folderList.allKeys()!!.sortedBy { folderList.decodeString(it)!!.toLong() }
                 .reversed()
-            folders.forEachIndexed { index, s ->
+            folders.forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
-                items.split("\u001A\u001A").forEachIndexed { count, video ->
+                items.split("\u001A\u001A").forEachIndexed { _, video ->
                     val data = video.split("\u001A")
                     add(MainPageHomeModel(data[0], Uri.parse(data[1]), data[3], false))
                 }
@@ -243,7 +243,7 @@ class MainActivity :
             sharedPreferences.getString("greetings-text", "美好的一天")!!
         } else {
             val editor = sharedPreferences.edit()
-            val greetings = Greetings.text()
+            val greetings = Greetings.text(this)
             editor.putString("chinese-week", TimeUtils.getChineseWeek(TimeUtils.getNowDate()))
             editor.putString("greetings-text", greetings)
             editor.apply()
