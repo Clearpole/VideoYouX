@@ -72,7 +72,6 @@ import kotlinx.coroutines.launch
 @UnstableApi
 class MainPlayerActivity : ComponentActivity() {
     private var requireUpdateUI = true
-    private var once = true
     private var seeked = true
     private var uri: Uri? by bundle()
     private var paths: String? by bundle()
@@ -88,14 +87,14 @@ class MainPlayerActivity : ComponentActivity() {
             paths = intent.data!!.path
         }
        exoExist = Media3PlayerUtils.getIfExoExist()
-        if (!Media3PlayerUtils.getIfExoExist()) {
+        if (!exoExist) {
             exoPlayer = ExoPlayer.Builder(this)
                 .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false))
                 .setUseLazyPreparation(false)
                 .build()
             Media3PlayerUtils.exoPlayer = exoPlayer
         }else{
-            exoPlayer = Media3PlayerUtils.exoPlayer
+            exoPlayer = Media3PlayerUtils.exoPlayer!!
         }
         DynamicColors.applyToActivityIfAvailable(this)
         playerLifecycleScope = lifecycleScope.launch {}
@@ -125,13 +124,8 @@ class MainPlayerActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        exoPlayer.play()
     }
-
-    /*override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        once = true
-    }*/
 
 
     @Composable
@@ -267,23 +261,14 @@ class MainPlayerActivity : ComponentActivity() {
     private fun playPause(binding: ActivityPlayerBinding) {
         if (exoPlayer.isPlaying) {
             exoPlayer.pause()
-            //playPauseView(binding, true)
+            playPauseView(binding, true)
         } else {
             exoPlayer.play()
-            //playPauseView(binding, false)
+            playPauseView(binding, false)
         }
     }
 
     private fun playPauseView(binding: ActivityPlayerBinding, isPlaying: Boolean) {
-        val ifPause = binding.playPause.visibility == View.VISIBLE
-        //是否已暂停
-        //第一遍 isPlaying == false， ifPause也为false，执行
-        //第二遍 isPlayeing == false，但是 ifPause已经等于true，不执行
-        //第三遍 isPlaying == true，此时 ifPause等于true，执行
-        //第四遍 isPlaying == true，但是 ifPause等于false，不执行
-        if ((!isPlaying&&ifPause)||(isPlaying&&!ifPause)){
-            return
-        }
         val playIcon =
             AppCompatResources.getDrawable(this@MainPlayerActivity, R.drawable.round_play_arrow_24)
         val pauseIcon =
@@ -295,11 +280,8 @@ class MainPlayerActivity : ComponentActivity() {
                 else playTogetherAnim(binding.playPause, 0f, -100f, 1f, 0f, 150L)
             )
             if (isPlaying) {
-                //exoPlayer.pause()
                 binding.playPause.visibility = View.VISIBLE
                 binding.pausePlay.icon = playIcon
-            } else {
-                //exoPlayer.play()
             }
             start()
             doOnEnd {
@@ -423,7 +405,6 @@ class MainPlayerActivity : ComponentActivity() {
             if (thisMaxPosition >= 0) {
                 playerSliderV2ViewModel.maxPosition.value = thisMaxPosition
             }
-            playPauseView(binding, exoPlayer.isPlaying)
         }
     }
 
@@ -431,6 +412,7 @@ class MainPlayerActivity : ComponentActivity() {
         playerLifecycleScope.cancel()
         exoPlayer.stop()
         exoPlayer.release()
+        Media3PlayerUtils.exoPlayer = null
         finish()
     }
 

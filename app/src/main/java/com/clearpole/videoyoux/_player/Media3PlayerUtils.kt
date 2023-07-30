@@ -4,9 +4,9 @@ import androidx.media3.exoplayer.ExoPlayer
 
 class Media3PlayerUtils {
     companion object{
-        lateinit var exoPlayer : ExoPlayer
+        var exoPlayer : ExoPlayer? = null
         fun getIfExoExist():Boolean{
-            return this::exoPlayer.isInitialized
+            return exoPlayer != null
         }
     }
 }

@@ -256,4 +256,5 @@ class MainActivity :
     private fun getDrawableRes(id: Int): Drawable {
         return ResourcesCompat.getDrawable(resources, id, null)!!
     }
+
 }
