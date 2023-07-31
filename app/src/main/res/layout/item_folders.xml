@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="95dp"
+    android:foreground="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/d_i_1"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="18dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/outline_folder_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/grey" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/k_i_o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="24dp"
+        style="@style/Widget.Material3.CardView.Filled"
+        app:layout_constraintTop_toTopOf="@id/d_i_1"
+        app:layout_constraintStart_toStartOf="@id/d_i_1"
+        app:layout_constraintDimensionRatio="W,1:1"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp">
+        <com.google.android.material.textview.MaterialTextView
+            android:minWidth="13dp"
+            android:layout_margin="5dp"
+            android:id="@+id/filesCount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="9"
+            android:textSize="10sp"
+            android:textColor="?android:attr/textColorPrimary" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/d_i_1"
+        app:layout_constraintEnd_toStartOf="@id/more"
+        app:layout_constraintStart_toEndOf="@id/d_i_1"
+        app:layout_constraintTop_toTopOf="@id/d_i_1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/foldersTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/foldersInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/more"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:icon="@drawable/baseline_more_vert_24"
+        app:iconSize="24dp"
+        app:iconTint="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

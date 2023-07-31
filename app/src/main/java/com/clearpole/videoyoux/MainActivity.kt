@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils
 import com.clearpole.videoyoux._adapter.ViewPagerAdapter
 import com.clearpole.videoyoux._compose.DevelopActivity
+import com.clearpole.videoyoux._models.FoldersModel
 import com.clearpole.videoyoux._models.MainPageHomeModel
 import com.clearpole.videoyoux._utils.Greetings
 import com.clearpole.videoyoux._utils.ReadMediaStore
@@ -79,6 +80,18 @@ class MainActivity :
                 R.string.all_folders_count,
                 Statistics.readInfo(Statistics.FOLDERS_COUNT)
             )
+            val rv = findViewById<RecyclerView>(R.id.folders_rv)
+            CoroutineScope(Dispatchers.IO).launch {
+                refreshMediaData().apply {
+                    val data = ReadMediaStore.readFlodersData()
+                    val model = foldersModel(data)
+                    withContext(Dispatchers.Main) {
+                        rv.linear().setup {
+                            addType<FoldersModel> { R.layout.item_folders }
+                        }.models = model
+                    }
+                }
+            }
         }
 
         pageList[2].apply {
@@ -134,6 +147,16 @@ class MainActivity :
             Environment.getExternalStorageDirectory().toString()
         )
         ReadMediaStore.writeData(contentResolver)
+    }
+
+    private fun foldersModel(folderList: MMKV): MutableList<Any> {
+        return mutableListOf<Any>().apply {
+            val folders = folderList.allKeys()!!.sortedBy { folderList.decodeString(it)!!.toLong() }
+                .reversed()
+            folders.forEachIndexed { _, s ->
+                add(FoldersModel(s, folderList.decodeString(s)!!))
+            }
+        }
     }
 
     private fun logicList(rv: RecyclerView) {

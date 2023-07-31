@@ -6,7 +6,6 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
@@ -108,7 +107,7 @@ class MainPlayerActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     VideoPlayer(exoExist)
-                    ControlLayout(resources = resources)
+                    ControlLayout()
                 }
             }
             BackHandler {
@@ -150,7 +149,7 @@ class MainPlayerActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ControlLayout(resources: Resources) {
+    fun ControlLayout() {
         Box(
             Modifier
                 .fillMaxSize()
@@ -367,6 +366,7 @@ class MainPlayerActivity : ComponentActivity() {
                     if (!isLoading) {
                         if (seeked) {
                             translationAlphaAnim(binding!!.playLoading, false)
+                            playPauseView(binding,false)
                             seeked = false
                         }
                     }

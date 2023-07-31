@@ -40,7 +40,7 @@ class ReadMediaStore {
                         val folderPath = path.substring(0, path!!.lastIndexOf("/") + 1)
                         val content =
                             "$path\u001A$uri\u001A$timeStamp\u001A$title\u001A$size\u001A$folder\u001A$duration"
-                        kv_folder_time.encode(folderPath, timeStamp)
+                        kv_folder_time.encode(folderPath,timeStamp)
                         kv_video.encode(
                             folderPath, if (kv_video.containsKey(folderPath)) {
                                 "${kv_video.decodeString(folderPath)}\u001A\u001A$content"
