@@ -28,9 +28,9 @@
     <string name="go_to_home">Finish</string>
     <string name="title_activity_develop">Project in development</string>
     <string name="no_pad_ui">The horizontal UI has not been developed</string>
-    <string name="all_folders_count">%1$s Folders</string>
-    <string name="all_videos_count">%1$s Videos</string>
-    <string name="all_play_count">%1$s Playing sequences</string>
+    <string name="all_folders_count">%1$sfolders</string>
+    <string name="all_videos_count">%1$svideos</string>
+    <string name="all_play_count">%1$sPlaying sequences</string>
     <string name="diy_vyx">Customize your Vyx</string>
     <string name="zr_0">明 天 周 一</string>
     <string name="zr_1">Is the job done?</string>
@@ -61,4 +61,5 @@
     <string name="z1_3">加油加油加油</string>
     <string name="z1_4">周一忧郁症‍️</string>
     <string name="seem_null">You don\'t seem to be on earth</string>
+    <string name="stats">属性</string>
 </resources>
