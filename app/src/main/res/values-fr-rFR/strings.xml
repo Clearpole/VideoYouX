@@ -2,8 +2,8 @@
 <resources>
     <string name="home">主页</string>
     <string name="folders">文件夹</string>
-    <string name="play">播放</string>
-    <string name="settings">设置</string>
+    <string name="play">Lire</string>
+    <string name="settings">Paramètres</string>
     <string name="search">搜索</string>
     <string name="refresh">刷新</string>
     <string name="title_activity_main_player">Vyx 播放器</string>
@@ -12,8 +12,8 @@
     <string name="get_permission">部分权限申请</string>
     <string name="read_write_data_store">数据库读取与写入</string>
     <string name="exit_videoyoux">退出 VideoYouX</string>
-    <string name="backStep">上一步</string>
-    <string name="nextStep">下一步</string>
+    <string name="backStep">Précédent</string>
+    <string name="nextStep">Suivant</string>
     <string name="permission_use_storage">用于扫描您设备上的视频</string>
     <string name="read_video_permission">媒体文件访问权限</string>
     <string name="guide_data_store_information">从媒体库扫描您设备中的视频\n这可能需要一段时间，请坐和放宽。</string>
@@ -28,9 +28,9 @@
     <string name="go_to_home">进入主页</string>
     <string name="title_activity_develop">正在开发的项目</string>
     <string name="no_pad_ui">横屏界面暂未开发</string>
-    <string name="all_folders_count">%1$s 个文件夹</string>
-    <string name="all_videos_count">%1$s 个视频</string>
-    <string name="all_play_count">%1$s 个播放序列</string>
+    <string name="all_folders_count">%1$s个文件夹</string>
+    <string name="all_videos_count">%1$s个视频</string>
+    <string name="all_play_count">%1$s个播放序列</string>
     <string name="diy_vyx">定制您的 Vyx</string>
     <string name="zr_0">明 天 周 一</string>
     <string name="zr_1">工作做了吗</string>
