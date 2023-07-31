@@ -10,22 +10,23 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+            android:id="@+id/folders_toolBar"
             style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleCollapseMode="scale">
+            app:title="@string/folders"
+            app:titleCollapseMode="scale"
+            app:titleMarginStart="16dp">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/folders_toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                 app:layout_collapseMode="pin"
-                app:logo="@drawable/baseline_folder_24"
-                app:title="@string/folders"
-                app:titleMarginStart="16dp" />
+                app:titleMarginStart="16dp"
+                app:logo="@drawable/baseline_folder_24" />
 
         </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
 
@@ -52,10 +53,19 @@
                     android:clipChildren="false"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Space
-                    app:layout_constraintTop_toBottomOf="@id/folders_rv"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/folders_videos_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="5dp"
+                    android:clipChildren="false"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    app:layout_constraintTop_toBottomOf="@id/folders_rv" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.core.widget.NestedScrollView>

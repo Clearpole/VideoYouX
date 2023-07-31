@@ -22,6 +22,7 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.drake.serialize.intent.openActivity
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.CoroutineScope
@@ -75,7 +76,7 @@ class MainActivity :
         }
 
         pageList[1].apply {
-            val toolBar = findViewById<MaterialToolbar>(R.id.folders_toolBar)
+            val toolBar = findViewById<SubtitleCollapsingToolbarLayout>(R.id.folders_toolBar)
             toolBar!!.subtitle = context.getString(
                 R.string.all_folders_count,
                 Statistics.readInfo(Statistics.FOLDERS_COUNT)
@@ -84,7 +85,7 @@ class MainActivity :
             CoroutineScope(Dispatchers.IO).launch {
                 refreshMediaData().apply {
                     val data = ReadMediaStore.readFlodersData()
-                    val model = foldersModel(data)
+                    val model = foldersModel(data,rv,findViewById(R.id.folders_videos_rv),toolBar)
                     withContext(Dispatchers.Main) {
                         rv.linear().setup {
                             addType<FoldersModel> { R.layout.item_folders }
@@ -149,12 +150,13 @@ class MainActivity :
         ReadMediaStore.writeData(contentResolver)
     }
 
-    private fun foldersModel(folderList: MMKV): MutableList<Any> {
+    private fun foldersModel(
+        folderList: MMKV, foldersRv: RecyclerView, videosRv: RecyclerView,toolbar: SubtitleCollapsingToolbarLayout): MutableList<Any> {
         return mutableListOf<Any>().apply {
             val folders = folderList.allKeys()!!.sortedBy { folderList.decodeString(it)!!.toLong() }
                 .reversed()
             folders.forEachIndexed { _, s ->
-                add(FoldersModel(s, folderList.decodeString(s)!!))
+                add(FoldersModel(s, folderList.decodeString(s)!!,foldersRv,videosRv,toolbar))
             }
         }
     }
