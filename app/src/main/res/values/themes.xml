@@ -1,9 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.VideoYouX" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.VideoYou" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="Theme.VideoYou" parent="Base.Theme.VideoYou" />
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/BottomNavigationView</item>
     </style>
 
-    <style name="Theme.VideoYouX" parent="Base.Theme.VideoYouX" />
+    <style name="BottomNavigationView" parent="">
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+    </style>
+
+    <style name="Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
 </resources>

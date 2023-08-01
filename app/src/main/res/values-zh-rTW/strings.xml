@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">VideoYouX</string>
     <string name="home">主页</string>
     <string name="folders">文件夹</string>
     <string name="play">播放</string>
@@ -8,9 +7,6 @@
     <string name="search">搜索</string>
     <string name="refresh">刷新</string>
     <string name="title_activity_main_player">Vyx 播放器</string>
-    <string name="videoyou" translatable="false">VideoYou</string>
-    <string name="x" translatable="false">𝕏</string>
-    <string name="welcome_to" translatable="false">Welcome to</string>
     <string name="get_start">现在开始</string>
     <string name="next_steps">接下来需要进行的操作：</string>
     <string name="get_permission">部分权限申请</string>
@@ -65,6 +61,4 @@
     <string name="z1_3">加油加油加油</string>
     <string name="z1_4">周一忧郁症‍️</string>
     <string name="seem_null">你貌似不在地球</string>
-    <string name="stats">属性</string>
-    <string name="videos">个视频</string>
 </resources>
