@@ -24,11 +24,11 @@ fun buildInfo(type: String): Any? {
         }
 
         "isCanary" -> {
-            val isCanary = Properties().getProperty("isCanaryBuild") ?: System.getenv("isCanaryBuild")
-            return if (isCanary == "true") {
-                return "$isCanary"
+            val canary = Properties().getProperty("CANARY_BUILD") ?: System.getenv("CANARY_BUILD")
+            if (canary == "true") {
+                return true
             } else {
-                return "false"
+                return false
             }
         }
 
@@ -55,10 +55,10 @@ android {
         minSdk = 31
         targetSdk = 34
         versionCode = 1
-        versionName = if (buildInfo("isCanary") == "true") {
+        versionName = if (buildInfo("isCanary") == true) {
             buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "cancry" + "." + buildInfo("shortCommitId").toString()
         } else {
-            buildInfo("version").toString() + " - " + "r" + buildInfo("numberOfCommits").toString() + "." + "release"
+            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "release"
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -149,7 +149,7 @@ android {
     android.applicationVariants.all {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                this.outputFileName = if (buildInfo("isCanary") == "false") {
+                this.outputFileName = if (buildInfo("isCanary") == false) {
                     buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + "${buildType.name}.apk"
                 } else {
                     buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + buildInfo("shortCommitId").toString() + "-" + "${buildType.name}.apk"

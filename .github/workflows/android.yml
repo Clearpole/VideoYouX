@@ -45,7 +45,7 @@ jobs:
           KEYSTORE_PASS: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          isCancryBuild: "true"
+          CANARY_BUILD: "true"
 
       - name: Find APK
         run: |
