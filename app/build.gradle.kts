@@ -14,22 +14,16 @@ fun buildInfo(type: String): Any? {
         }
 
         "shortCommitId" -> {
-            val result = "${exec("git rev-parse --short HEAD")}"
-            return "$result"
+            return "${exec("git rev-parse --short HEAD")}"
         }
 
         "numberOfCommits" -> {
-            val number = "${exec("git rev-list --count HEAD")}"
-            return "$number"
+            return exec("git rev-list --count HEAD")
         }
 
         "isCanary" -> {
             val canary = Properties().getProperty("CANARY_BUILD") ?: System.getenv("CANARY_BUILD")
-            if (canary == "true") {
-                return true
-            } else {
-                return false
-            }
+            return canary == "true"
         }
 
         "version" -> {
