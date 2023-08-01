@@ -15,8 +15,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/nav_main" />
 
+<!--
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment_activity_main"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,5 +25,6 @@
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation" />
+-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
