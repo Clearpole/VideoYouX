@@ -1,6 +1,7 @@
 import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -12,16 +13,27 @@ fun buildInfo(type: String): Any? {
             return "VideoYouX"
         }
 
+        "shortCommitId" -> {
+            val result = "${exec("git rev-parse --short HEAD")}"
+            return "$result"
+        }
+
+        "numberOfCommits" -> {
+            val number = "${exec("git rev-list --count HEAD")}"
+            return "$number"
+        }
+
         "isCanary" -> {
-            return "true"
+            val isCanary = Properties().getProperty("isCanaryBuild") ?: System.getenv("isCanaryBuild")
+            return if (isCanary == "true") {
+                return "$isCanary"
+            } else {
+                return "false"
+            }
         }
 
         "version" -> {
-            return "0.9.9"
-        }
-
-        "subVersion" -> {
-            return "Canary05"
+            return "0.1.0"
         }
 
         else -> {
@@ -30,19 +42,23 @@ fun buildInfo(type: String): Any? {
     }
 }
 
+fun Project.exec(command: String): String = providers.exec {
+    commandLine(command.split(" "))
+}.standardOutput.asText.get().trim()
+
 android {
     namespace = "com.videoyou.x"
     compileSdk = 34
     //compileSdkPreview = ""
     defaultConfig {
         applicationId = namespace
-        minSdk = 24
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == "true") {
-            buildInfo("version").toString() + " - " + buildInfo("subVersion").toString()
+            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "cancry" + "." + buildInfo("shortCommitId").toString()
         } else {
-            buildInfo("version").toString()
+            buildInfo("version").toString() + " - " + "r" + buildInfo("numberOfCommits").toString() + "." + "release"
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -65,7 +81,7 @@ android {
     val pwd = properties.getProperty("KEY_PASSWORD") ?: System.getenv("KEY_PASSWORD")
     if (keystorePath != null) {
         signingConfigs {
-            create("release") {
+            create("Vyx") {
                 storeFile = file(keystorePath)
                 storePassword = keystorePwd
                 keyAlias = alias
@@ -83,12 +99,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             if (keystorePath != null) {
-                signingConfig = signingConfigs.getByName("release")
+                signingConfig = signingConfigs.getByName("Vyx")
             }
         }
         debug {
             if (keystorePath != null) {
-                signingConfig = signingConfigs.getByName("release")
+                signingConfig = signingConfigs.getByName("Vyx")
             }
         }
     }
@@ -124,42 +140,22 @@ android {
     }
 
     buildToolsVersion = "34.0.0"
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
     android.applicationVariants.all {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
-                val code = getGitHeadRefsSuffix(rootProject)
                 this.outputFileName = if (buildInfo("isCanary") == "false") {
-                    buildInfo("name").toString() + buildInfo("version") + "-$code-${buildType.name}.apk"
+                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + "${buildType.name}.apk"
                 } else {
-                    buildInfo("name").toString() + "-" + buildInfo("version") + "-" + buildInfo("subVersion").toString() + "-$code-${buildType.name}.apk"
+                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + buildInfo("shortCommitId").toString() + "-" + "${buildType.name}.apk"
                 }
             }
         }
-    }
-}
-
-//来自 https://github.com/qqlittleice/MiuiHome_R/blob/main/app/build.gradle.kts#L81
-fun getGitHeadRefsSuffix(project: Project): String {
-    // .git/HEAD 描述当前目录所指向的分支信息，内容示例："ref: refs/heads/master\n"
-    val headFile = File(project.rootProject.projectDir, ".git" + File.separator + "HEAD")
-    if (headFile.exists()) {
-        val string: String = headFile.readText(Charsets.UTF_8)
-        val string1 = string.replace(Regex("""ref:|\s"""), "")
-        val result = if (string1.isNotBlank() && string1.contains('/')) {
-            val refFilePath = ".git" + File.separator + string1
-            // 根据 HEAD 读取当前指向的 hash 值，路径示例为：".git/refs/heads/master"
-            val refFile = File(project.rootProject.projectDir, refFilePath)
-            // 索引文件内容为 hash 值 +"\n"，
-            // 示例："90312cd9157587d11779ed7be776e3220050b308\n"
-            refFile.readText(Charsets.UTF_8).replace(Regex("""\s"""), "").subSequence(0, 8)
-        } else {
-            string.substring(0, 8)
-        }
-        println("commit_id: $result")
-        return "$result"
-    } else {
-        println("WARN: .git/HEAD does NOT exist")
-        return ""
     }
 }
 
