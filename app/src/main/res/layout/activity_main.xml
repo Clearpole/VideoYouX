@@ -12,7 +12,8 @@
         app:itemBackground="@null"
         app:itemRippleColor="@null"
         app:labelVisibilityMode="auto"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/nav_main" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main"
@@ -22,6 +23,6 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/main_navigation"/>
+        app:navGraph="@navigation/main_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,5 @@
     <color name="welcome_primary_color" tools:targetApi="s">@android:color/system_accent1_300</color>
     <color name="background_color" tools:targetApi="s">@android:color/system_neutral1_900</color>
     <color name="card_color" tools:targetApi="s">@android:color/system_neutral1_800</color>
+    <color name="ic_launcher_background">#444444</color>
 </resources>
