@@ -184,4 +184,7 @@ dependencies {
     implementation(libs.xx.permissions)
     implementation(libs.collapsingtoolbarlayout.subtitle)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 }

@@ -20,6 +20,9 @@ appcompatResources = "1.6.1"
 navigationFragment = "2.6.0"
 constraintlayout = "2.1.4"
 appcompat = "1.6.1"
+legacy-support-v4 = "1.0.0"
+lifecycle-livedata-ktx = "2.6.1"
+lifecycle-viewmodel-ktx = "2.6.1"
 
 [libraries]
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
@@ -42,6 +45,9 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-appcompat-resources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "appcompatResources" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacy-support-v4" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "com-android-application" }
