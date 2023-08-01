@@ -14,11 +14,13 @@ fun buildInfo(type: String): Any? {
         }
 
         "shortCommitId" -> {
-            return "${exec("git rev-parse --short HEAD")}"
+            val result = exec("git rev-parse --short HEAD")
+            return result
         }
 
         "numberOfCommits" -> {
-            return exec("git rev-list --count HEAD")
+            val number = exec("git rev-list --count HEAD")
+            return number
         }
 
         "isCanary" -> {
