@@ -1,4 +1,4 @@
-package com.videoyou.x
+package com.videoyou.x._utils
 
 import android.content.res.Configuration
 import android.os.Build

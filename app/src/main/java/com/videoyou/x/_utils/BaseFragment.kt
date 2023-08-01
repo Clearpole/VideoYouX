@@ -1,4 +1,4 @@
-package com.videoyou.x
+package com.videoyou.x._utils
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,7 +38,6 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewBinding> : Fragment(), Base
         return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as VM
     }
 }
-
 
 interface BaseFragmentView<VB:ViewBinding> {
     fun onViewCreate()
