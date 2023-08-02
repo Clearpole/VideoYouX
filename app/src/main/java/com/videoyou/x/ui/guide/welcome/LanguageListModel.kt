@@ -1,9 +1,14 @@
 package com.videoyou.x.ui.guide.welcome
 
-import com.blankj.utilcode.util.LanguageUtils
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.videoyou.x.databinding.ItemLanguageListBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class LanguageListModel(
@@ -15,7 +20,26 @@ class LanguageListModel(
             title.text = locale.displayName
             info.text = locale.toLanguageTag()
             root.setOnClickListener {
-                LanguageUtils.applyLanguage(locale,true)
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (dataModel.animIsRunning) {
+                        delay(550)
+                    }
+                    withContext(Dispatchers.Main){
+                        dataModel.isChoseLanguage = true
+                        dataModel.choseLocale = locale
+                        WelcomeFragment.materialTransition(
+                            dataModel.endView,
+                            dataModel.startView,
+                            dataModel.rootView,
+                            dataModel.maskView,
+                            dataModel.duration,
+                            false,
+                            dataModel.maskColor,
+                            dataModel
+                        )
+                        cancel()
+                    }
+                }
             }
         }
     }
