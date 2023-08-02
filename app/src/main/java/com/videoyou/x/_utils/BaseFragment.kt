@@ -30,13 +30,14 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewBinding> : Fragment(), Base
         onViewCreate()
     }
 
-    private fun createViewModel(): VM {
+    private fun <VM : ViewModel> createViewModel(): VM {
         return ViewModelProvider(this).get(getVmClazz(this))
     }
 
-    private fun <VM> getVmClazz(obj: Any): VM {
-        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as VM
+    private fun <VM : ViewModel> getVmClazz(obj: Any): Class<VM> {
+        return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
     }
+
 }
 
 interface BaseFragmentView<VB:ViewBinding> {
