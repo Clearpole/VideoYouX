@@ -21,5 +21,3 @@
 #-renamesourcefileattribute SourceFile
 -keep class androidx.** { *; }
 
--keep class androidx.** { *; }
-

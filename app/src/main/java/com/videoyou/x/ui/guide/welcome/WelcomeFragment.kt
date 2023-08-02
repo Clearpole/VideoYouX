@@ -31,7 +31,7 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
         }
         binding.guideGetStart.setOnClickListener {
             if (!mViewModel.animIsRunning) {
-                controller.navigate(R.id.blankFragment, bundleOf(), navOptions {
+                controller.navigate(R.id.permissionFragment, bundleOf(), navOptions {
                     anim {
                         enter = R.anim.guide_next_in
                         exit = R.anim.guide_next_out

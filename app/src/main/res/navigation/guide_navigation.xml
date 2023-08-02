@@ -11,8 +11,8 @@
         android:label="WelcomeFragment"
         tools:layout="@layout/fragment_guide_welcome"/>
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.videoyou.x.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        android:id="@+id/permissionFragment"
+        android:name="com.videoyou.x.ui.guide.permission.PermissionFragment"
+        android:label="PermissionFragment"
+        tools:layout="@layout/fragment_permission" />
 </navigation>

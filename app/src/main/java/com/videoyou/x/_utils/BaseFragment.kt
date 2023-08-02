@@ -31,7 +31,7 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewBinding> : Fragment(), Base
     }
 
     private fun <VM : ViewModel> createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this)[getVmClazz(this)]
     }
 
     private fun <VM : ViewModel> getVmClazz(obj: Any): Class<VM> {
