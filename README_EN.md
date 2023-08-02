@@ -1,11 +1,17 @@
-# ![app icon](https://img-blog.csdnimg.cn/651abd8e43fb44a49c1182c301272306.png) VideoYouX
-Vyx is a Video Player based on the Material You 3 design.
+<div align="center">
 
-English | [简体中文](/README.md)
+<img width="" src="/imgs/ic_launcher_round.webp" width=160 height=160 align="center">
 
-#### The software is in the internal testing stage, any bugs encountered are welcome to submit Issues.
+# VideoYouX
+### Vyx is a Video Player based on the Material You design.
+
+English&nbsp;&nbsp;|&nbsp;&nbsp;[简体中文](/README.md)
+
+</div>
 
 ## TODO:
+
+#### The software is in the internal testing stage, any bugs encountered are welcome to submit Issues.
 
 Possible future features:
 
@@ -19,6 +25,14 @@ Possible future features:
 |:------------------|:----------------|:--------------------|
 | [Telegram Channel](https://t.me/VyxNotice) | [Telegram Group](https://t.me/VyxChatting) | [QQ Channel](https://pd.qq.com/s/7w9nfu9d) |
 | [Telegram CI Channel](https://t.me/VyxCiBuild) | [QQ Group](http://qm.qq.com/cgi-bin/qm/qr?k=kuEgTkhx0YOeQVfCHpVCJvJRiZ2zvxlr) |  |
+
+## Contribute translations for Vyx
+
+Contributions are welcome!
+
+You can help translate VideoYouX on [Crowdin](https://crowdin.com/project/videoyoux/invite?h=511ace92d5ca0ccd00a9d6f598c9fc6d1790079).
+
+We will record your contributions to Vyx on the About page to express our appreciation for your support in the translation work.
 
 ## LICENSE
 

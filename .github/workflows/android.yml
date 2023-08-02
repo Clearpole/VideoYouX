@@ -8,6 +8,7 @@ on:
       - 'LICENSE'
       - 'renovate.json'
       - 'crowdin.yml'
+      - 'imgs/**'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -15,6 +16,7 @@ on:
       - 'LICENSE'
       - 'renovate.json'
       - 'crowdin.yml'
+      - 'imgs/**'
   workflow_dispatch:
 
 jobs:
