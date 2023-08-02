@@ -25,15 +25,19 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
             LanguageUtils.getAppliedLanguage().displayName
         } else Locale.getDefault().displayName
         binding.guideExit.setOnClickListener {
-            requireActivity().finish()
+            if (!mViewModel.animIsRunning) {
+                requireActivity().finish()
+            }
         }
         binding.guideGetStart.setOnClickListener {
-            controller.navigate(R.id.permissionFragment, bundleOf(), navOptions {
-                anim {
-                    enter = R.anim.guide_in
-                    exit = R.anim.guide_out
-                }
-            })
+            if (!mViewModel.animIsRunning) {
+                controller.navigate(R.id.permissionFragment, bundleOf(), navOptions {
+                    anim {
+                        enter = R.anim.guide_next_in
+                        exit = R.anim.guide_next_out
+                    }
+                })
+            }
         }
         languageAnimSet()
         binding.rv.linear().setup {
@@ -49,7 +53,7 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
                 Locale.FRANCE,
                 Locale.forLanguageTag("ru")
             )
-            tagList.forEachIndexed { index, s ->
+            tagList.forEachIndexed { _, s ->
                 add(LanguageListModel(s, mViewModel))
             }
         }
