@@ -1,0 +1,6 @@
+files:
+  - source: /app/src/main/res/values/
+    ignore:
+      - /app/src/main/res/values/colors.xml
+      - /app/src/main/res/values/themes.xml
+    translation: /app/src/main/res/values-%android_code%/%original_file_name%
