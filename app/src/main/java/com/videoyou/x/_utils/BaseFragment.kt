@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 
+@Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VM : ViewModel, VB : ViewBinding> : Fragment(), BaseFragmentView<VB> {
     protected val TAG: String = javaClass.simpleName
     protected lateinit var binding: VB
