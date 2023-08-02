@@ -1,13 +1,11 @@
 package com.videoyou.x._utils
 
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.DynamicColorsOptions
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 import com.videoyou.x._utils.SystemUtils.Companion.isNightMode
@@ -23,11 +21,7 @@ abstract class BaseActivity<VB : ViewBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         landScape = resources.configuration.uiMode == Configuration.ORIENTATION_LANDSCAPE
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            DynamicColors.applyToActivityIfAvailable(this)
-        } else {
-            DynamicColors.applyToActivityIfAvailable(this, DynamicColorsOptions.Builder().build())
-        }
+        DynamicColors.applyToActivityIfAvailable(this)
         binding = inflate(layoutInflater)
         if (isHideStatus) {
             ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)

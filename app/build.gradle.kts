@@ -89,9 +89,9 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
+            /*proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
+            )*/
             if (keystorePath != null) {
                 signingConfig = signingConfigs.getByName("Vyx")
             }
