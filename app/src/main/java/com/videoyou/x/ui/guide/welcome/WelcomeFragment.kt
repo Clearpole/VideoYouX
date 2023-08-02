@@ -3,6 +3,9 @@ package com.videoyou.x.ui.guide.welcome
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
+import androidx.navigation.navOptions
 import androidx.transition.Transition.TransitionListener
 import androidx.transition.TransitionManager
 import com.blankj.utilcode.util.LanguageUtils
@@ -17,14 +20,27 @@ import java.util.Locale
 
 class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcomeBinding>() {
     override fun onViewCreate() {
+        val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         binding.languageTitle.text = if (LanguageUtils.isAppliedLanguage()) {
             LanguageUtils.getAppliedLanguage().displayName
         } else Locale.getDefault().displayName
+        binding.guideExit.setOnClickListener {
+            requireActivity().finish()
+        }
+        binding.guideGetStart.setOnClickListener {
+            controller.navigate(R.id.permissionFragment, bundleOf(), navOptions {
+                anim {
+                    enter = R.anim.guide_in
+                    exit = R.anim.guide_out
+                }
+            })
+        }
         languageAnimSet()
         binding.rv.linear().setup {
             addType<LanguageListModel> { R.layout.item_language_list }
         }.models = mutableListOf<Any>().apply {
             val tagList = arrayListOf(
+                Locale.getDefault(),
                 Locale.SIMPLIFIED_CHINESE,
                 Locale.TAIWAN,
                 Locale.ENGLISH,

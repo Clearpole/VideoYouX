@@ -2,6 +2,7 @@ package com.videoyou.x.ui.guide.welcome
 
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
+import com.videoyou.x.R
 import com.videoyou.x.databinding.ItemLanguageListBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,14 +18,23 @@ class LanguageListModel(
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
         holder.getBinding<ItemLanguageListBinding>().apply {
-            title.text = locale.displayName
-            info.text = locale.toLanguageTag()
+            if (holder.layoutPosition == 0) {
+                title.text = holder.context.getString(R.string.follow_system)
+                info.text = holder.context.getString(
+                    R.string.follow_system_info,
+                    locale.displayName,
+                    locale.toLanguageTag()
+                )
+            } else {
+                title.text = locale.displayName
+                info.text = locale.toLanguageTag()
+            }
             root.setOnClickListener {
                 CoroutineScope(Dispatchers.IO).launch {
                     if (dataModel.animIsRunning) {
                         delay(550)
                     }
-                    withContext(Dispatchers.Main){
+                    withContext(Dispatchers.Main) {
                         dataModel.isChoseLanguage = true
                         dataModel.choseLocale = locale
                         WelcomeFragment.materialTransition(

@@ -10,4 +10,9 @@
         android:name="com.videoyou.x.ui.guide.welcome.WelcomeFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/fragment_guide_welcome"/>
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="com.videoyou.x.ui.guide.permission.PermissionFragment"
+        android:label="fragment_guide_permission"
+        tools:layout="@layout/fragment_guide_permission" />
 </navigation>
