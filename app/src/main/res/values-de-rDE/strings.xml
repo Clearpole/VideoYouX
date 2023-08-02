@@ -63,8 +63,6 @@
     <string name="seem_null">Du scheinst nicht auf der Erde zu sein</string>
     <string name="stats">属性</string>
     <string name="videos">个视频</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_language">选择语言</string>
     <string name="done">完成</string>
     <string name="cancel">取消</string>

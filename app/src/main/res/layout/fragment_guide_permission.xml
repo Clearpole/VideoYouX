@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginBottom="80dp">
 
         <ImageView
@@ -18,7 +19,6 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:src="@drawable/outline_verified_user_24"
-            android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/welcome_primary_color"
@@ -33,24 +33,21 @@
             android:text="@string/get_permission"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="35sp"
-            android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView3" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/guide_permission_information"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/guide_permission_information"
-            android:gravity="center"
             android:lineHeight="20dp"
             android:textColor="?android:attr/textColorPrimary"
-            android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guide_permission_title" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/guide_permission_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"

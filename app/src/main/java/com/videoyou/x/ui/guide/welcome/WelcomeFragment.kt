@@ -44,7 +44,7 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
             addType<LanguageListModel> { R.layout.item_language_list }
         }.models = mutableListOf<Any>().apply {
             val tagList = arrayListOf(
-                Locale.getDefault(),
+                LanguageUtils.getSystemLanguage(),
                 Locale.SIMPLIFIED_CHINESE,
                 Locale.TAIWAN,
                 Locale.ENGLISH,
