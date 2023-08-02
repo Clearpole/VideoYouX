@@ -18,12 +18,14 @@ import com.videoyou.x.databinding.FragmentGuideWelcomeBinding
 import java.util.Locale
 
 
-class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcomeBinding>() {
+class GuideWelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcomeBinding>() {
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
         binding.languageTitle.text = if (LanguageUtils.isAppliedLanguage()) {
             LanguageUtils.getAppliedLanguage().displayName
         } else Locale.getDefault().displayName
+
         binding.guideExit.setOnClickListener {
             if (!mViewModel.animIsRunning) {
                 requireActivity().finish()
@@ -31,7 +33,7 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
         }
         binding.guideGetStart.setOnClickListener {
             if (!mViewModel.animIsRunning) {
-                controller.navigate(R.id.permissionFragment, bundleOf(), navOptions {
+                controller.navigate(R.id.guidePermissionFragment, bundleOf(), navOptions {
                     anim {
                         enter = R.anim.guide_next_in
                         exit = R.anim.guide_next_out
@@ -39,7 +41,9 @@ class WelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcome
                 })
             }
         }
+
         languageAnimSet()
+
         binding.rv.linear().setup {
             addType<LanguageListModel> { R.layout.item_language_list }
         }.models = mutableListOf<Any>().apply {

@@ -37,7 +37,7 @@ class LanguageListModel(
                     withContext(Dispatchers.Main) {
                         dataModel.isChoseLanguage = true
                         dataModel.choseLocale = locale
-                        WelcomeFragment.materialTransition(
+                        GuideWelcomeFragment.materialTransition(
                             dataModel.endView,
                             dataModel.startView,
                             dataModel.rootView,
