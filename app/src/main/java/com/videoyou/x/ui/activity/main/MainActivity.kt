@@ -8,6 +8,7 @@ import com.videoyou.x.databinding.ActivityMainBinding
 import com.videoyou.x.ui.activity.guide.GuideActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
+    isHideStatus = false
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

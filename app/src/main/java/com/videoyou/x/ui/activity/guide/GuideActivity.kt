@@ -6,10 +6,10 @@ import com.videoyou.x._utils.BaseActivity
 import com.videoyou.x.databinding.ActivityGuideBinding
 
 class GuideActivity : BaseActivity<ActivityGuideBinding>(
+    isHideStatus = false
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun getLayout(): Int {

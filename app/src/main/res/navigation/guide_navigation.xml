@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/guideWelcomeFragment"
-        android:name="com.videoyou.x.ui.guide.welcome.GuideWelcomeFragment"
+        android:name="com.videoyou.x.ui.fragment.home.guide.welcome.GuideWelcomeFragment"
         android:label="GuideWelcomeFragment"
         tools:layout="@layout/fragment_guide_welcome"/>
 
     <fragment
         android:id="@+id/guidePermissionFragment"
-        android:name="com.videoyou.x.ui.guide.permission.GuidePermissionFragment"
+        android:name="com.videoyou.x.ui.fragment.home.guide.permission.GuidePermissionFragment"
         android:label="GuidePermissionFragment"
         tools:layout="@layout/fragment_guide_permission" />
 </navigation>
