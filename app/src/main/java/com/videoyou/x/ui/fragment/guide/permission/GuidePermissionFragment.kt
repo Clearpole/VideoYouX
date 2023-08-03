@@ -32,9 +32,9 @@ class GuidePermissionFragment :
             val primary = requireContext().getColor(R.color.welcome_primary_color)
             val sPrimary = requireContext().getColor(R.color.welcome_primary_color_s)
             arrayListOf(
-                getString(R.string.read_video_permission) to getString(R.string.permission_use_storage) to R.drawable.outline_topic_24 to Permission.READ_MEDIA_VIDEO,
-                getString(R.string.pic_in_pic_permission) to getString(R.string.usage_pic_in_pic_per) to R.drawable.baseline_picture_in_picture_alt_24 to Permission.PICTURE_IN_PICTURE,
-                getString(R.string.other_per) to getString(R.string.usage_other_per) to R.drawable.outline_info_24 to "",
+                getString(R.string.read_video_permission) to getString(R.string.read_video_permission_usage) to R.drawable.outline_topic_24 to Permission.READ_MEDIA_VIDEO,
+                getString(R.string.pic_in_pic_permission) to getString(R.string.pic_in_pic_permission_usage) to R.drawable.baseline_picture_in_picture_alt_24 to Permission.PICTURE_IN_PICTURE,
+                getString(R.string.other_permission) to getString(R.string.other_permission_usage) to R.drawable.outline_info_24 to "",
             ).onEach {
                 add(
                     PermissionListModel(
