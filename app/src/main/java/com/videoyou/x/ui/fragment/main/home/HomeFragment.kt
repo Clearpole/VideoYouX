@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.main.home
+package com.videoyou.x.ui.fragment.home
 
 import com.videoyou.x._utils.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding

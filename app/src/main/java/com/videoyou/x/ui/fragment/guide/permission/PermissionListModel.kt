@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.guide.permission
+package com.videoyou.x.ui.fragment.home.guide.permission
 
 import androidx.appcompat.content.res.AppCompatResources
 import com.drake.brv.BindingAdapter

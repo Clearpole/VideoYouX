@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.guide.permission
+package com.videoyou.x.ui.fragment.home.guide.permission
 
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation

@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.guide.welcome
+package com.videoyou.x.ui.fragment.home.guide.welcome
 
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind

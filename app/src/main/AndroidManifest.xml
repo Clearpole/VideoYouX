@@ -26,11 +26,11 @@
         android:theme="@style/Theme.VideoYouX"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".GuideActivity"
+            android:name=".ui.activity.guide.GuideActivity"
             android:supportsPictureInPicture="true"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
