@@ -58,7 +58,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        resourceConfigurations += arrayListOf("en-rUS","zh-rCN","de-rDE","fr-rFR")
+        resourceConfigurations += arrayListOf("en","zh-rCN","de","fr","ja","zh-rTW")
 
         ndk {
             abiFilters += "arm64-v8a"
