@@ -1,11 +1,11 @@
 package com.videoyou.x.ui.guide.permission
 
-import androidx.collection.arrayMapOf
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
+import com.hjq.permissions.Permission
 import com.videoyou.x.R
 import com.videoyou.x._utils.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
@@ -25,10 +25,12 @@ class GuidePermissionFragment :
         binding.guidePermissionList.linear().setup {
             addType<PermissionListModel> { R.layout.item_permission_list }
         }.models = mutableListOf<Any>().apply {
-           arrayMapOf(requireContext().getString(R.string.read_video_permission) to requireContext().getString(R.string.permission_use_storage),
-                "画中画权限" to "用于后台小窗播放",
-                "其他权限" to "自动给予小型权限以改善Vyx体验").forEach {
-                    add(PermissionListModel(mViewModel))
+            arrayListOf(
+                getString(R.string.read_video_permission) to getString(R.string.permission_use_storage) to R.drawable.outline_topic_24 to Permission.READ_MEDIA_VIDEO,
+                getString(R.string.pic_in_pic_permission) to getString(R.string.usage_pic_in_pic_per) to R.drawable.baseline_picture_in_picture_alt_24 to Permission.PICTURE_IN_PICTURE,
+                getString(R.string.other_per) to getString(R.string.usage_other_per) to R.drawable.outline_info_24 to "",
+            ).onEach {
+                add(PermissionListModel(mViewModel,it.first.first.first,it.first.first.second,it.first.second,it.second))
             }
         }
     }

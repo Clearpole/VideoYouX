@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="95dp"
     style="@style/Widget.Material3.CardView.Elevated"
-    app:cardBackgroundColor="@android:color/system_accent1_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="1.5dp"
     android:foreground="?selectableItemBackground"
-    app:cardElevation="0dp"
-    android:layout_marginVertical="1.5dp">
+    app:cardBackgroundColor="@color/card_color"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:minHeight="90dp">
 
         <ImageView
-            android:id="@+id/d_i_1"
+            android:id="@+id/icon"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginStart="18dp"
@@ -24,45 +24,43 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/grey" />
+            app:tint="@color/welcome_primary_color" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="20dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/d_i_1"
+            app:layout_constraintBottom_toBottomOf="@id/icon"
             app:layout_constraintEnd_toStartOf="@id/more"
-            app:layout_constraintStart_toEndOf="@id/d_i_1"
-            app:layout_constraintTop_toTopOf="@id/d_i_1">
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/foldersTitle"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/foldersInfo"
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <ImageView
             android:id="@+id/more"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            app:icon="@drawable/baseline_more_vert_24"
-            app:iconSize="24dp"
-            app:iconTint="@color/grey"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="20dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/round_close_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:tint="@color/welcome_primary_color" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
