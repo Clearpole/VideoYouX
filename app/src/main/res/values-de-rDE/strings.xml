@@ -67,4 +67,8 @@
     <string name="done">完成</string>
     <string name="cancel">取消</string>
     <string name="follow_system">跟随系统</string>
+    <string name="pic_in_pic_permission">画中画权限</string>
+    <string name="usage_pic_in_pic_per">用于后台小窗播放</string>
+    <string name="other_per">其他权限</string>
+    <string name="usage_other_per">自动给予小型权限以改善Vyx体验</string>
 </resources>
