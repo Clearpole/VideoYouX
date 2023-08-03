@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--App Name-->
-    <string name="player_name">Vyx 播放器</string>
+    <string name="player_name">Vyx Player</string>
     <!--Guide - Welcome-->
     <string name="choose_language">选择语言</string>
     <string name="cancel">取消</string>
     <string name="follow_system">跟随系统</string>
-    <string name="exit_videoyoux">退出 VideoYouX</string>
-    <string name="get_start">现在开始</string>
+    <string name="exit_videoyoux">VideoYouX Verlassen</string>
+    <string name="get_start">Starte jetzt</string>
     <!--返回继续等-->
-    <string name="back">返回</string>
+    <string name="back">Zurück</string>
     <string name="next">继续</string>
     <!--暂未使用-->
     <!--    <string name="finish">完成</string>-->
     <!--    <string name="go_to_home">进入主页</string>-->
     <!--Guide - Permission-->
-    <string name="guide_get_permission_title">权限申请</string>
-    <string name="guide_get_permission_summary">请给予此应用权限以保证其能够正常运行。</string>
-    <string name="read_video_permission">媒体文件访问权限</string>
+    <string name="guide_get_permission_title">Zugriff erforderlich</string>
+    <string name="guide_get_permission_summary">Bitte erteilen Sie die Erlaubnis, damit diese App funktionieren kann.</string>
+    <string name="read_video_permission">Zugriffsrechte für Mediendateien</string>
     <string name="read_video_permission_usage">用于访问您设备上的视频</string>
     <string name="pic_in_pic_permission">画中画权限</string>
     <string name="pic_in_pic_permission_usage">用于支持以画中画模式播放视频</string>
     <string name="other_permission">其他权限</string>
     <string name="other_permission_usage">例如震动等一些由系统默认给予的权限</string>
     <!--Guide - Read Data-->
-    <string name="guide_read_data_title">扫描媒体文件</string>
-    <string name="guide_read_data_summary">从媒体库扫描您设备中的视频,\n这可能需要一段时间，请坐和放宽。</string>
-    <string name="start_read">开始扫描</string>
-    <string name="reading">正在扫描中</string>
+    <string name="guide_read_data_title">Scannen von Videos</string>
+    <string name="guide_read_data_summary">Scannen Sie ihre Dateien nach Videos, \ndies kann eine Weile dauern.</string>
+    <string name="start_read">Scan Starten</string>
+    <string name="reading">Scannen</string>
     <!--一些暂未使用的内容-->
     <!--    <string name="stats">属性</string>-->
     <!--    <string name="refresh">刷新</string>-->
@@ -41,44 +41,44 @@
     <!--    <string name="no_pad_ui">横屏界面暂未开发</string>-->
     <!--将会使用的内容-->
     <!--Navbar item name-->
-    <string name="home">主页</string>
+    <string name="home">Start</string>
     <string name="files">文件</string>
-    <string name="search">搜索</string>
-    <string name="play">播放</string>
-    <string name="settings">设置</string>
-    <string name="settings_summary">自定义您的 Vyx</string>
+    <string name="search">Suche</string>
+    <string name="play">Abspielen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="settings_summary">Passe deinen Vyx an</string>
     <!--Counts-->
-    <string name="all_folders_count">%1$s 个文件夹</string>
-    <string name="all_videos_count">%1$s 个视频</string>
-    <string name="all_play_count">%1$s 个播放列表</string>
+    <string name="all_folders_count">%1$s Ordner</string>
+    <string name="all_videos_count">%1$s Videos</string>
+    <string name="all_play_count">%1$s Abspielen von Sequenzen</string>
     <!--Vyx Tips-->
-    <string name="tips_sunday_1">明 天 周 一</string>
-    <string name="tips_sunday_2">工作做了吗</string>
-    <string name="tips_sunday_3">哼哼啊啊啊啊</string>
-    <string name="tips_sunday_4">天气如何？</string>
-    <string name="tips_saturday_1">出去玩吧！</string>
+    <string name="tips_sunday_1">Morgen ist Montag</string>
+    <string name="tips_sunday_2">Ist der Job beendet?</string>
+    <string name="tips_sunday_3">Grrrr</string>
+    <string name="tips_sunday_4">Wie ist das Wetter?</string>
+    <string name="tips_saturday_1">Verlassen und abspielen</string>
     <string name="tips_saturday_2">风景正好！</string>
-    <string name="tips_saturday_3">还好明天周日</string>
-    <string name="tips_saturday_4">没事，还有一天时间~</string>
-    <string name="tips_friday_1">坚持即胜利</string>
+    <string name="tips_saturday_3">Gut, dass morgen Sonntag ist.</string>
+    <string name="tips_saturday_4">Es ist okay, es ist noch ein Tag übrig~</string>
+    <string name="tips_friday_1">Perseverance is victory.</string>
     <string name="tips_friday_2">这一周过得真快...</string>
     <string name="tips_friday_3">感觉不如直接放假</string>
     <string name="tips_friday_4">再摆一天就好了（倒</string>
     <string name="tips_thursday_1">怎么还有一天？！</string>
     <string name="tips_thursday_2">也就还剩一天了</string>
     <string name="tips_thursday_3">亚历山大</string>
-    <string name="tips_thursday_4">今天周四</string>
-    <string name="tips_wednesday_1">一半一半嘛</string>
+    <string name="tips_thursday_4">Heute ist Donnerstag</string>
+    <string name="tips_wednesday_1">Half-half</string>
     <string name="tips_wednesday_2">动力加持中</string>
-    <string name="tips_wednesday_3">驼峰日快乐</string>
-    <string name="tips_wednesday_4">耐力赛而已</string>
+    <string name="tips_wednesday_3">Fröhlichen Mittwoch</string>
+    <string name="tips_wednesday_4">Es ist nur ein Ausdauerrennen.</string>
     <string name="tips_tuesday_1">稳步推进ing</string>
     <string name="tips_tuesday_2">失去梦想的咸鱼</string>
     <string name="tips_tuesday_3">数数还剩几天</string>
-    <string name="tips_tuesday_4">周二怎么这么累</string>
+    <string name="tips_tuesday_4">Warum bist du Dienstags so müde?</string>
     <string name="tips_monday_1">卷死我了</string>
     <string name="tips_monday_2">/RESTART</string>
     <string name="tips_monday_3">加油加油加油</string>
     <string name="tips_monday_4">周一忧郁症‍️</string>
-    <string name="tips_null">你貌似不在地球</string>
+    <string name="tips_null">Du scheinst nicht auf der Erde zu sein</string>
 </resources>
