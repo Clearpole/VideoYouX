@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.home.guide.welcome
+package com.videoyou.x.ui.fragment.guide.welcome
 
 import android.graphics.Color
 import android.view.View
@@ -13,7 +13,7 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.google.android.material.transition.MaterialContainerTransform
 import com.videoyou.x.R
-import com.videoyou.x._utils.BaseFragment
+import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuideWelcomeBinding
 import java.util.Locale
 

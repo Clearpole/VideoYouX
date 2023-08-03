@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.home.guide.welcome
+package com.videoyou.x.ui.fragment.guide.welcome
 
 import android.view.View
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.home.guide.permission
+package com.videoyou.x.ui.fragment.guide.permission
 
 import androidx.lifecycle.ViewModel
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -11,6 +11,4 @@ class GuidePermissionViewModel : ViewModel() {
         .setTopRightCornerSize { 10f }.setBottomLeftCornerSize { 65f }
         .setBottomRightCornerSize { 65f }.build()
     val centerCorner = ShapeAppearanceModel().toBuilder().setAllCornerSizes(10f).build()
-    var readPermission = false
-    var picPermission = false
 }

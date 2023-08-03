@@ -5,6 +5,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("kotlin-kapt")
 }
 
 fun buildInfo(type: String): Any? {
@@ -120,7 +121,6 @@ android {
 
     buildFeatures {
         dataBinding = true
-        viewBinding = true
         compose = true
     }
 

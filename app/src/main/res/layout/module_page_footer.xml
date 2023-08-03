@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/outline_info_24"
+        app:tint="@color/welcome_primary_color" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/page_footer_text"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.videoyou.x._utils
+package com.videoyou.x._utils.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

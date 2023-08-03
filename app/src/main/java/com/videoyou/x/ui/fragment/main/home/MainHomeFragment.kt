@@ -1,9 +1,9 @@
-package com.videoyou.x.ui.fragment.home
+package com.videoyou.x.ui.fragment.main.home
 
-import com.videoyou.x._utils.BaseFragment
+import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding
 
-class HomeFragment : BaseFragment<HomeViewModel, FragmentMainHomeBinding>() {
+class MainHomeFragment : BaseFragment<MainHomeViewModel, FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
     }

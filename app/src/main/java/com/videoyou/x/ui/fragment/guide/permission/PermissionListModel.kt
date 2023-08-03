@@ -1,5 +1,7 @@
-package com.videoyou.x.ui.fragment.home.guide.permission
+package com.videoyou.x.ui.fragment.guide.permission
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
@@ -13,14 +15,30 @@ class PermissionListModel(
     private val title: String,
     private val info: String,
     private val id:Int,
-    private val permission:String
+    private val permission:String,
+    private val right:Drawable,
+    private val unknown:Drawable,
+    private val primary:Int,
+    private val sPrimary:Int
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
-        val right = AppCompatResources.getDrawable(holder.context, R.drawable.round_done_24)
         holder.getBinding<ItemPermissionListBinding>().apply {
             title.text = this@PermissionListModel.title
             info.text = this@PermissionListModel.info
             icon.setImageDrawable(AppCompatResources.getDrawable(holder.context,id))
+            if (XXPermissions.isGranted(holder.context,permission)){
+                ColorStateList.valueOf(primary).apply {
+                    more.imageTintList = this
+                    icon.imageTintList = this
+                }
+                more.setImageDrawable(right)
+            }else{
+                ColorStateList.valueOf(primary).apply {
+                    more.imageTintList = this
+                    icon.imageTintList = this
+                }
+                more.setImageDrawable(unknown)
+            }
             val corner = when (holder.layoutPosition) {
                 0 -> {
                     dataModel.topCorner
@@ -35,9 +53,10 @@ class PermissionListModel(
                     dataModel.centerCorner
                 }
             }
-            root.shapeAppearanceModel = corner
+            card.shapeAppearanceModel = corner
             if (holder.layoutPosition!=holder.adapter.itemCount-1){
-                root.setOnClickListener {
+                card.setOnClickListener {
+                    val error = AppCompatResources.getDrawable(holder.context,R.drawable.round_close_24)
                     XXPermissions.with(holder.context)
                         .permission(permission)
                         .request(object : OnPermissionCallback {
@@ -46,9 +65,15 @@ class PermissionListModel(
                                 allGranted: Boolean
                             ) {
                                 if (allGranted) {
+                                    ColorStateList.valueOf(primary).apply {
+                                        more.imageTintList = this
+                                        icon.imageTintList = this
+                                    }
                                     more.setImageDrawable(
                                         right
                                     )
+                                }else{
+                                    more.setImageDrawable(error)
                                 }
                             }
 
@@ -56,6 +81,11 @@ class PermissionListModel(
                                 permissions: MutableList<String>,
                                 doNotAskAgain: Boolean
                             ) {
+                                ColorStateList.valueOf(sPrimary).apply {
+                                    more.imageTintList = this
+                                    icon.imageTintList = this
+                                }
+                                more.setImageDrawable(error)
                                 XXPermissions.startPermissionActivity(holder.context,permission)
                             }
                         })
