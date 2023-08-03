@@ -3,4 +3,4 @@ files:
     ignore:
       - /app/src/main/res/values/colors.xml
       - /app/src/main/res/values/themes.xml
-    translation: /app/src/main/res/values-%android_code%/%original_file_name%
+    translation: /app/src/main/res/values-%two_letters_code%/%original_file_name%
