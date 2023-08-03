@@ -179,5 +179,4 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
-    debugImplementation(libs.androidx.ui.tooling)
 }
