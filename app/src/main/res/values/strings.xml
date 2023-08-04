@@ -36,7 +36,7 @@
 
 <!--Guide - Read Data-->
     <string name="guide_read_data_title">扫描媒体文件</string>
-    <string name="guide_read_data_summary">从媒体库扫描您设备中的视频,\n这可能需要一段时间，请坐和放宽。</string>
+    <string name="guide_read_data_summary">从媒体库扫描您设备中的视频。</string>
     <string name="start_read">开始扫描</string>
     <string name="reading">正在扫描中</string>
 

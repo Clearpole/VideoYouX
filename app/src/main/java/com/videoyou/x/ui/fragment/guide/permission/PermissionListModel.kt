@@ -14,7 +14,7 @@ class PermissionListModel(
     private val dataModel: GuidePermissionViewModel,
     private val title: String,
     private val info: String,
-    private val id:Int,
+    private val resId:Int,
     private val permission:String,
     private val right:Drawable,
     private val unknown:Drawable,
@@ -22,29 +22,31 @@ class PermissionListModel(
     private val sPrimary:Int
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
+        val id = holder.layoutPosition
+        val count = holder.adapter.itemCount
         holder.getBinding<ItemPermissionListBinding>().apply {
             title.text = this@PermissionListModel.title
             info.text = this@PermissionListModel.info
-            icon.setImageDrawable(AppCompatResources.getDrawable(holder.context,id))
-            if (XXPermissions.isGranted(holder.context,permission)){
+            icon.setImageDrawable(AppCompatResources.getDrawable(holder.context,resId))
+            if (XXPermissions.isGranted(holder.context,permission)||id == count -1){
                 ColorStateList.valueOf(primary).apply {
                     more.imageTintList = this
                     icon.imageTintList = this
                 }
                 more.setImageDrawable(right)
             }else{
-                ColorStateList.valueOf(primary).apply {
+                ColorStateList.valueOf(sPrimary).apply {
                     more.imageTintList = this
                     icon.imageTintList = this
                 }
                 more.setImageDrawable(unknown)
             }
-            val corner = when (holder.layoutPosition) {
+            val corner = when (id) {
                 0 -> {
                     dataModel.topCorner
                 }
 
-                holder.adapter.itemCount - 1 -> {
+                count - 1 -> {
                     more.setImageDrawable(right)
                     dataModel.bottomCorner
                 }
@@ -54,7 +56,7 @@ class PermissionListModel(
                 }
             }
             card.shapeAppearanceModel = corner
-            if (holder.layoutPosition!=holder.adapter.itemCount-1){
+            if (id!=count-1){
                 card.setOnClickListener {
                     val error = AppCompatResources.getDrawable(holder.context,R.drawable.round_close_24)
                     XXPermissions.with(holder.context)
@@ -81,10 +83,6 @@ class PermissionListModel(
                                 permissions: MutableList<String>,
                                 doNotAskAgain: Boolean
                             ) {
-                                ColorStateList.valueOf(sPrimary).apply {
-                                    more.imageTintList = this
-                                    icon.imageTintList = this
-                                }
                                 more.setImageDrawable(error)
                                 XXPermissions.startPermissionActivity(holder.context,permission)
                             }

@@ -1,32 +1,27 @@
 package com.videoyou.x.ui.fragment.guide.readData
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
+import androidx.navigation.navOptions
 import com.videoyou.x.R
+import com.videoyou.x._utils.base.BaseFragment
+import com.videoyou.x.databinding.FragmentGuideReadDataBinding
 
-class GuideReadDataFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = GuideReadDataFragment()
+class GuideReadDataFragment : BaseFragment<GuideReadDataViewModel, FragmentGuideReadDataBinding>() {
+    override fun onViewCreate() {
+        val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        binding.guideReadDataBack.setOnClickListener {
+            controller.navigate(R.id.guidePermissionFragment, bundleOf(), navOptions {
+                anim {
+                    enter = R.anim.guide_back_in
+                    exit = R.anim.guide_back_out
+                }
+            })
+        }
     }
 
-    private lateinit var viewModel: GuideReadDataViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_guide_read_data, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GuideReadDataViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun getViewBinding(): FragmentGuideReadDataBinding {
+        return FragmentGuideReadDataBinding.inflate(layoutInflater)
     }
 
 }

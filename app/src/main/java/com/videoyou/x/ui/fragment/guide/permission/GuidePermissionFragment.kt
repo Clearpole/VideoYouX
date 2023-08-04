@@ -1,6 +1,8 @@
 package com.videoyou.x.ui.fragment.guide.permission
 
-import android.os.Bundle
+import android.animation.ObjectAnimator
+import android.view.View
+import android.view.animation.CycleInterpolator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
@@ -8,6 +10,7 @@ import androidx.navigation.navOptions
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
@@ -24,11 +27,37 @@ class GuidePermissionFragment :
                 }
             })
         }
+        binding.guidePermissionNext.setOnClickListener {
+            if (XXPermissions.isGranted(
+                    requireContext(),
+                    arrayListOf(Permission.READ_MEDIA_VIDEO, Permission.PICTURE_IN_PICTURE)
+                )
+            ) {
+                controller.navigate(R.id.guideReadDataFragment, bundleOf(), navOptions {
+                    anim {
+                        enter = R.anim.guide_next_in
+                        exit = R.anim.guide_next_out
+                    }
+                })
+            } else {
+                val anim =
+                    ObjectAnimator.ofFloat(
+                        it,
+                        View.TRANSLATION_X.name,
+                        0f,
+                        8f
+                    )
+                anim.setDuration(300)
+                anim.interpolator = CycleInterpolator(4f)
+                anim.start()
+            }
+        }
         binding.guidePermissionList.linear().setup {
             addType<PermissionListModel> { R.layout.item_permission_list }
         }.models = mutableListOf<Any>().apply {
             val right = AppCompatResources.getDrawable(requireContext(), R.drawable.round_done_24)
-            val unknown = AppCompatResources.getDrawable(requireContext(),R.drawable.round_question_mark_24)
+            val unknown =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.round_question_mark_24)
             val primary = requireContext().getColor(R.color.welcome_primary_color)
             val sPrimary = requireContext().getColor(R.color.welcome_primary_color_s)
             arrayListOf(
@@ -55,9 +84,5 @@ class GuidePermissionFragment :
 
     override fun getViewBinding(): FragmentGuidePermissionBinding {
         return FragmentGuidePermissionBinding.inflate(layoutInflater)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
     }
 }

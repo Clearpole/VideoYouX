@@ -16,4 +16,9 @@
         android:name="com.videoyou.x.ui.fragment.guide.permission.GuidePermissionFragment"
         android:label="GuidePermissionFragment"
         tools:layout="@layout/fragment_guide_permission" />
+    <fragment
+        android:id="@+id/guideReadDataFragment"
+        android:name="com.videoyou.x.ui.fragment.guide.readData.GuideReadDataFragment"
+        android:label="GuideReadDataFragment"
+        tools:layout="@layout/fragment_guide_read_data"/>
 </navigation>
