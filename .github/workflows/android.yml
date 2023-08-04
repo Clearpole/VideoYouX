@@ -9,6 +9,7 @@ on:
       - 'renovate.json'
       - 'crowdin.yml'
       - 'imgs/**'
+      - '.gitignore'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -17,12 +18,16 @@ on:
       - 'renovate.json'
       - 'crowdin.yml'
       - 'imgs/**'
+      - '.gitignore'
   workflow_dispatch:
 
 jobs:
-  Build:
+  build:
+    name: Build App
     if: contains(github.event.head_commit.message, '[skip_ci]') == false
     runs-on: ubuntu-latest
+    env:
+      GITHUB_RETENTION_DAYS: 30
 
     steps:
       - uses: actions/checkout@v3
@@ -49,9 +54,8 @@ jobs:
           KEYSTORE_PASS: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          CANARY_BUILD: "true"
 
-      - name: Find APK
+      - name: Find Apks
         run: |
           echo "RELEASE_APK=$(find 'app/build/outputs/apk/release' -name '*.apk')" >> $GITHUB_ENV
           echo "DEBUG_APK=$(find 'app/build/outputs/apk/debug' -name '*.apk')" >> $GITHUB_ENV

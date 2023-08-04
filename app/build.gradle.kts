@@ -23,8 +23,8 @@ fun buildInfo(type: String): Any? {
         }
 
         "isCanary" -> {
-            val canary = Properties().getProperty("CANARY_BUILD") ?: System.getenv("CANARY_BUILD")
-            return canary == "true"
+            val isCanaryBuild = Properties().getProperty("GITHUB_ACTIONS") ?: System.getenv("GITHUB_ACTIONS")
+            return isCanaryBuild == "true"
         }
 
         "version" -> {
