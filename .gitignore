@@ -1,7 +1,9 @@
 *.aab
 *.apk
 *.iml
-.gradle
+*.cxx
+*.log
+.gradle/
 local.properties
 .idea/
 .vscode/
@@ -9,4 +11,6 @@ local.properties
 /build
 /captures
 .externalNativeBuild
-.cxx
+/app/build
+/app/release/*
+/app/*/release/*
