@@ -25,7 +25,7 @@
     <string name="other_permission_usage">Some permissions granted by system default such as vibrations</string>
     <!--Guide - Read Data-->
     <string name="guide_read_data_title">Scan media files</string>
-    <string name="guide_read_data_summary">Scan the videos on your device from the Library.</string>
+    <string name="guide_read_data_summary">Scan the videos on your device from the MediaStore.</string>
     <string name="start_read">Start scanning</string>
     <string name="reading">Scanning</string>
     <!--一些暂未使用的内容-->
