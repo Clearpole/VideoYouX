@@ -25,7 +25,7 @@
     <string name="other_permission_usage">Some permissions granted by system default such as vibrations</string>
     <!--Guide - Read Data-->
     <string name="guide_read_data_title">Scan media files</string>
-    <string name="guide_read_data_summary">Scan the videos on your device from the Library.</string>
+    <string name="guide_read_data_summary">Scan the videos on your device from the MediaStore.</string>
     <string name="start_read">Start scanning</string>
     <string name="reading">Scanning</string>
     <!--一些暂未使用的内容-->
@@ -78,7 +78,7 @@
     <string name="tips_tuesday_4">Why are you so tired on Tuesday\'s?</string>
     <string name="tips_monday_1">卷死我了</string>
     <string name="tips_monday_2">/RESTART</string>
-    <string name="tips_monday_3">加油加油加油</string>
-    <string name="tips_monday_4">周一忧郁症‍️</string>
+    <string name="tips_monday_3">Come on, come on, come on</string>
+    <string name="tips_monday_4">Monday blues</string>
     <string name="tips_null">You don\'t seem to be on earth</string>
 </resources>
