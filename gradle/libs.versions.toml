@@ -1,7 +1,7 @@
 [versions]
 brv = "1.5.2"
 collapsingtoolbarlayoutSubtitle = "1.5.0"
-com-android-application = "8.3.0-alpha05"
+com-android-application = "8.3.0-alpha06"
 glide = "4.16.0"
 immersionbar = "3.2.2"
 lottie = "6.1.0"
