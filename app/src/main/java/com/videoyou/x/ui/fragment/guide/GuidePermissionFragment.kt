@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.guide.permission
+package com.videoyou.x.ui.fragment.guide
 
 import android.animation.ObjectAnimator
 import android.view.View
@@ -14,9 +14,11 @@ import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
+import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
+import com.videoyou.x.ui.fragment.guide.model.PermissionListModel
 
 class GuidePermissionFragment :
-    BaseFragment<GuidePermissionViewModel, FragmentGuidePermissionBinding>() {
+    BaseFragment<GuideViewModel, FragmentGuidePermissionBinding>() {
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         binding.guidePermissionBack.setOnClickListener {

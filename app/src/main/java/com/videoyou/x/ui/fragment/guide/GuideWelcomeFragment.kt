@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.guide.welcome
+package com.videoyou.x.ui.fragment.guide
 
 import android.graphics.Color
 import android.view.View
@@ -15,10 +15,12 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuideWelcomeBinding
+import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
+import com.videoyou.x.ui.fragment.guide.model.LanguageListModel
 import java.util.Locale
 
 
-class GuideWelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWelcomeBinding>() {
+class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBinding>() {
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
@@ -117,7 +119,7 @@ class GuideWelcomeFragment : BaseFragment<GuideWelcomeViewModel, FragmentGuideWe
             duration: Long,
             type: Boolean,
             maskColor: Int,
-            mViewModel: GuideWelcomeViewModel
+            mViewModel: GuideViewModel
         ) {
             if (!mViewModel.animIsRunning) {
                 mViewModel.animIsRunning = true

@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.activity.guide
+package com.videoyou.x
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

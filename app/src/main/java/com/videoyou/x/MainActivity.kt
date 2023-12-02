@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.activity.main
+package com.videoyou.x
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -6,7 +6,7 @@ import com.drake.serialize.intent.openActivity
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityMainBinding
-import com.videoyou.x.ui.activity.guide.GuideActivity
+import com.videoyou.x.GuideActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     isHideStatus = false

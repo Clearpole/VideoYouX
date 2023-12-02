@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/guideWelcomeFragment"
-        android:name="com.videoyou.x.ui.fragment.guide.welcome.GuideWelcomeFragment"
+        android:name="com.videoyou.x.ui.fragment.guide.GuideWelcomeFragment"
         android:label="GuideWelcomeFragment"
         tools:layout="@layout/fragment_guide_welcome"/>
 
     <fragment
         android:id="@+id/guidePermissionFragment"
-        android:name="com.videoyou.x.ui.fragment.guide.permission.GuidePermissionFragment"
+        android:name="com.videoyou.x.ui.fragment.guide.GuidePermissionFragment"
         android:label="GuidePermissionFragment"
         tools:layout="@layout/fragment_guide_permission" />
     <fragment
         android:id="@+id/guideReadDataFragment"
-        android:name="com.videoyou.x.ui.fragment.guide.readData.GuideReadDataFragment"
+        android:name="com.videoyou.x.ui.fragment.guide.GuideReadDataFragment"
         android:label="GuideReadDataFragment"
         tools:layout="@layout/fragment_guide_read_data"/>
 </navigation>

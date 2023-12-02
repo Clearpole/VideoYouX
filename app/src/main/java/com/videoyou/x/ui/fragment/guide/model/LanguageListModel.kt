@@ -1,9 +1,10 @@
-package com.videoyou.x.ui.fragment.guide.welcome
+package com.videoyou.x.ui.fragment.guide.model
 
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.videoyou.x.R
 import com.videoyou.x.databinding.ItemLanguageListBinding
+import com.videoyou.x.ui.fragment.guide.GuideWelcomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -14,7 +15,7 @@ import java.util.Locale
 
 class LanguageListModel(
     private val locale: Locale,
-    private val dataModel: GuideWelcomeViewModel
+    private val dataModel: GuideViewModel
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
         holder.getBinding<ItemLanguageListBinding>().apply {

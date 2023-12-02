@@ -5,7 +5,7 @@
     <data>
         <variable
             name="GuidePermissionViewModel"
-            type="com.videoyou.x.ui.fragment.guide.permission.GuidePermissionViewModel" />
+            type="com.videoyou.x.ui.fragment.guide.model.GuideViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="GuideWelcomeViewModel"
-            type="com.videoyou.x.ui.fragment.guide.welcome.GuideWelcomeViewModel" />
+            type="com.videoyou.x.ui.fragment.guide.model.GuideViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

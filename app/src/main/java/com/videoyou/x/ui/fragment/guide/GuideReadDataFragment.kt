@@ -1,4 +1,4 @@
-package com.videoyou.x.ui.fragment.guide.readData
+package com.videoyou.x.ui.fragment.guide
 
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
@@ -6,8 +6,9 @@ import androidx.navigation.navOptions
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuideReadDataBinding
+import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
 
-class GuideReadDataFragment : BaseFragment<GuideReadDataViewModel, FragmentGuideReadDataBinding>() {
+class GuideReadDataFragment : BaseFragment<GuideViewModel, FragmentGuideReadDataBinding>() {
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         binding.guideReadDataBack.setOnClickListener {

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="MainActivityViewModel"
-            type="com.videoyou.x.ui.activity.main.MainActivityViewModel" />
+            type="com.videoyou.x.ui.fragment.main.model.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

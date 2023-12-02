@@ -6,7 +6,7 @@
 
         <variable
             name="GuideActivityViewModel"
-            type="com.videoyou.x.ui.activity.guide.GuideActivityViewModel" />
+            type="com.videoyou.x.ui.fragment.guide.model.GuideViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

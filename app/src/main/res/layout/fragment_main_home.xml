@@ -4,7 +4,7 @@
     <data>
         <variable
             name="MainHomeViewModel"
-            type="com.videoyou.x.ui.fragment.main.home.MainHomeViewModel" />
+            type="com.videoyou.x.ui.fragment.main.model.MainViewModel" />
     </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"

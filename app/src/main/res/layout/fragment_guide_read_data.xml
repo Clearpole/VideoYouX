@@ -5,7 +5,7 @@
     <data>
         <variable
             name="GuideReadDataViewModel"
-            type="com.videoyou.x.ui.fragment.guide.readData.GuideReadDataViewModel" />
+            type="com.videoyou.x.ui.fragment.guide.model.GuideViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
