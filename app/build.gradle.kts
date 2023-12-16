@@ -61,6 +61,7 @@ android {
         resourceConfigurations += arrayListOf("en","zh-rCN","de","fr","ja","zh-rTW")
 
         ndk {
+            //noinspection ChromeOsAbiSupport
             abiFilters += "arm64-v8a"
         }
         vectorDrawables {
@@ -173,7 +174,6 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.exoplayer.dash)
     implementation(libs.androidx.media3.ui)
-    implementation(libs.immersionbar)
     implementation(libs.utilcodex)
     implementation(libs.serialize)
     implementation(libs.brv)

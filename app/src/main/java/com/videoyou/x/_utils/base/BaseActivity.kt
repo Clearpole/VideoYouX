@@ -2,13 +2,11 @@ package com.videoyou.x._utils.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.color.DynamicColors
-import com.gyf.immersionbar.BarHide
-import com.gyf.immersionbar.ImmersionBar
-import com.videoyou.x._utils.SystemUtils.Companion.isNightMode
 
 
 abstract class BaseActivity<VB : ViewDataBinding>(
@@ -26,21 +24,8 @@ abstract class BaseActivity<VB : ViewDataBinding>(
             LayoutInflater.from(this),
             getLayout(), null, false
         )
-        if (isHideStatus!!) {
-            ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)
-                .init()
-        } else {
-            ImmersionBar.with(this).transparentBar().statusBarDarkFont(
-                if (isRequireLightBarText == true) {
-                    false
-                } else if (isRequireDarkBarText == true) {
-                    true
-                } else {
-                    !isNightMode(resources)
-                }
-            )
-                .init()
-        }
+        enableEdgeToEdge()
+        window.isNavigationBarContrastEnforced =false
         setContentView(binding.root)
     }
 
