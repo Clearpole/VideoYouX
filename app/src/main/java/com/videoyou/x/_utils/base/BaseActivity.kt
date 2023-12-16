@@ -25,7 +25,7 @@ abstract class BaseActivity<VB : ViewDataBinding>(
             getLayout(), null, false
         )
         enableEdgeToEdge()
-        window.isNavigationBarContrastEnforced =false
+        window.isNavigationBarContrastEnforced = false
         setContentView(binding.root)
     }
 
