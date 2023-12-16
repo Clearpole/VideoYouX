@@ -35,12 +35,7 @@ class GuidePermissionFragment :
                     arrayListOf(Permission.READ_MEDIA_VIDEO, Permission.PICTURE_IN_PICTURE)
                 )
             ) {
-                controller.navigate(R.id.guideReadDataFragment, bundleOf(), navOptions {
-                    anim {
-                        enter = R.anim.guide_next_in
-                        exit = R.anim.guide_next_out
-                    }
-                })
+                this@GuidePermissionFragment.requireActivity().finish()
             } else {
                 val anim =
                     ObjectAnimator.ofFloat(

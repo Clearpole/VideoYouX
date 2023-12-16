@@ -18,7 +18,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         val isFirstEnter = sharedPreferences.getBoolean("first-enter", true)
         if (isFirstEnter) {
             openActivity<GuideActivity>()
-            finish()
         }
 
     }
