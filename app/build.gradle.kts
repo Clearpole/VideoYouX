@@ -23,7 +23,8 @@ fun buildInfo(type: String): Any? {
         }
 
         "isCanary" -> {
-            val isCanaryBuild = Properties().getProperty("GITHUB_ACTIONS") ?: System.getenv("GITHUB_ACTIONS")
+            val isCanaryBuild =
+                Properties().getProperty("GITHUB_ACTIONS") ?: System.getenv("GITHUB_ACTIONS")
             return isCanaryBuild == "true"
         }
 
@@ -51,14 +52,14 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == true) {
-            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "cancry" + "." + buildInfo("shortCommitId").toString()
+            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "cancry" + "." + buildInfo(
+                "shortCommitId"
+            ).toString()
         } else {
             buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "release"
         }
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        resourceConfigurations += arrayListOf("en","zh-rCN","de","fr","ja","zh-rTW")
+        resourceConfigurations += arrayListOf("en", "zh-rCN", "de", "fr", "ja", "zh-rTW")
 
         ndk {
             //noinspection ChromeOsAbiSupport
@@ -119,7 +120,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
         freeCompilerArgs += listOf(
-            "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
+            "-language-version=2.0"
         )
     }
 
@@ -153,9 +156,13 @@ android {
         outputs.all {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 this.outputFileName = if (buildInfo("isCanary") == false) {
-                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + "${buildType.name}.apk"
+                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo(
+                        "numberOfCommits"
+                    ).toString() + "-" + "${buildType.name}.apk"
                 } else {
-                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo("numberOfCommits").toString() + "-" + buildInfo("shortCommitId").toString() + "-" + "${buildType.name}.apk"
+                    buildInfo("name").toString() + "-" + "v" + buildInfo("version") + "-" + "r" + buildInfo(
+                        "numberOfCommits"
+                    ).toString() + "-" + buildInfo("shortCommitId").toString() + "-" + "${buildType.name}.apk"
                 }
             }
         }

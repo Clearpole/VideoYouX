@@ -43,7 +43,7 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewDataBinding> : Fragment(),
 
 }
 
-interface BaseFragmentView<VB:ViewBinding> {
+interface BaseFragmentView<VB : ViewBinding> {
     fun onViewCreate()
 
     fun getViewBinding(): VB

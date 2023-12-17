@@ -3,25 +3,25 @@
         android:id="@+id/menu_screen_page1"
         android:enabled="true"
         android:icon="@drawable/baseline_home_24"
-        android:title="@string/home"/>
+        android:title="@string/home" />
     <item
         android:id="@+id/menu_screen_page2"
         android:enabled="true"
         android:icon="@drawable/outline_folder_24"
-        android:title="@string/files"/>
+        android:title="@string/files" />
     <item
         android:id="@+id/menu_screen_page3"
         android:enabled="true"
         android:icon="@drawable/baseline_search_24"
-        android:title="@string/search"/>
+        android:title="@string/search" />
     <item
         android:id="@+id/menu_screen_page4"
         android:enabled="true"
         android:icon="@drawable/outline_list_24"
-        android:title="@string/play"/>
+        android:title="@string/play" />
     <item
         android:id="@+id/menu_screen_page5"
         android:enabled="true"
         android:icon="@drawable/outline_settings_24"
-        android:title="@string/settings"/>
+        android:title="@string/settings" />
 </menu>

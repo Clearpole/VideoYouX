@@ -9,7 +9,7 @@
         android:id="@+id/guideWelcomeFragment"
         android:name="com.videoyou.x.ui.fragment.guide.GuideWelcomeFragment"
         android:label="GuideWelcomeFragment"
-        tools:layout="@layout/fragment_guide_welcome"/>
+        tools:layout="@layout/fragment_guide_welcome" />
 
     <fragment
         android:id="@+id/guidePermissionFragment"
