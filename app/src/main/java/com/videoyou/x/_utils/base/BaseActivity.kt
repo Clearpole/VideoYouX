@@ -9,11 +9,7 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.material.color.DynamicColors
 
 
-abstract class BaseActivity<VB : ViewDataBinding>(
-    private val isHideStatus: Boolean? = null,
-    private val isRequireLightBarText: Boolean? = null,
-    private val isRequireDarkBarText: Boolean? = null
-) : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
 
     lateinit var binding: VB
 

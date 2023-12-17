@@ -5,9 +5,7 @@ import com.drake.serialize.intent.openActivity
 import com.videoyou.x._utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<ActivityMainBinding>(
-    isHideStatus = false
-) {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
@@ -19,6 +17,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     }
 
     override fun getLayout(): Int {
-        return  R.layout.activity_main
+        return R.layout.activity_main
     }
 }

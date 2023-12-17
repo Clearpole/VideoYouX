@@ -3,9 +3,7 @@ package com.videoyou.x
 import com.videoyou.x._utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityGuideBinding
 
-class GuideActivity : BaseActivity<ActivityGuideBinding>(
-    isHideStatus = false
-) {
+class GuideActivity : BaseActivity<ActivityGuideBinding>() {
 
     override fun getLayout(): Int {
         return R.layout.activity_guide
