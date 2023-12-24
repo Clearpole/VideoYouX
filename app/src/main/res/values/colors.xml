@@ -11,5 +11,5 @@
     <color name="ic_launcher_background">@android:color/system_accent1_50</color>
     <color name="ic_launcher_foreground">@android:color/system_accent1_400</color>
     <color name="system_accent_light_mask">#444444</color>
-    <color name="system_accent_dark_mask">#444444</color>
+    <color name="system_accent_dark_mask">#50444444</color>
 </resources>

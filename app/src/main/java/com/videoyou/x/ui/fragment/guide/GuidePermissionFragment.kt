@@ -3,6 +3,7 @@ package com.videoyou.x.ui.fragment.guide
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.CycleInterpolator
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
@@ -12,10 +13,15 @@ import com.drake.brv.utils.setup
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
+import com.videoyou.x._storage.AndroidMediaStore
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
 import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
 import com.videoyou.x.ui.fragment.guide.model.PermissionListModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GuidePermissionFragment :
     BaseFragment<GuideViewModel, FragmentGuidePermissionBinding>() {
@@ -35,6 +41,10 @@ class GuidePermissionFragment :
                     arrayListOf(Permission.READ_MEDIA_VIDEO, Permission.PICTURE_IN_PICTURE)
                 )
             ) {
+                val sharedPreferences = requireContext().getSharedPreferences("values",
+                    AppCompatActivity.MODE_PRIVATE
+                )
+                sharedPreferences.edit().putBoolean("first-enter",false).apply()
                 this@GuidePermissionFragment.requireActivity().finish()
             } else {
                 val anim =

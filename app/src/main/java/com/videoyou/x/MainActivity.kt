@@ -1,12 +1,20 @@
 package com.videoyou.x
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.drake.serialize.intent.openActivity
+import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityMainBinding
+import com.videoyou.x.GuideActivity
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(
+    isHideStatus = false
+) {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val sharedPreferences = getSharedPreferences("values", MODE_PRIVATE)
         val isFirstEnter = sharedPreferences.getBoolean("first-enter", true)
@@ -14,9 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             openActivity<GuideActivity>()
         }
 
+
     }
 
     override fun getLayout(): Int {
-        return R.layout.activity_main
+        return  R.layout.activity_main
     }
 }
