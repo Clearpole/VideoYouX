@@ -1,6 +1,5 @@
 package com.videoyou.x._storage
 
-import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
@@ -46,12 +45,8 @@ class AndroidMediaStore {
                         val content =
                             "$path\u001A$uri\u001A$timeStamp\u001A$title\u001A$size\u001A$folder\u001A$duration"
                         kv_folder_time.encode(folderPath, timeStamp)
-                        kv_video.encode(
-                            folderPath, if (kv_video.containsKey(folderPath)) {
-                                "${kv_video.decodeString(folderPath)}\u001A\u001A$content"
-                            } else {
+                        kv_video.encode(timeStamp,
                                 content
-                            }
                         )
                         videoCount += 1
                     }

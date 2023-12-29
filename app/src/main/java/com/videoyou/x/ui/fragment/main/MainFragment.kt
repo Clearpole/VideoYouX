@@ -1,6 +1,5 @@
 package com.videoyou.x.ui.fragment.main
 
-import android.net.Uri
 import android.os.Environment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -30,7 +29,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
         binding.refresh.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 AndroidMediaStore.writeData(requireContext())
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     logicList(binding.homeRv)
                 }
             }
@@ -53,7 +52,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
         CoroutineScope(Dispatchers.IO).launch {
             refreshMediaData().apply {
                 val data = AndroidMediaStore.readVideosData()
-                val model = model(data, AndroidMediaStore.readFoldersData())
+                val model = model(data)
                 withContext(Dispatchers.Main) {
                     rv.linear().setup {
                         it.layoutManager = CarouselLayoutManager()
@@ -65,20 +64,17 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
         }
     }
 
-    private fun model(dataList: MMKV, folderList: MMKV): MutableList<Any> {
+    private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            val folders = folderList.allKeys()!!.sortedBy { folderList.decodeString(it)!!.toLong() }
-                .reversed()
-            folders.forEachIndexed { _, s ->
+            dataList.allKeys()!!.sortedBy { it }.reversed().forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
-                items.split("\u001A\u001A").forEachIndexed { _, video ->
-                    val data = video.split("\u001A")
-                    val load = Glide.with(requireContext()).setDefaultRequestOptions(RequestOptions().frame(1000000)).load(data[1])
-                        .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
-                            DiskCacheStrategy.ALL
-                        ).centerCrop().override(500)
-                    add(CarouselModel(load))
-                }
+                val list = items.split("\u001A")
+                val load = Glide.with(requireContext())
+                    .setDefaultRequestOptions(RequestOptions().frame(1000000)).load(list[0])
+                    .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
+                        DiskCacheStrategy.ALL
+                    ).centerCrop().override(500)
+                add(CarouselModel(load))
             }
         }
     }
