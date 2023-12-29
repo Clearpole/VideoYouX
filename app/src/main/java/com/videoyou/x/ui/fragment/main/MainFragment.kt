@@ -16,6 +16,7 @@ import com.videoyou.x._utils.MediaUtils
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding
 import com.videoyou.x.ui.fragment.main.model.CarouselModel
+import com.videoyou.x.ui.fragment.main.model.FoldersModel
 import com.videoyou.x.ui.fragment.main.model.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
                 AndroidMediaStore.writeData(requireContext())
                 withContext(Dispatchers.Main) {
                     logicList(binding.homeRv)
+                    logicListForFolders(binding.homeFoldersRv)
                 }
             }
         }
@@ -66,7 +68,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
 
     private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            dataList.allKeys()!!.sortedBy { it }.reversed().forEachIndexed { _, s ->
+            dataList.allKeys()!!.sortedBy { it }.reversed().take(10).forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
                 val list = items.split("\u001A")
                 val load = Glide.with(requireContext())
@@ -75,6 +77,29 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
                         DiskCacheStrategy.ALL
                     ).centerCrop().override(500)
                 add(CarouselModel(load))
+            }
+        }
+    }
+
+    private fun logicListForFolders(rv: RecyclerView) {
+        CoroutineScope(Dispatchers.IO).launch {
+            refreshMediaData().apply {
+                val data = AndroidMediaStore.readFoldersData()
+                val model = modelForFolders(data)
+                withContext(Dispatchers.Main) {
+                    rv.linear().setup {
+                        addType<FoldersModel> { R.layout.item_main_folders }
+                    }.models = model
+                    rv.setHasFixedSize(true)
+                }
+            }
+        }
+    }
+
+    private fun modelForFolders(dataList: MMKV): MutableList<Any> {
+        return mutableListOf<Any>().apply {
+            dataList.allKeys()!!.forEachIndexed { _, s ->
+                add(FoldersModel(s))
             }
         }
     }

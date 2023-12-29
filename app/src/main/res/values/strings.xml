@@ -95,5 +95,7 @@
     <string name="tips_monday_4">周一忧郁症‍️</string>
     <string name="tips_null">你貌似不在地球</string>
     <string name="least_add">最新添加</string>
+    <string name="update_recently">最近更新</string>
+    <string name="noPlay">暂无播放内容</string>
 
 </resources>

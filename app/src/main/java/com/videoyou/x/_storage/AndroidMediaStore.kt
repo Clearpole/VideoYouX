@@ -14,12 +14,12 @@ import kotlin.system.measureNanoTime
 class AndroidMediaStore {
     companion object {
         private val kv_video = MMKV.mmkvWithID("vyx-videos", MMKV.SINGLE_PROCESS_MODE)!!
-        private val kv_folder_time = MMKV.mmkvWithID("vyx-folders", MMKV.SINGLE_PROCESS_MODE)!!
+        private val kv_folder = MMKV.mmkvWithID("vyx-folders", MMKV.SINGLE_PROCESS_MODE)!!
         fun readVideosData(): MMKV = kv_video
-        fun readFoldersData(): MMKV = kv_folder_time
+        fun readFoldersData(): MMKV = kv_folder
         suspend fun writeData(context: Context) {
             kv_video.clearAll()
-            kv_folder_time.clearAll()
+            kv_folder.clearAll()
             val contentResolver = context.contentResolver
             measureNanoTime {
                 contentResolver.query(
@@ -44,15 +44,13 @@ class AndroidMediaStore {
                         val folderPath = path.substring(0, path!!.lastIndexOf("/") + 1)
                         val content =
                             "$path\u001A$uri\u001A$timeStamp\u001A$title\u001A$size\u001A$folder\u001A$duration"
-                        kv_folder_time.encode(folderPath, timeStamp)
-                        kv_video.encode(timeStamp,
-                                content
-                        )
+                        kv_folder.encode(folderPath, timeStamp)
+                        kv_video.encode(timeStamp, content)
                         videoCount += 1
                     }
                     Statistics.writeInfo(
                         Statistics.FOLDERS_COUNT,
-                        kv_folder_time.allKeys()!!.size.toString()
+                        kv_folder.allKeys()!!.distinct().size.toString()
                     )
                     Statistics.writeInfo(Statistics.VIDEOS_COUNT, videoCount.toString())
                     Glide.get(context).clearDiskCache()
