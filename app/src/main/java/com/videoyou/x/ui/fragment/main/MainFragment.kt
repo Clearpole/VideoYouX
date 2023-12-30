@@ -91,6 +91,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
                         addType<FoldersModel> { R.layout.item_main_folders }
                     }.models = model
                     rv.setHasFixedSize(true)
+                    //CNM
                 }
             }
         }
