@@ -1,7 +1,9 @@
 package com.videoyou.x.ui.fragment.main
 
 import android.os.Environment
+import androidx.core.util.TimeUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.TimeUtils.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -100,7 +102,11 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
     private fun modelForFolders(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
             dataList.allKeys()!!.forEachIndexed { _, s ->
-                add(FoldersModel(s))
+                val titleList = s.split("/")
+                val title = titleList[titleList.lastIndex-1]
+                val timeStamp = dataList.decodeString(s)
+                val updateTime = millis2String(timeStamp!!.toLong()*1000)
+                add(FoldersModel(title,updateTime))
             }
         }
     }
