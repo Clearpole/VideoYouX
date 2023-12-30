@@ -27,6 +27,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
         logicList(binding.homeRv)
+        logicListForFolders(binding.homeFoldersRv)
         binding.refresh.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 AndroidMediaStore.writeData(requireContext())
