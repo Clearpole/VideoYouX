@@ -82,4 +82,5 @@
     <string name="tips_monday_4">Monday blues</string>
     <string name="tips_null">You don\'t seem to be on earth</string>
     <string name="least_add">最新添加</string>
+    <string name="noHistory">暂无播放历史</string>
 </resources>
