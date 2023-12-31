@@ -128,6 +128,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
         compose = true
     }
 
@@ -194,4 +195,6 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.activity)
+    implementation(libs.immersionbar)
 }

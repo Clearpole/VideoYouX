@@ -27,6 +27,9 @@
         android:theme="@style/Theme.VideoYouX"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".PlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".GuideActivity"
             android:exported="false"
             android:supportsPictureInPicture="true" />
@@ -39,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <meta-data
             android:name="ScopedStorage"

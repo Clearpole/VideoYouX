@@ -79,7 +79,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
                     .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
                         DiskCacheStrategy.ALL
                     ).centerCrop().override(500)
-                add(CarouselModel(load))
+                add(CarouselModel(load,list))
             }
         }
     }
