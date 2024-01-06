@@ -80,22 +80,27 @@ class PlayerActivity : ComponentActivity() {
     private var exoExist = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DynamicColors.applyToActivityIfAvailable(this)
+        playerLifecycleScope = lifecycleScope.launch {}
+
+        // 判断是否外部调起
         if (intent.data != null) {
             uri = intent.data
             paths = intent.data!!.path
         }
+        // 判断是否存在可复用的Player实体
         exoExist = Media3PlayerUtils.getIfExoExist()
         if (!exoExist) {
+            // 如果不存在，则建立
             exoPlayer = ExoPlayer.Builder(this)
                 .setRenderersFactory(DefaultRenderersFactory(this).setEnableDecoderFallback(false))
                 .setUseLazyPreparation(false)
                 .build()
             Media3PlayerUtils.exoPlayer = exoPlayer
         }else{
+            // 如果存在，则复用
             exoPlayer = Media3PlayerUtils.exoPlayer!!
         }
-        DynamicColors.applyToActivityIfAvailable(this)
-        playerLifecycleScope = lifecycleScope.launch {}
         val requiredParams = arrayListOf(MediaMetadataRetriever.METADATA_KEY_DURATION)
         info = VideoInfo.get(this, uri!!, requiredParams)
         playerSliderV2ViewModel = ViewModelProvider(this)[PlayerSliderV2ViewModel::class.java]
@@ -155,6 +160,7 @@ class PlayerActivity : ComponentActivity() {
                 .layoutId(LocalConfiguration.current)
         ) {
             AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
+                playerRoot.keepScreenOn = true
                 playMask.apply {
                     this.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                     setContent {

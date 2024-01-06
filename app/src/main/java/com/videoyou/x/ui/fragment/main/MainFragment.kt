@@ -1,7 +1,6 @@
 package com.videoyou.x.ui.fragment.main
 
 import android.os.Environment
-import androidx.core.util.TimeUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils.*
 import com.bumptech.glide.Glide
@@ -71,7 +70,8 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
 
     private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
-            dataList.allKeys()!!.sortedBy { it }.reversed().take(10).forEachIndexed { _, s ->
+            val sortedList = dataList.allKeys()!!.sorted()
+            sortedList.reversed().take(10).forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
                 val list = items.split("\u001A")
                 val load = Glide.with(requireContext())
@@ -79,7 +79,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
                     .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
                         DiskCacheStrategy.ALL
                     ).centerCrop().override(500)
-                add(CarouselModel(load,list))
+                add(CarouselModel(load, list,dataList))
             }
         }
     }
@@ -103,10 +103,10 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
         return mutableListOf<Any>().apply {
             dataList.allKeys()!!.forEachIndexed { _, s ->
                 val titleList = s.split("/")
-                val title = titleList[titleList.lastIndex-1]
+                val title = titleList[titleList.lastIndex - 1]
                 val timeStamp = dataList.decodeString(s)
-                val updateTime = millis2String(timeStamp!!.toLong()*1000)
-                add(FoldersModel(title,updateTime))
+                val updateTime = millis2String(timeStamp!!.toLong() * 1000)
+                add(FoldersModel(title, updateTime))
             }
         }
     }
