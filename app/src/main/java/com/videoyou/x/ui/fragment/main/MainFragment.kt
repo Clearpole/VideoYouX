@@ -1,6 +1,9 @@
 package com.videoyou.x.ui.fragment.main
 
+import android.net.Uri
 import android.os.Environment
+import androidx.core.net.toUri
+import androidx.media3.common.MediaItem
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.TimeUtils.*
 import com.bumptech.glide.Glide
@@ -12,6 +15,7 @@ import com.drake.brv.utils.setup
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.tencent.mmkv.MMKV
 import com.videoyou.x.R
+import com.videoyou.x._player.Play
 import com.videoyou.x._storage.AndroidMediaStore
 import com.videoyou.x._utils.MediaUtils
 import com.videoyou.x._utils.base.BaseFragment
@@ -71,15 +75,18 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
     private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
             val sortedList = dataList.allKeys()!!.sorted()
+            val arrayList = arrayListOf<MediaItem>()
             sortedList.reversed().take(10).forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
                 val list = items.split("\u001A")
+                arrayList.add(MediaItem.fromUri(list[1].toUri()))
+                Play.list = arrayList
                 val load = Glide.with(requireContext())
                     .setDefaultRequestOptions(RequestOptions().frame(1000000)).load(list[0])
                     .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(
                         DiskCacheStrategy.ALL
                     ).centerCrop().override(500)
-                add(CarouselModel(load, list,dataList))
+                add(CarouselModel(load, list))
             }
         }
     }

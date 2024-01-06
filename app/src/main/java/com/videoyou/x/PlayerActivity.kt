@@ -58,6 +58,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 import com.videoyou.x._player.Media3PlayerUtils
+import com.videoyou.x._player.Play
 import com.videoyou.x._player.PlayerSliderV2ViewModel
 import com.videoyou.x._player.VideoInfo
 import com.videoyou.x._player.theme.VideoYouXTheme
@@ -69,10 +70,11 @@ import kotlinx.coroutines.launch
 
 @UnstableApi
 class PlayerActivity : ComponentActivity() {
+    private var paths: String? by bundle()
+    private var uri: Uri? by bundle()
+
     private var requireUpdateUI = true
     private var seeked = true
-    private var uri: Uri? by bundle()
-    private var paths: String? by bundle()
     lateinit var exoPlayer : ExoPlayer
     private lateinit var playerLifecycleScope: Job
     private lateinit var info: ArrayList<String>
@@ -138,13 +140,9 @@ class PlayerActivity : ComponentActivity() {
             PlayerView(it).apply {
                 if (!exoExist) {
                     exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
-                    val dataSourceFactory =
-                        DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayer"))
-                    val mediaSource =
-                        ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
-                            MediaItem.fromUri(uri!!)
-                        )
-                    exoPlayer.prepare(mediaSource)
+                    exoPlayer.setMediaItems(Play.list)
+                    exoPlayer.seekTo(Play.position,0L)
+                    exoPlayer.prepare()
                 }
                 useController = false
                 player = exoPlayer
@@ -161,6 +159,12 @@ class PlayerActivity : ComponentActivity() {
         ) {
             AndroidViewBinding(factory = ActivityPlayerBinding::inflate) {
                 playerRoot.keepScreenOn = true
+                playNext.setOnClickListener {
+                    exoPlayer.seekToNextMediaItem()
+                }
+                playBefore.setOnClickListener {
+                    exoPlayer.seekToPreviousMediaItem()
+                }
                 playMask.apply {
                     this.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                     setContent {
