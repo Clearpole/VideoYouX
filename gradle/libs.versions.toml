@@ -1,7 +1,7 @@
 [versions]
 brv = "1.5.8"
 collapsingtoolbarlayoutSubtitle = "1.5.0"
-com-android-application = "8.4.0-alpha01"
+com-android-application = "8.4.0-alpha03"
 glide = "4.16.0"
 immersionbar = "3.2.2"
 lottie = "6.3.0"
@@ -23,7 +23,7 @@ lifecycle-livedata-ktx = "2.6.2"
 lifecycle-viewmodel-ktx = "2.6.2"
 androidx-appcompat-appcompat = "1.6.1"
 androidx-constraintlayout-constraintlayout = "2.1.4"
-activity = "1.8.0"
+activity = "1.8.2"
 
 [libraries]
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
