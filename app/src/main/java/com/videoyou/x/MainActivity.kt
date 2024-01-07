@@ -29,12 +29,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         CoroutineScope(Dispatchers.IO).launch {
             AndroidMediaStore.writeData(this@MainActivity, false)
         }
+
         val homeFragment = HomeFragment()
         val filesFragment = FilesFragment()
 
         supportFragmentManager.commit {
-            add(R.id.nav_host_fragment, homeFragment,"home")
-            add(R.id.nav_host_fragment,filesFragment,"files")
+            add(R.id.nav_host_fragment, homeFragment)
+            add(R.id.nav_host_fragment,filesFragment)
             hide(filesFragment)
         }
 
@@ -61,11 +62,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
                 }
             }
         }
-    }
-
-    private fun hideFragment(transaction: FragmentTransaction) {
-        transaction.hide(HomeFragment())
-        transaction.hide(FilesFragment())
     }
 
     override fun getLayout(): Int {
