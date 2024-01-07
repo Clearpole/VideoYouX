@@ -6,7 +6,7 @@
 
         <variable
             name="MainViewModel"
-            type="com.videoyou.x.ui.fragment.main.model.MainViewModel" />
+            type="com.videoyou.x.ui.fragment.home.model.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -29,6 +29,7 @@
                     android:layout_marginTop="65dp"
                     android:text="@string/least_add"
                     android:textSize="23sp"
+                    android:textColor="@color/material_dynamic_primary20"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="5dp"
                     app:cardElevation="0dp"
                     app:layout_constraintEnd_toStartOf="@id/deleteHistory"
@@ -76,15 +77,15 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
                             android:importantForAccessibility="no"
-                            android:src="@drawable/round_history_24"
-                            app:tint="@color/material_dynamic_neutral50" />
+                            android:src="@drawable/round_playlist_play_24"
+                            app:tint="@color/material_dynamic_primary40" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/historyIcon"
                             android:padding="10dp"
-                            android:text="@string/noHistory" />
+                            android:text="@string/noPlayList" />
                     </RelativeLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -105,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
-                    android:layout_marginVertical="30dp"
+                    android:layout_marginVertical="20dp"
                     android:clipChildren="false"
                     app:layout_constraintTop_toBottomOf="@id/historyCard"
                     app:layout_constraintBottom_toTopOf="@id/footer"/>

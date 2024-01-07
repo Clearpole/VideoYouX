@@ -1,6 +1,5 @@
-package com.videoyou.x.ui.fragment.main
+package com.videoyou.x.ui.fragment.home
 
-import android.net.Uri
 import android.os.Environment
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
@@ -20,15 +19,15 @@ import com.videoyou.x._storage.AndroidMediaStore
 import com.videoyou.x._utils.MediaUtils
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding
-import com.videoyou.x.ui.fragment.main.model.CarouselModel
-import com.videoyou.x.ui.fragment.main.model.FoldersModel
-import com.videoyou.x.ui.fragment.main.model.MainViewModel
+import com.videoyou.x.ui.fragment.home.model.CarouselModel
+import com.videoyou.x.ui.fragment.home.model.FoldersModel
+import com.videoyou.x.ui.fragment.home.model.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainFragment : BaseFragment<MainViewModel, FragmentMainHomeBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
         logicList(binding.homeRv)

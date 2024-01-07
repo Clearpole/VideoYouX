@@ -96,5 +96,6 @@
     <string name="tips_null">你貌似不在地球</string>
     <string name="least_add">最新添加</string>
     <string name="noHistory">暂无播放历史</string>
+    <string name="noPlayList">暂无播放列表</string>
 
 </resources>

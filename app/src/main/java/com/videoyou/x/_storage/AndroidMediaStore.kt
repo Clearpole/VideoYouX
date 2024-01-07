@@ -17,7 +17,7 @@ class AndroidMediaStore {
         private val kv_folder_time = MMKV.mmkvWithID("vyx-folders", MMKV.SINGLE_PROCESS_MODE)!!
         fun readVideosData(): MMKV = kv_video
         fun readFoldersData(): MMKV = kv_folder_time
-        suspend fun writeData(context: Context) {
+        suspend fun writeData(context: Context,requireTw:Boolean? = true) {
             kv_video.clearAll()
             kv_folder_time.clearAll()
             val contentResolver = context.contentResolver
@@ -59,12 +59,14 @@ class AndroidMediaStore {
                     close()
                 }
             }.also { time ->
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        "Scanning is completed within ${time / 1_000_000} ms.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (requireTw!!) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            context,
+                            "Scanning is completed within ${time / 1_000_000} ms.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }

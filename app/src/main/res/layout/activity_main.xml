@@ -6,7 +6,7 @@
 
         <variable
             name="MainActivityViewModel"
-            type="com.videoyou.x.ui.fragment.main.model.MainViewModel" />
+            type="com.videoyou.x.ui.fragment.home.model.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,8 +31,7 @@
             android:layout_height="0dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/nav_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/main_navigation" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

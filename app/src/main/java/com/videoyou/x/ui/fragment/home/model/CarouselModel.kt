@@ -1,14 +1,11 @@
-package com.videoyou.x.ui.fragment.main.model
+package com.videoyou.x.ui.fragment.home.model
 
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.core.net.toUri
-import androidx.media3.common.MediaItem
 import com.bumptech.glide.RequestBuilder
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
-import com.tencent.mmkv.MMKV
 import com.videoyou.x.PlayerActivity
 import com.videoyou.x._player.Play
 import com.videoyou.x.databinding.ItemMainCarouselBinding
