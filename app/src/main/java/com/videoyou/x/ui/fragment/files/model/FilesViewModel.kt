@@ -2,4 +2,6 @@ package com.videoyou.x.ui.fragment.files.model
 
 import androidx.lifecycle.ViewModel
 
-class FilesViewModel : ViewModel()
+class FilesViewModel : ViewModel() {
+    val test = "test"
+}
