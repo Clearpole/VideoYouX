@@ -18,6 +18,9 @@ import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
 ) {
+    private var firstLoad = false
+    private val homeFragment = HomeFragment()
+    private val filesFragment = FilesFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -28,15 +31,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         }
         CoroutineScope(Dispatchers.IO).launch {
             AndroidMediaStore.writeData(this@MainActivity, false)
-        }
-
-        val homeFragment = HomeFragment()
-        val filesFragment = FilesFragment()
-
-        supportFragmentManager.commit {
-            add(R.id.nav_host_fragment, homeFragment)
-            add(R.id.nav_host_fragment,filesFragment)
-            hide(filesFragment)
         }
 
         binding.navView.setOnItemSelectedListener {
@@ -61,6 +55,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
                     true
                 }
             }
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (!firstLoad) {
+            supportFragmentManager.commit {
+                add(R.id.nav_host_fragment, homeFragment)
+                add(R.id.nav_host_fragment, filesFragment)
+                hide(filesFragment)
+            }
+            firstLoad = true
         }
     }
 

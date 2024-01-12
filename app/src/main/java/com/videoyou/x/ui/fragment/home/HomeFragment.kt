@@ -29,8 +29,6 @@ import kotlinx.coroutines.withContext
 class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
-        logicList(binding.homeRv)
-        logicListForFolders(binding.homeFoldersRv)
         binding.refresh.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 AndroidMediaStore.writeData(requireContext())
@@ -40,6 +38,8 @@ class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
                 }
             }
         }
+        logicList(binding.homeRv)
+        logicListForFolders(binding.homeFoldersRv)
     }
 
     override fun getViewBinding(): FragmentMainHomeBinding {
