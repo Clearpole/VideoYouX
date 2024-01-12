@@ -5,13 +5,13 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
 import com.videoyou.x.databinding.ItemPermissionListBinding
 
 class PermissionListModel(
-    private val dataModel: GuideViewModel,
     private val title: String,
     private val info: String,
     private val resId: Int,
@@ -19,7 +19,10 @@ class PermissionListModel(
     private val right: Drawable,
     private val unknown: Drawable,
     private val primary: Int,
-    private val sPrimary: Int
+    private val sPrimary: Int,
+    private val topCorner:ShapeAppearanceModel,
+    private val bottomCorner:ShapeAppearanceModel,
+    private val centerCorner:ShapeAppearanceModel
 ) : ItemBind {
     override fun onBind(holder: BindingAdapter.BindingViewHolder) {
         val id = holder.layoutPosition
@@ -43,16 +46,16 @@ class PermissionListModel(
             }
             val corner = when (id) {
                 0 -> {
-                    dataModel.topCorner
+                    topCorner
                 }
 
                 count - 1 -> {
                     more.setImageDrawable(right)
-                    dataModel.bottomCorner
+                    bottomCorner
                 }
 
                 else -> {
-                    dataModel.centerCorner
+                    centerCorner
                 }
             }
             card.shapeAppearanceModel = corner

@@ -15,12 +15,21 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.videoyou.x.R
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuideWelcomeBinding
-import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
 import com.videoyou.x.ui.fragment.guide.model.LanguageListModel
 import java.util.Locale
+import kotlin.properties.Delegates
 
 
-class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBinding>() {
+class GuideWelcomeFragment : BaseFragment<FragmentGuideWelcomeBinding>() {
+    private var animIsRunning = false
+    private var startView by Delegates.notNull<View>()
+    private var endView by Delegates.notNull<View>()
+    private var rootView by Delegates.notNull<View>()
+    private var maskView by Delegates.notNull<View>()
+    private var duration by Delegates.notNull<Long>()
+    private var maskColor by Delegates.notNull<Int>()
+    var choseLocale by Delegates.notNull<Locale>()
+    var isChoseLanguage = false
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
@@ -29,12 +38,12 @@ class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBi
         } else Locale.getDefault().displayName
 
         binding.guideExit.setOnClickListener {
-            if (!mViewModel.animIsRunning) {
+            if (!animIsRunning) {
                 requireActivity().finish()
             }
         }
         binding.guideGetStart.setOnClickListener {
-            if (!mViewModel.animIsRunning) {
+            if (!animIsRunning) {
                 controller.navigate(R.id.guidePermissionFragment, bundleOf(), navOptions {
                     anim {
                         enter = R.anim.guide_next_in
@@ -60,18 +69,18 @@ class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBi
                 Locale.forLanguageTag("ru")
             )
             tagList.forEachIndexed { _, s ->
-                add(LanguageListModel(s, mViewModel))
+                add(LanguageListModel(s))
             }
         }
     }
 
     private fun languageAnimSet() {
-        mViewModel.startView = binding.localeChoose
-        mViewModel.endView = binding.languageRoot
-        mViewModel.rootView = binding.root
-        mViewModel.maskView = binding.languageBackground
-        mViewModel.duration = 650
-        mViewModel.maskColor = Color.parseColor("#44000000")
+        startView = binding.localeChoose
+        endView = binding.languageRoot
+        rootView = binding.root
+        maskView = binding.languageBackground
+        duration = 650
+        maskColor = Color.parseColor("#44000000")
         binding.localeChooseRoot.setOnClickListener {
             materialTransition(
                 binding.localeChoose,
@@ -80,8 +89,7 @@ class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBi
                 binding.languageBackground,
                 650,
                 true,
-                Color.parseColor("#44000000"),
-                mViewModel
+                Color.parseColor("#44000000")
             )
         }
         binding.languageBackground.setOnClickListener {
@@ -92,8 +100,7 @@ class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBi
                 binding.languageBackground,
                 650,
                 false,
-                Color.parseColor("#44000000"),
-                mViewModel
+                Color.parseColor("#44000000")
             )
         }
         binding.cancel.setOnClickListener {
@@ -104,57 +111,53 @@ class GuideWelcomeFragment : BaseFragment<GuideViewModel, FragmentGuideWelcomeBi
                 binding.languageBackground,
                 650,
                 false,
-                Color.parseColor("#44000000"),
-                mViewModel
+                Color.parseColor("#44000000")
             )
         }
     }
 
-    companion object {
-        fun materialTransition(
-            startView: View,
-            endView: View,
-            rootView: View,
-            maskView: View,
-            duration: Long,
-            type: Boolean,
-            maskColor: Int,
-            mViewModel: GuideViewModel
-        ) {
-            if (!mViewModel.animIsRunning) {
-                mViewModel.animIsRunning = true
-                MaterialContainerTransform().apply {
-                    fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
-                    scrimColor = maskColor
-                    maskView.setBackgroundColor(maskColor)
-                    this.duration = duration
-                    this.startView = startView
-                    this.endView = endView
-                    addTarget(endView)
-                    addListener(object : TransitionListener {
-                        override fun onTransitionStart(transition: androidx.transition.Transition) {
-                            maskView.visibility = View.GONE
-                        }
+    fun materialTransition(
+        startView: View,
+        endView: View,
+        rootView: View,
+        maskView: View,
+        duration: Long,
+        type: Boolean,
+        maskColor: Int
+    ) {
+        if (!animIsRunning) {
+            animIsRunning = true
+            MaterialContainerTransform().apply {
+                fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+                scrimColor = maskColor
+                maskView.setBackgroundColor(maskColor)
+                this.duration = duration
+                this.startView = startView
+                this.endView = endView
+                addTarget(endView)
+                addListener(object : TransitionListener {
+                    override fun onTransitionStart(transition: androidx.transition.Transition) {
+                        maskView.visibility = View.GONE
+                    }
 
-                        override fun onTransitionEnd(transition: androidx.transition.Transition) {
-                            if (type) {
-                                maskView.visibility = View.VISIBLE
-                            }
-                            if (mViewModel.isChoseLanguage) {
-                                mViewModel.isChoseLanguage = false
-                                LanguageUtils.applyLanguage(mViewModel.choseLocale)
-                            }
-                            mViewModel.animIsRunning = false
+                    override fun onTransitionEnd(transition: androidx.transition.Transition) {
+                        if (type) {
+                            maskView.visibility = View.VISIBLE
                         }
+                        if (isChoseLanguage) {
+                            isChoseLanguage = false
+                            LanguageUtils.applyLanguage(choseLocale)
+                        }
+                        animIsRunning = false
+                    }
 
-                        override fun onTransitionCancel(transition: androidx.transition.Transition) {}
-                        override fun onTransitionPause(transition: androidx.transition.Transition) {}
-                        override fun onTransitionResume(transition: androidx.transition.Transition) {}
-                    })
-                    TransitionManager.beginDelayedTransition((rootView as ViewGroup?)!!, this)
-                    endView.visibility = View.VISIBLE
-                    startView.visibility = View.INVISIBLE
-                }
+                    override fun onTransitionCancel(transition: androidx.transition.Transition) {}
+                    override fun onTransitionPause(transition: androidx.transition.Transition) {}
+                    override fun onTransitionResume(transition: androidx.transition.Transition) {}
+                })
+                TransitionManager.beginDelayedTransition((rootView as ViewGroup?)!!, this)
+                endView.visibility = View.VISIBLE
+                startView.visibility = View.INVISIBLE
             }
         }
     }

@@ -21,13 +21,12 @@ import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding
 import com.videoyou.x.ui.fragment.home.model.CarouselModel
 import com.videoyou.x.ui.fragment.home.model.FoldersModel
-import com.videoyou.x.ui.fragment.home.model.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeFragment : BaseFragment<HomeViewModel, FragmentMainHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
         logicList(binding.homeRv)

@@ -10,21 +10,16 @@ import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
-import com.videoyou.x._storage.AndroidMediaStore
 import com.videoyou.x._utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
-import com.videoyou.x.ui.fragment.guide.model.GuideViewModel
 import com.videoyou.x.ui.fragment.guide.model.PermissionListModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GuidePermissionFragment :
-    BaseFragment<GuideViewModel, FragmentGuidePermissionBinding>() {
+    BaseFragment<FragmentGuidePermissionBinding>() {
     override fun onViewCreate() {
         val controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         binding.guidePermissionBack.setOnClickListener {
@@ -62,6 +57,13 @@ class GuidePermissionFragment :
         binding.guidePermissionList.linear().setup {
             addType<PermissionListModel> { R.layout.item_permission_list }
         }.models = mutableListOf<Any>().apply {
+            val topCorner = ShapeAppearanceModel().toBuilder().setTopLeftCornerSize { 65f }
+                .setTopRightCornerSize { 65f }.setBottomLeftCornerSize { 10f }
+                .setBottomRightCornerSize { 10f }.build()
+            val bottomCorner = ShapeAppearanceModel().toBuilder().setTopLeftCornerSize { 10f }
+                .setTopRightCornerSize { 10f }.setBottomLeftCornerSize { 65f }
+                .setBottomRightCornerSize { 65f }.build()
+            val centerCorner = ShapeAppearanceModel().toBuilder().setAllCornerSizes(10f).build()
             val right = AppCompatResources.getDrawable(requireContext(), R.drawable.round_done_24)
             val unknown =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.round_question_mark_24)
@@ -74,7 +76,6 @@ class GuidePermissionFragment :
             ).onEach {
                 add(
                     PermissionListModel(
-                        mViewModel,
                         it.first.first.first,
                         it.first.first.second,
                         it.first.second,
@@ -82,7 +83,10 @@ class GuidePermissionFragment :
                         right!!,
                         unknown!!,
                         primary,
-                        sPrimary
+                        sPrimary,
+                        topCorner,
+                        bottomCorner,
+                        centerCorner
                     )
                 )
             }
