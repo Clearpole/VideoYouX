@@ -88,4 +88,7 @@
     <string name="overView">一览</string>
     <string name="refresh">刷新</string>
     <string name="more">更多</string>
+    <string name="videos_count">视频数量</string>
+    <string name="folders_count">文件夹数量</string>
+    <string name="total_size">总体积</string>
 </resources>
