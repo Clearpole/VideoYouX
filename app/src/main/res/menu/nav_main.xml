@@ -7,8 +7,8 @@
     <item
         android:id="@+id/menu_screen_page2"
         android:enabled="true"
-        android:icon="@drawable/outline_folder_24"
-        android:title="@string/files" />
+        android:icon="@drawable/outline_functions_24"
+        android:title="@string/functions" />
     <item
         android:id="@+id/menu_screen_page3"
         android:enabled="true"

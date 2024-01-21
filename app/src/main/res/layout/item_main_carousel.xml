@@ -5,56 +5,53 @@
     <com.google.android.material.carousel.MaskableFrameLayout
         android:id="@+id/carousel_item_container"
         android:layout_width="150dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:foreground="@drawable/system_light_ripple"
         app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
 
-        <ImageView
-            android:id="@+id/carousel_image_view"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/color_dark_system_mask">
+            app:cardElevation="0dp">
 
             <LinearLayout
-                android:id="@+id/carousel_mask"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/carousel_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
-                    android:layout_width="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="2dp"
                     android:ellipsize="middle"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/material_dynamic_primary40"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:maxLines="1" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/subTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:ellipsize="middle"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="11sp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="20dp"
+                    android:maxLines="1" />
             </LinearLayout>
-        </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </com.google.android.material.carousel.MaskableFrameLayout>
 </layout>

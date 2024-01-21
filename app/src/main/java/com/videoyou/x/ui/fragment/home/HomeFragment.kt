@@ -4,7 +4,7 @@ import android.os.Environment
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.TimeUtils.*
+import com.blankj.utilcode.util.TimeUtils.millis2String
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.UncontainedCarouselStrategy
 import com.tencent.mmkv.MMKV
 import com.videoyou.x.R
 import com.videoyou.x._player.Play
@@ -29,13 +30,20 @@ import kotlinx.coroutines.withContext
 class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
 
     override fun onViewCreate() {
-        binding.refresh.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                AndroidMediaStore.writeData(requireContext())
-                withContext(Dispatchers.Main) {
-                    logicList(binding.homeRv)
-                    logicListForFolders(binding.homeFoldersRv)
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        AndroidMediaStore.writeData(requireContext())
+                        withContext(Dispatchers.Main) {
+                            logicList(binding.homeRv)
+                            logicListForFolders(binding.homeFoldersRv)
+                        }
+                    }
+                    true
                 }
+
+                else -> false
             }
         }
         logicList(binding.homeRv)

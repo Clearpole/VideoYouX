@@ -2,14 +2,12 @@ package com.videoyou.x
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.drake.serialize.intent.openActivity
 import com.videoyou.x._storage.AndroidMediaStore
 import com.videoyou.x._utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityMainBinding
-import com.videoyou.x.ui.fragment.files.FilesFragment
+import com.videoyou.x.ui.fragment.functions.FunctionsFragment
 import com.videoyou.x.ui.fragment.home.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 ) {
     private var firstLoad = false
     private val homeFragment = HomeFragment()
-    private val filesFragment = FilesFragment()
+    private val functionsFragment = FunctionsFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -38,14 +36,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
                 R.id.menu_screen_page1 -> {
                     supportFragmentManager.commit {
                         show(homeFragment)
-                        hide(filesFragment)
+                        hide(functionsFragment)
                     }
                     true
                 }
 
                 R.id.menu_screen_page2 -> {
                     supportFragmentManager.commit {
-                        show(filesFragment)
+                        show(functionsFragment)
                         hide(homeFragment)
                     }
                     true
@@ -63,8 +61,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
         if (!firstLoad) {
             supportFragmentManager.commit {
                 add(R.id.nav_host_fragment, homeFragment)
-                add(R.id.nav_host_fragment, filesFragment)
-                hide(filesFragment)
+                add(R.id.nav_host_fragment, functionsFragment)
+                hide(functionsFragment)
             }
             firstLoad = true
         }

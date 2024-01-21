@@ -16,6 +16,8 @@ data class CarouselModel(
 ) : ItemBind {
     override fun onBind(vh: BindingAdapter.BindingViewHolder) {
         vh.getBinding<ItemMainCarouselBinding>().apply {
+            title.text = list[3]
+            subTitle.text = "@ "+list[5]
             img.into(carouselImageView)
             carouselItemContainer.setOnClickListener {
                 Play.position = vh.layoutPosition
