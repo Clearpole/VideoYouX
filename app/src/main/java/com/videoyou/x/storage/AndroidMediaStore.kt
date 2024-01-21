@@ -52,7 +52,7 @@ object AndroidMediaStore {
                         timeStamp,
                         content
                     )
-                    kv_folder_video.encode(folderPath+(0..10000000000).random().toString(),content)
+                    kv_folder_video.encode(folderPath+"\u001A"+(0..10000000000).random().toString(),content)
                     videoSize += size.toLong()
                     videoCount += 1
                 }

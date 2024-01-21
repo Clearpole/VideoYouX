@@ -22,7 +22,12 @@ class VideosModel(
                 ).centerCrop().override(200)
             load.into(Thumbnail)
             videoTitle.text = mVideoTitle
-            videoSubTitle.text = videoSize
+            val size = (videoSize.toFloat() / 1024000F)
+            if (size >= 1024) {
+                videoSubTitle.text = String.format("%.2f", (size / 1024F)) + " GiB"
+            } else {
+                videoSubTitle.text = String.format("%.2f", size) + " MiB"
+            }
         }
     }
 }

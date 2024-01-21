@@ -1,6 +1,7 @@
 package com.videoyou.x.ui.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,8 +47,10 @@ class ModalBottomSheet(private val folderPath: String) : BottomSheetDialogFragme
             val kv = AndroidMediaStore.readFoldersVideosData()
             kv.allKeys()!!.forEach {
                 if (it.contains(folderPath)) {
-                    val data = kv.decodeString(it)!!.split("\u001A")
-                    add(VideosModel(data[0], data[3], data[4]))
+                    if (it.split("\u001A")[0]==folderPath) {
+                        val data = kv.decodeString(it)!!.split("\u001A")
+                        add(VideosModel(data[0], data[3], data[4]))
+                    }
                 }
             }
         }
