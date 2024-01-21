@@ -84,4 +84,8 @@
     <string name="least_add">最新添加</string>
     <string name="noHistory">暂无播放历史</string>
     <string name="noPlayList">暂无播放列表</string>
+    <string name="functions">功能</string>
+    <string name="overView">一览</string>
+    <string name="refresh">刷新</string>
+    <string name="more">更多</string>
 </resources>
