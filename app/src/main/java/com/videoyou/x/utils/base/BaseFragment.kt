@@ -8,7 +8,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), BaseFragmentView<VB> {
+abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
+    BaseFragmentView<VB> {
     protected val TAG: String = javaClass.simpleName
     protected lateinit var binding: VB
 

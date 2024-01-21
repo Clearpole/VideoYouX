@@ -1,8 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.VideoYouX" parent="Theme.Material3.DayNight.NoActionBar" />
 
-    <style name="Theme.VideoYouX" parent="Base.Theme.VideoYouX" />
+    <style name="Theme.VideoYouX" parent="Base.Theme.VideoYouX">
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+    </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/BottomNavigationView</item>
@@ -15,5 +17,9 @@
     <style name="Title" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent
+        </item>
     </style>
 </resources>

@@ -14,13 +14,13 @@ import com.drake.brv.utils.setup
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.tencent.mmkv.MMKV
 import com.videoyou.x.R
+import com.videoyou.x.databinding.FragmentMainHomeBinding
 import com.videoyou.x.player.Play
 import com.videoyou.x.storage.AndroidMediaStore
-import com.videoyou.x.utils.MediaUtils
-import com.videoyou.x.utils.base.BaseFragment
-import com.videoyou.x.databinding.FragmentMainHomeBinding
 import com.videoyou.x.ui.fragment.home.model.CarouselModel
 import com.videoyou.x.ui.fragment.home.model.FoldersModel
+import com.videoyou.x.utils.MediaUtils
+import com.videoyou.x.utils.base.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -118,7 +118,7 @@ class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
                 val title = titleList[titleList.lastIndex - 1]
                 val timeStamp = dataList.decodeString(s)
                 val updateTime = millis2String(timeStamp!!.toLong() * 1000)
-                add(FoldersModel(title, updateTime))
+                add(FoldersModel(title, updateTime,parentFragmentManager,s))
             }
         }
     }

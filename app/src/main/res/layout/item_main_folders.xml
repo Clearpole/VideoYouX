@@ -5,6 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="95dp"
+        android:paddingHorizontal="12dp"
         android:foreground="?selectableItemBackground">
 
         <ImageView
