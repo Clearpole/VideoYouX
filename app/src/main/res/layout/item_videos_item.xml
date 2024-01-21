@@ -5,8 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clickRoot"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginVertical="10dp"
+        android:layout_height="100dp"
         android:foreground="?attr/selectableItemBackground">
 
         <com.google.android.material.card.MaterialCardView
@@ -15,7 +14,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="20dp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
