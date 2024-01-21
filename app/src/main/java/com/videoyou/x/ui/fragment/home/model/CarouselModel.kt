@@ -7,7 +7,7 @@ import com.drake.brv.BindingAdapter
 import com.drake.brv.item.ItemBind
 import com.drake.serialize.intent.openActivity
 import com.videoyou.x.PlayerActivity
-import com.videoyou.x._player.Play
+import com.videoyou.x.player.Play
 import com.videoyou.x.databinding.ItemMainCarouselBinding
 
 data class CarouselModel(

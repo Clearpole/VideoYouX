@@ -1,4 +1,4 @@
-package com.videoyou.x._player
+package com.videoyou.x.player
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

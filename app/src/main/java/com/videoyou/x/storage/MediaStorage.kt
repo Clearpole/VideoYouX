@@ -1,4 +1,4 @@
-package com.videoyou.x._storage
+package com.videoyou.x.storage
 
 import com.tencent.mmkv.MMKV
 

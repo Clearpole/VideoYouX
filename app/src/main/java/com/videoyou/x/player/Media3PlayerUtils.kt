@@ -1,4 +1,4 @@
-package com.videoyou.x._player
+package com.videoyou.x.player
 
 import androidx.media3.exoplayer.ExoPlayer
 

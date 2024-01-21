@@ -1,4 +1,4 @@
-package com.videoyou.x._storage
+package com.videoyou.x.storage
 
 import android.content.Context
 import android.net.Uri
@@ -27,6 +27,7 @@ class AndroidMediaStore {
                 )!!.apply {
                     moveToPosition(-1)
                     var videoCount = 0
+                    var videoSize = 0L
                     while (moveToNext()) {
                         val timeStamp =
                             getString(getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
@@ -48,13 +49,16 @@ class AndroidMediaStore {
                         kv_video.encode(timeStamp,
                                 content
                         )
+                        videoSize += size.toLong()
                         videoCount += 1
                     }
+                    Statistics.clear()
                     Statistics.writeInfo(
                         Statistics.FOLDERS_COUNT,
                         kv_folder_time.allKeys()!!.size.toString()
                     )
                     Statistics.writeInfo(Statistics.VIDEOS_COUNT, videoCount.toString())
+                    Statistics.writeInfo(Statistics.VIDEOS_SIZE,videoSize.toString())
                     Glide.get(context).clearDiskCache()
                     close()
                 }

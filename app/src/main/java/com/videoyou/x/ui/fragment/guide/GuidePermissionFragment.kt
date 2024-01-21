@@ -14,7 +14,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.videoyou.x.R
-import com.videoyou.x._utils.base.BaseFragment
+import com.videoyou.x.utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuidePermissionBinding
 import com.videoyou.x.ui.fragment.guide.model.PermissionListModel
 

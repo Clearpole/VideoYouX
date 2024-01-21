@@ -11,7 +11,7 @@
         app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Material3.CardView.Elevated"
+            style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardElevation="0dp">

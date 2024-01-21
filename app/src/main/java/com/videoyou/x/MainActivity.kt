@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.fragment.app.commit
 import com.drake.serialize.intent.openActivity
-import com.videoyou.x._storage.AndroidMediaStore
-import com.videoyou.x._utils.base.BaseActivity
+import com.videoyou.x.storage.AndroidMediaStore
+import com.videoyou.x.utils.base.BaseActivity
 import com.videoyou.x.databinding.ActivityMainBinding
 import com.videoyou.x.ui.fragment.functions.FunctionsFragment
 import com.videoyou.x.ui.fragment.home.HomeFragment
@@ -35,6 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
             when (it.itemId) {
                 R.id.menu_screen_page1 -> {
                     supportFragmentManager.commit {
+                        setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
                         show(homeFragment)
                         hide(functionsFragment)
                     }
@@ -43,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
                 R.id.menu_screen_page2 -> {
                     supportFragmentManager.commit {
+                        setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
                         show(functionsFragment)
                         hide(homeFragment)
                     }

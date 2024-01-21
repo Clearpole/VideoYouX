@@ -13,7 +13,7 @@ import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.google.android.material.transition.MaterialContainerTransform
 import com.videoyou.x.R
-import com.videoyou.x._utils.base.BaseFragment
+import com.videoyou.x.utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentGuideWelcomeBinding
 import com.videoyou.x.ui.fragment.guide.model.LanguageListModel
 import java.util.Locale

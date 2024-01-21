@@ -1,4 +1,4 @@
-package com.videoyou.x._player.theme
+package com.videoyou.x.player.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
-import com.videoyou.x._utils.System
+import com.videoyou.x.utils.System
 
 private val darkColorScheme = darkColorScheme(
     primary = Purple80,

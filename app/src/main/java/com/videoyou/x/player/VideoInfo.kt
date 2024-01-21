@@ -1,4 +1,4 @@
-package com.videoyou.x._player
+package com.videoyou.x.player
 
 import android.content.Context
 import android.media.MediaMetadataRetriever

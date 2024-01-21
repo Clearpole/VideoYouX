@@ -1,4 +1,4 @@
-package com.videoyou.x._player.theme
+package com.videoyou.x.player.theme
 
 import androidx.compose.ui.graphics.Color
 

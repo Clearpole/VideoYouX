@@ -12,13 +12,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.UncontainedCarouselStrategy
 import com.tencent.mmkv.MMKV
 import com.videoyou.x.R
-import com.videoyou.x._player.Play
-import com.videoyou.x._storage.AndroidMediaStore
-import com.videoyou.x._utils.MediaUtils
-import com.videoyou.x._utils.base.BaseFragment
+import com.videoyou.x.player.Play
+import com.videoyou.x.storage.AndroidMediaStore
+import com.videoyou.x.utils.MediaUtils
+import com.videoyou.x.utils.base.BaseFragment
 import com.videoyou.x.databinding.FragmentMainHomeBinding
 import com.videoyou.x.ui.fragment.home.model.CarouselModel
 import com.videoyou.x.ui.fragment.home.model.FoldersModel
