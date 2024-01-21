@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
+        app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
+        android:foreground="?attr/selectableItemBackground">
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Material3.CardView.Filled"
