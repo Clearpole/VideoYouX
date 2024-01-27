@@ -6,7 +6,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
         android:clipChildren="false"
         android:clipToPadding="false">
 
@@ -29,7 +28,7 @@
             android:src="@drawable/icon_foreground"
             app:layout_constraintBottom_toTopOf="@id/guide_welcomeTo"
             app:layout_constraintStart_toStartOf="parent"
-            app:tint="@color/welcome_primary_color"
+            app:tint="?attr/colorPrimary"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -52,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@string/x"
-            android:textColor="@color/welcome_primary_color"
+            android:textColor="?attr/colorPrimary"
             android:textSize="57sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/guide_videoyou"
@@ -106,7 +105,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/welcome_primary_color" />
+                        app:tint="?attr/colorPrimary" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -143,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="@string/exit_videoyoux"
-            android:textColor="@color/welcome_primary_color"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@id/guide_getStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/guide_getStart" />
@@ -172,7 +171,6 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginVertical="150dp"
             android:visibility="gone"
-            app:cardBackgroundColor="@color/background_color"
             app:cardCornerRadius="35dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -193,7 +191,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/welcome_primary_color" />
+                    app:tint="?attr/colorPrimary" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/s_p_o"

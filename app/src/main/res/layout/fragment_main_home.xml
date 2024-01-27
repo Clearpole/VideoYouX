@@ -25,6 +25,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="0dp"
                     app:layout_collapseMode="pin"
+                    app:navigationIconTint="?attr/colorPrimary"
                     app:menu="@menu/home_topbar"
                     app:title="@string/least_add"/>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -79,7 +80,7 @@
                                 android:layout_marginStart="10dp"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/round_playlist_play_24"
-                                app:tint="@color/material_dynamic_primary40" />
+                                app:tint="?attr/colorPrimary" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"

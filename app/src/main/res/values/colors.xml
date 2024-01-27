@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#645959</color>
     <color name="transparent">#00000000</color>
-    <color name="welcome_primary_color">@android:color/system_accent1_500</color>
-    <color name="background_color">@android:color/system_neutral1_50</color>
-    <color name="card_color">#FFFFFF</color>
-    <color name="welcome_primary_color_s">@android:color/system_accent3_500</color>
-    <color name="ic_launcher_background">@android:color/system_accent1_50</color>
-    <color name="ic_launcher_foreground">@android:color/system_accent1_400</color>
+    <color name="ic_launcher_foreground">?attr/colorPrimary</color>
     <color name="system_accent_light_mask">#444444</color>
     <color name="system_accent_dark_mask">#50444444</color>
 </resources>

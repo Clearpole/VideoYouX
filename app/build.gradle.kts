@@ -48,7 +48,7 @@ android {
     //compileSdkPreview = ""
     defaultConfig {
         applicationId = namespace
-        minSdk = 31
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == true) {

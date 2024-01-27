@@ -1,6 +1,7 @@
 package com.videoyou.x.player.theme
 
 import android.app.Activity
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -32,7 +33,7 @@ fun VideoYouXTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     hideBar: Boolean,
     darkBar: Boolean = false,
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = Build.VERSION.SDK_INT==Build.VERSION_CODES.S,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

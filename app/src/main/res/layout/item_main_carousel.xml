@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:textColor="@color/material_dynamic_primary40"
+                    android:textColor="?attr/colorSecondary"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"

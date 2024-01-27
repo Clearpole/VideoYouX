@@ -24,7 +24,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="0dp"
                     app:layout_collapseMode="pin"
-                    app:navigationIconTint="@color/material_dynamic_primary40"
+                    app:navigationIconTint="?attr/colorPrimary"
                     app:navigationIcon="@drawable/outline_functions_24"
                     app:title="@string/functions" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -64,7 +64,7 @@
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="15dp"
                                 android:text="@string/overView"
-                                android:textColor="@color/material_dynamic_primary40"
+                                android:textColor="?attr/colorPrimary"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,14 +77,14 @@
                                 app:layout_constraintBottom_toBottomOf="@id/overView"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/overView"
-                                app:tint="@color/material_dynamic_primary40" />
+                                app:tint="?attr/colorPrimary" />
 
                             <com.google.android.material.divider.MaterialDivider
                                 android:id="@+id/group_divider"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="15dp"
-                                app:dividerColor="@color/material_dynamic_neutral70"
+                                app:dividerColor="?attr/colorSecondary"
                                 app:layout_constraintTop_toBottomOf="@id/overView" />
 
                             <androidx.recyclerview.widget.RecyclerView

@@ -18,8 +18,6 @@ class PermissionListModel(
     private val permission: String,
     private val right: Drawable,
     private val unknown: Drawable,
-    private val primary: Int,
-    private val sPrimary: Int,
     private val topCorner:ShapeAppearanceModel,
     private val bottomCorner:ShapeAppearanceModel,
     private val centerCorner:ShapeAppearanceModel
@@ -32,16 +30,8 @@ class PermissionListModel(
             info.text = this@PermissionListModel.info
             icon.setImageDrawable(AppCompatResources.getDrawable(holder.context, resId))
             if (XXPermissions.isGranted(holder.context, permission) || id == count - 1) {
-                ColorStateList.valueOf(primary).apply {
-                    more.imageTintList = this
-                    icon.imageTintList = this
-                }
                 more.setImageDrawable(right)
             } else {
-                ColorStateList.valueOf(sPrimary).apply {
-                    more.imageTintList = this
-                    icon.imageTintList = this
-                }
                 more.setImageDrawable(unknown)
             }
             val corner = when (id) {
@@ -71,10 +61,6 @@ class PermissionListModel(
                                 allGranted: Boolean
                             ) {
                                 if (allGranted) {
-                                    ColorStateList.valueOf(primary).apply {
-                                        more.imageTintList = this
-                                        icon.imageTintList = this
-                                    }
                                     more.setImageDrawable(
                                         right
                                     )

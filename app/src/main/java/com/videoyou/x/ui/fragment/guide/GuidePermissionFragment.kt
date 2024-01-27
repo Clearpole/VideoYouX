@@ -67,8 +67,6 @@ class GuidePermissionFragment :
             val right = AppCompatResources.getDrawable(requireContext(), R.drawable.round_done_24)
             val unknown =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.round_question_mark_24)
-            val primary = requireContext().getColor(R.color.welcome_primary_color)
-            val sPrimary = requireContext().getColor(R.color.welcome_primary_color_s)
             arrayListOf(
                 getString(R.string.read_video_permission) to getString(R.string.read_video_permission_usage) to R.drawable.outline_topic_24 to Permission.READ_MEDIA_VIDEO,
                 getString(R.string.pic_in_pic_permission) to getString(R.string.pic_in_pic_permission_usage) to R.drawable.baseline_picture_in_picture_alt_24 to Permission.PICTURE_IN_PICTURE,
@@ -82,8 +80,6 @@ class GuidePermissionFragment :
                         it.second,
                         right!!,
                         unknown!!,
-                        primary,
-                        sPrimary,
                         topCorner,
                         bottomCorner,
                         centerCorner

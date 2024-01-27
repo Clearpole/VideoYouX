@@ -5,8 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_color">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/j_i_o"
@@ -24,7 +23,7 @@
                 android:src="@drawable/outline_verified_user_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/welcome_primary_color"
+                app:tint="?attr/colorPrimary"
                 tools:ignore="ContentDescription" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="@string/back"
-            android:textColor="@color/welcome_primary_color"
+            android:textColor="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@id/guide_permission_next"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/guide_permission_next" />

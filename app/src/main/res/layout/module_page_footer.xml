@@ -12,7 +12,7 @@
         android:layout_height="26dp"
         android:importantForAccessibility="no"
         android:src="@drawable/outline_info_24"
-        app:tint="@color/welcome_primary_color" />
+        app:tint="?attr/colorPrimary" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/page_footer_text"

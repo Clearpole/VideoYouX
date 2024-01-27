@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxLines="1"
-                android:textColor="@color/material_dynamic_primary40" />
+                android:textColor="?attr/colorSecondary" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/video_subTitle"
