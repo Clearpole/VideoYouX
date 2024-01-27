@@ -80,12 +80,15 @@ class HomeFragment : BaseFragment<FragmentMainHomeBinding>() {
     private fun model(dataList: MMKV): MutableList<Any> {
         return mutableListOf<Any>().apply {
             val sortedList = dataList.allKeys()!!.sorted()
+            val titleList = arrayListOf<String>()
             val arrayList = arrayListOf<MediaItem>()
             sortedList.reversed().take(10).forEachIndexed { _, s ->
                 val items = dataList.decodeString(s)!!
                 val list = items.split("\u001A")
+                titleList.add(list[0])
                 arrayList.add(MediaItem.fromUri(list[1].toUri()))
                 Play.list = arrayList
+                Play.path = titleList
                 val load = Glide.with(requireContext())
                     .setDefaultRequestOptions(RequestOptions().frame(1000000)).load(list[0])
                     .transition(DrawableTransitionOptions.withCrossFade()).diskCacheStrategy(

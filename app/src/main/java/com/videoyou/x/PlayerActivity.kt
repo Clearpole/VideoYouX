@@ -43,6 +43,7 @@ import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -365,6 +366,13 @@ class PlayerActivity : ComponentActivity() {
                     Player.STATE_READY -> {
                         exoPlayer.play()
                     }
+                }
+            }
+
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                super.onMediaItemTransition(mediaItem, reason)
+                binding!!.playerTitle.text = Play.path[exoPlayer.currentMediaItemIndex].let {
+                    it.substring(it.lastIndexOf("/") + 1, it.lastIndexOf("."))
                 }
             }
 
