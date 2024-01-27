@@ -51,35 +51,5 @@
     <string name="all_folders_count">%1$s Ordner</string>
     <string name="all_videos_count">%1$s Videos</string>
     <string name="all_play_count">%1$s Abspielen von Sequenzen</string>
-    <!--Vyx Tips-->
-    <string name="tips_sunday_1">Morgen ist Montag</string>
-    <string name="tips_sunday_2">Ist der Job beendet?</string>
-    <string name="tips_sunday_3">Grrrr</string>
-    <string name="tips_sunday_4">Wie ist das Wetter?</string>
-    <string name="tips_saturday_1">Verlassen und abspielen</string>
-    <string name="tips_saturday_2">风景正好！</string>
-    <string name="tips_saturday_3">Gut, dass morgen Sonntag ist.</string>
-    <string name="tips_saturday_4">Es ist okay, es ist noch ein Tag übrig~</string>
-    <string name="tips_friday_1">Perseverance is victory.</string>
-    <string name="tips_friday_2">这一周过得真快...</string>
-    <string name="tips_friday_3">感觉不如直接放假</string>
-    <string name="tips_friday_4">再摆一天就好了（倒</string>
-    <string name="tips_thursday_1">怎么还有一天？！</string>
-    <string name="tips_thursday_2">也就还剩一天了</string>
-    <string name="tips_thursday_3">亚历山大</string>
-    <string name="tips_thursday_4">Heute ist Donnerstag</string>
-    <string name="tips_wednesday_1">Half-half</string>
-    <string name="tips_wednesday_2">动力加持中</string>
-    <string name="tips_wednesday_3">Fröhlichen Mittwoch</string>
-    <string name="tips_wednesday_4">Es ist nur ein Ausdauerrennen.</string>
-    <string name="tips_tuesday_1">稳步推进ing</string>
-    <string name="tips_tuesday_2">失去梦想的咸鱼</string>
-    <string name="tips_tuesday_3">数数还剩几天</string>
-    <string name="tips_tuesday_4">Warum bist du Dienstags so müde?</string>
-    <string name="tips_monday_1">卷死我了</string>
-    <string name="tips_monday_2">/RESTART</string>
-    <string name="tips_monday_3">加油加油加油</string>
-    <string name="tips_monday_4">周一忧郁症‍️</string>
-    <string name="tips_null">Du scheinst nicht auf der Erde zu sein</string>
     <string name="least_add">最新添加</string>
 </resources>

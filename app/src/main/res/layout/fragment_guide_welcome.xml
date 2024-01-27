@@ -212,6 +212,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="18dp"
                     android:fadingEdgeLength="30dp"
+                    android:overScrollMode="never"
                     android:minHeight="70dp"
                     android:requiresFadingEdge="vertical"
                     app:layout_constraintBottom_toTopOf="@id/cancel"

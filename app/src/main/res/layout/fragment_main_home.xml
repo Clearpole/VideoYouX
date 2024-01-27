@@ -34,10 +34,12 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ScrollView
                 android:layout_width="match_parent"
+                android:overScrollMode="never"
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="220dp"
+                        android:overScrollMode="never"
                         android:layout_marginHorizontal="12dp"
                         android:layout_marginVertical="20dp"
                         android:clipChildren="false"
@@ -109,6 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="20dp"
                         android:clipChildren="false"
+                        android:overScrollMode="never"
                         app:layout_constraintBottom_toTopOf="@id/footer"
                         app:layout_constraintTop_toBottomOf="@id/historyCard" />
 
