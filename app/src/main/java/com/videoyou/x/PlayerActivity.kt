@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.DecelerateInterpolator
@@ -59,6 +60,7 @@ import com.videoyou.x.player.PlayerSliderV2ViewModel
 import com.videoyou.x.player.VideoInfo
 import com.videoyou.x.player.theme.VideoYouXTheme
 import com.videoyou.x.databinding.ActivityPlayerBinding
+import com.videoyou.x.ui.fragment.home.ModalBottomSheet.Companion.TAG
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,7 +68,7 @@ import kotlinx.coroutines.launch
 
 @UnstableApi
 class PlayerActivity : ComponentActivity() {
-    private var paths: String? by bundle()
+    private var path: String? by bundle()
     private var uri: Uri? by bundle()
 
     private var requireUpdateUI = true
@@ -84,7 +86,7 @@ class PlayerActivity : ComponentActivity() {
         // 判断是否外部调起
         if (intent.data != null) {
             uri = intent.data
-            paths = intent.data!!.path
+            path = intent.data!!.path.toString()
         }
         // 判断是否存在可复用的Player实体
         exoExist = Media3PlayerUtils.getIfExoExist()
@@ -223,7 +225,7 @@ class PlayerActivity : ComponentActivity() {
                     }
                 }
                 playerTitle.text = try {
-                    paths!!.substring(paths!!.lastIndexOf("/") + 1, paths!!.lastIndexOf("."))
+                    path!!.substring(path!!.lastIndexOf("/") + 1, path!!.lastIndexOf("."))
                 } catch (_: Exception) {
                     uri.toString()
                 }
