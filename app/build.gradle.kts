@@ -52,7 +52,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == true) {
-            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "cancry" + "." + buildInfo(
+            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "canary" + "." + buildInfo(
                 "shortCommitId"
             ).toString()
         } else {
