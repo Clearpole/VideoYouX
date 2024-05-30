@@ -21,7 +21,7 @@ navigationFragment = "2.7.7"
 legacy-support-v4 = "1.0.0"
 lifecycle-livedata-ktx = "2.8.1"
 lifecycle-viewmodel-ktx = "2.8.1"
-androidx-appcompat-appcompat = "1.6.1"
+androidx-appcompat-appcompat = "1.7.0"
 androidx-constraintlayout-constraintlayout = "2.1.4"
 activity = "1.9.0"
 
