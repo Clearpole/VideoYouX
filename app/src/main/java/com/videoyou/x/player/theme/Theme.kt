@@ -33,7 +33,7 @@ fun VideoYouXTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     hideBar: Boolean,
     darkBar: Boolean = false,
-    dynamicColor: Boolean = Build.VERSION.SDK_INT==Build.VERSION_CODES.S,
+    dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -41,7 +41,6 @@ fun VideoYouXTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> darkColorScheme
         else -> lightColorScheme
     }

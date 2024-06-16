@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Checkout Git Repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -44,7 +44,7 @@ jobs:
           # check-latest: true
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build with Gradle
         run: |
@@ -77,12 +77,14 @@ jobs:
         with:
           name: VideoYouX-Release-${{ github.event.head_commit.id }}
           path: ${{ env.RELEASE_APK }}
+          compression-level: 9
 
       - name: Upload Debug Apk
         uses: actions/upload-artifact@v4
         with:
           name: VideoYouX-Debug-${{ github.event.head_commit.id }}
           path: ${{ env.DEBUG_APK }}
+          compression-level: 9
 
       - name: Post to Channel
         if: github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[skip_post]') == false
