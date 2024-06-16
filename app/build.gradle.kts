@@ -1,10 +1,11 @@
+@file:Suppress("UnstableApiUsage")
+
 import java.util.Properties
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
-
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose.compiler)
     id("kotlin-kapt")
 }
 
@@ -23,8 +24,7 @@ fun buildInfo(type: String): Any? {
         }
 
         "isCanary" -> {
-            val isCanaryBuild =
-                Properties().getProperty("GITHUB_ACTIONS") ?: System.getenv("GITHUB_ACTIONS")
+            val isCanaryBuild = Properties().getProperty("GITHUB_ACTIONS") ?: System.getenv("GITHUB_ACTIONS")
             return isCanaryBuild == "true"
         }
 
@@ -45,18 +45,17 @@ fun Project.exec(command: String): String = providers.exec {
 android {
     namespace = "com.videoyou.x"
     compileSdk = 34
-    //compileSdkPreview = ""
+    buildToolsVersion = "34.0.0"
+
     defaultConfig {
         applicationId = namespace
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = if (buildInfo("isCanary") == true) {
-            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "canary" + "." + buildInfo(
-                "shortCommitId"
-            ).toString()
+            "${buildInfo("version")}.r${buildInfo("numberOfCommits")}.canary.${buildInfo("shortCommitId")}"
         } else {
-            buildInfo("version").toString() + "." + "r" + buildInfo("numberOfCommits").toString() + "." + "release"
+            "${buildInfo("version")}.r${buildInfo("numberOfCommits")}.release"
         }
 
         resourceConfigurations += arrayListOf("en", "zh-rCN", "de", "fr", "ja", "zh-rTW")
@@ -106,34 +105,27 @@ android {
         }
     }
 
-    sourceSets {
-        getByName("main") {
-            jniLibs.srcDirs("libs")
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs += listOf(
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
-            "-language-version=2.0"
-        )
+    kotlin {
+        jvmToolchain(17)
+        compilerOptions {
+            freeCompilerArgs = listOf(
+                "-Xno-param-assertions",
+                "-Xno-call-assertions",
+                "-Xno-receiver-assertions"
+            )
+        }
     }
 
     buildFeatures {
         dataBinding = true
         viewBinding = true
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
     }
 
     packaging {
@@ -145,8 +137,6 @@ android {
             excludes += "/*.txt"
         }
     }
-
-    buildToolsVersion = "34.0.0"
 
     dependenciesInfo {
         includeInApk = false
@@ -171,30 +161,32 @@ android {
 }
 
 dependencies {
-    implementation(libs.activity.compose)
-    implementation(libs.androidx.animation)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.appcompat.resources)
-    implementation(libs.google.material)
     implementation(libs.androidx.media3.session)
-    implementation(libs.androidx.ui.viewbinding)
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.exoplayer.dash)
     implementation(libs.androidx.media3.ui)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.viewbinding)
+
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.appcompat.resources)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment)
+
+    implementation(libs.google.material)
+    implementation(libs.collapsingtoolbarlayout.subtitle)
     implementation(libs.utilcodex)
     implementation(libs.serialize)
     implementation(libs.brv)
     implementation(libs.glide)
     implementation(libs.lottie)
     implementation(libs.xx.permissions)
-    implementation(libs.collapsingtoolbarlayout.subtitle)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.legacy.support.v4)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.constraintlayout)
-    implementation(libs.androidx.activity)
     implementation(libs.immersionbar)
 }
