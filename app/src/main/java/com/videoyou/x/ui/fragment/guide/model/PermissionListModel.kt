@@ -1,6 +1,5 @@
 package com.videoyou.x.ui.fragment.guide.model
 
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.drake.brv.BindingAdapter
