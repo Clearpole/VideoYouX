@@ -4,8 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:paddingHorizontal="12dp"
+        android:layout_height="90dp"
+        android:paddingHorizontal="8dp"
         android:foreground="?selectableItemBackground">
 
         <ImageView
@@ -45,18 +45,27 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/more"
-            style="?attr/materialIconButtonStyle"
+            style="?attr/materialCardViewFilledStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            app:icon="@drawable/baseline_more_vert_24"
-            app:iconSize="24dp"
-            app:iconTint="?attr/colorSecondary"
+            android:layout_marginEnd="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:cardCornerRadius="15dp"
+            tools:ignore="SpeakableTextPresentCheck">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:id="@+id/count"
+                android:alpha="0.8"
+                android:text="0"
+                android:textSize="11sp"
+                android:layout_marginHorizontal="7dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
