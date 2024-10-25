@@ -20,14 +20,14 @@
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
-                    app:navigationIcon="@drawable/icon_home"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="0dp"
                     app:layout_collapseMode="pin"
-                    app:navigationIconTint="?attr/colorPrimary"
                     app:menu="@menu/home_topbar"
-                    app:title="@string/least_add"/>
+                    app:navigationIcon="@drawable/icon_home"
+                    app:navigationIconTint="?attr/colorPrimary"
+                    app:title="@string/least_add" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,8 +39,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:overScrollMode="never"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -51,24 +51,37 @@
                         android:id="@+id/home_rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="220dp"
-                        android:overScrollMode="never"
                         android:layout_marginHorizontal="12dp"
                         android:layout_marginVertical="20dp"
                         android:clipChildren="false"
+                        android:minHeight="220dp"
+                        android:overScrollMode="never"
                         app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/sortTab"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        app:icon="@drawable/round_sort_by_alpha_24"
+                        app:iconTint="?attr/colorPrimary"
+                        app:chipStrokeWidth="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/historyCard"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/historyCard" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/historyCard"
                         style="@style/Widget.Material3.CardView.Elevated"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="5dp"
                         app:cardElevation="0dp"
                         app:layout_constraintEnd_toStartOf="@id/deleteHistory"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/sortTab"
                         app:layout_constraintTop_toBottomOf="@id/home_rv">
 
                         <RelativeLayout
@@ -110,11 +123,10 @@
                         android:id="@+id/home_folders_rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="20dp"
                         android:clipChildren="false"
                         android:overScrollMode="never"
                         app:layout_constraintBottom_toTopOf="@id/footer"
-                        app:layout_constraintTop_toBottomOf="@id/historyCard" />
+                        app:layout_constraintTop_toBottomOf="@id/sortTab" />
 
                     <View
                         android:id="@+id/footer"

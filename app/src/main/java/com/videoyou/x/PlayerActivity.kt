@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.videoyou.x
 
 import android.animation.Animator
@@ -9,12 +7,11 @@ import android.annotation.SuppressLint
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.core.animateFloatAsState
@@ -55,13 +52,12 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
+import com.videoyou.x.databinding.ActivityPlayerBinding
 import com.videoyou.x.player.Media3PlayerUtils
 import com.videoyou.x.player.Play
 import com.videoyou.x.player.PlayerSliderV2ViewModel
 import com.videoyou.x.player.VideoInfo
 import com.videoyou.x.player.theme.VideoYouXTheme
-import com.videoyou.x.databinding.ActivityPlayerBinding
-import com.videoyou.x.ui.fragment.home.ModalBottomSheet.Companion.TAG
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -74,7 +70,7 @@ class PlayerActivity : ComponentActivity() {
 
     private var requireUpdateUI = true
     private var seeked = true
-    lateinit var exoPlayer : ExoPlayer
+    lateinit var exoPlayer: ExoPlayer
     private lateinit var playerLifecycleScope: Job
     private lateinit var info: ArrayList<String>
     private lateinit var playerSliderV2ViewModel: PlayerSliderV2ViewModel
@@ -98,7 +94,7 @@ class PlayerActivity : ComponentActivity() {
                 .setUseLazyPreparation(false)
                 .build()
             Media3PlayerUtils.exoPlayer = exoPlayer
-        }else{
+        } else {
             // 如果存在，则复用
             exoPlayer = Media3PlayerUtils.exoPlayer!!
         }
@@ -115,11 +111,20 @@ class PlayerActivity : ComponentActivity() {
                     ControlLayout()
                 }
             }
-            BackHandler {
-                end()
-            }
         }
     }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // 是否触发按键为back键
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            end()
+            return true
+        } else { // 如果不是back键正常响应
+            return super.onKeyDown(keyCode, event)
+        }
+    }
+
 
     override fun onPause() {
         super.onPause()
@@ -133,14 +138,14 @@ class PlayerActivity : ComponentActivity() {
 
 
     @Composable
-    fun VideoPlayer(exoExist:Boolean) {
+    fun VideoPlayer(exoExist: Boolean) {
         AndroidView(modifier = Modifier
             .background(Color.Black), factory = {
             PlayerView(it).apply {
                 if (!exoExist) {
                     exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
                     exoPlayer.setMediaItems(Play.list)
-                    exoPlayer.seekTo(Play.position,0L)
+                    exoPlayer.seekTo(Play.position, 0L)
                     exoPlayer.prepare()
                 }
                 useController = false
@@ -347,7 +352,7 @@ class PlayerActivity : ComponentActivity() {
 
     private fun playerListenerLogic(
         binding: ActivityPlayerBinding? = null,
-        exoExist:Boolean
+        exoExist: Boolean
     ) {
         playerLifecycleScope = lifecycleScope.launch {
             while (true) {
@@ -381,7 +386,7 @@ class PlayerActivity : ComponentActivity() {
                 if (!isLoading) {
                     if (seeked) {
                         translationAlphaAnim(binding!!.playLoading, false)
-                        playPauseView(binding,false)
+                        playPauseView(binding, false)
                         seeked = false
                     }
                 }
@@ -398,7 +403,7 @@ class PlayerActivity : ComponentActivity() {
             }
         })
 
-        if (exoExist){
+        if (exoExist) {
             //存在
             //重载不会重新调用事件，手动隐藏
             binding!!.playLoading.visibility = View.GONE
@@ -424,11 +429,11 @@ class PlayerActivity : ComponentActivity() {
     }
 
     private fun end() {
+        finish()
         playerLifecycleScope.cancel()
         exoPlayer.stop()
         exoPlayer.release()
         Media3PlayerUtils.exoPlayer = null
-        finish()
     }
 
     private fun timeParse(duration: Long): String {
