@@ -61,4 +61,5 @@
     <string name="videos_count">视频数量</string>
     <string name="folders_count">文件夹数量</string>
     <string name="total_size">总体积</string>
+    <string name="sorted_by_time">按修改时间排序</string>
 </resources>
